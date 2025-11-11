@@ -5,7 +5,6 @@ class Robot : public Enemigo
 {
 private:
    
-    int oño
 public:
 
     Robot();
