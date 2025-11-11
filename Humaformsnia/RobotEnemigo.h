@@ -5,12 +5,12 @@ class Robot : public Enemigo
 {
 private:
    
-
+    int oño
 public:
 
     Robot();
 
-     void mover() override;
+    void mover() override;
 
      void setVelocidad(int velocidad) override;
 
