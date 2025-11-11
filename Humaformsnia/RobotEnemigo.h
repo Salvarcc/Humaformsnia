@@ -1,7 +1,7 @@
 #pragma once
 #include "Enemigo.h"
 
-class Robot : public Enemigo
+ref class Robot : public Enemigo
 {
 private:
    
@@ -11,7 +11,6 @@ public:
 
     void mover() override;
 
-     void setVelocidad(int velocidad) override;
 
 };
 
@@ -25,8 +24,4 @@ Robot::Robot()
 void Robot::mover()
 {
   
-}
-void Robot::setVelocidad(int velocidad)
-{
-    this-> velocidad=velocidad
 }

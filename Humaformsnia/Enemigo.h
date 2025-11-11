@@ -4,7 +4,7 @@
 using namespace System;
 using namespace System::Drawing;
 
-class Enemigo : public Entidad
+ref class Enemigo : public Entidad
 {
 public:
     Enemigo();
@@ -13,7 +13,7 @@ public:
 
     virtual void dibujar(Graphics^ canvas) override;
     virtual void borrar(Graphics^ canvas) override;
-    virtual void mover() = 0;
+    void mover() override;
 
     int getDano();
      void setVelocidad(int velocidad);
@@ -30,8 +30,7 @@ protected:
 };
 
 
-Enemigo::Enemigo()
-    
+Enemigo::Enemigo() : Entidad(0, 0, 0, 0)
 {
     this->dano = 1;
     this->velocidad = 0;

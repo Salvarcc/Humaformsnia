@@ -1,11 +1,12 @@
 #include "MyForm.h"
+#include "Entidad.h"
 
 enum class EfectoAliado {
     Ninguno,
     RalentizarRobots,
     DetenerPelotas
 };
-class Aliado : public Entidad
+ref class Aliado : public Entidad
 
 {
 
@@ -21,7 +22,7 @@ protected:
     EfectoAliado efecto;
 
 };
-Aliado::Aliado()
+Aliado::Aliado() : Entidad(0, 0, 0, 0)
 {
     this->efecto = EfectoAliado::Ninguno;
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "Enemigo.h"
 
-class Pelota : public Enemigo
+ref class Pelota : public Enemigo
 {
 public:
     Pelota();

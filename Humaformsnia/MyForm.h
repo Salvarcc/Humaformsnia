@@ -1,4 +1,5 @@
 #pragma once
+#include "Jugador.h"
 
 namespace Humaformsnia {
 
@@ -20,6 +21,8 @@ namespace Humaformsnia {
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
+			Alien = gcnew Jugador();
+			Alien->cambiaimagen("Images//Alien.png");
 			//
 		}
 
@@ -34,12 +37,18 @@ namespace Humaformsnia {
 				delete components;
 			}
 		}
+	private: System::ComponentModel::IContainer^ components;
+	protected:
 
 	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
+		Direccion teclapulsada;
+		Jugador^ Alien;
+	private: System::Windows::Forms::Timer^ timer1;
+		   Graphics^ canvas;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -48,12 +57,51 @@ namespace Humaformsnia {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = gcnew System::ComponentModel::Container();
-			this->Size = System::Drawing::Size(1400,700);
-			this->Text = L"MyForm";
-			this->Padding = System::Windows::Forms::Padding(0);
+			this->components = (gcnew System::ComponentModel::Container());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->SuspendLayout();
+			// 
+			// timer1
+			// 
+			this->timer1->Enabled = true;
+			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
+			// 
+			// MyForm
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->ClientSize = System::Drawing::Size(1382, 653);
+			this->Name = L"MyForm";
+			this->Text = L"MyForm";
+			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::MyForm_KeyDown);
+			this->ResumeLayout(false);
+
 		}
 #pragma endregion
+	private: System::Void MyForm_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		teclapulsada = Ninguno;
+		if (e->KeyCode == Keys::Up) teclapulsada = Direccion::Arriba;
+		if (e->KeyCode == Keys::Down) teclapulsada = Direccion::Abajo;
+		if (e->KeyCode == Keys::Left) teclapulsada = Direccion::Izquierda;
+		if (e->KeyCode == Keys::Right) teclapulsada = Direccion::Derecha;
+		if (e->KeyCode == Keys::W) teclapulsada = Direccion::Arriba;
+		if (e->KeyCode == Keys::S) teclapulsada = Direccion::Abajo;
+		if (e->KeyCode == Keys::A) teclapulsada = Direccion::Izquierda;
+		if (e->KeyCode == Keys::D) teclapulsada = Direccion::Derecha;
+	}
+	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+		canvas = this->CreateGraphics();
+		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
+		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
+		Alien->cambiardxdy(teclapulsada);
+		Alien->moverimagen(teclapulsada);
+		Alien->mostrarimagen(buffer->Graphics);
+		teclapulsada = Direccion::Ninguno;
+
+		buffer->Render(canvas);
+		delete buffer;
+		delete espacio_para_buffer;
+		delete canvas;
+	}
 	};
 }

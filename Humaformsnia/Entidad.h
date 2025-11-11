@@ -4,15 +4,13 @@
 using namespace System;
 using namespace System::Drawing;
 
-class Entidad
+ref class Entidad
 {
 public:
 	Entidad(int x, int y, int ancho, int alto);
 	~Entidad();
 
-	virtual void dibujar(Graphics^ canvas) = 0;
-	virtual void mover() = 0;
-	virtual void borrar(Graphics^ canvas) = 0;
+	
 
 	int getX();
 	int getY();

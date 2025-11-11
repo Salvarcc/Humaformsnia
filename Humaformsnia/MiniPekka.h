@@ -1,7 +1,7 @@
 #pragma once
 #include "Jugador.h" 
 
-class MiniPekka : public Jugador
+ref class MiniPekka : public Jugador
 {
 public:
     MiniPekka();
@@ -18,22 +18,22 @@ MiniPekka::MiniPekka()
 
 void MiniPekka::mover_imagen(Direccion num)
 {
-    if (num == Keys::Up) {
+    if (num == Arriba) {
         dy = -velocidad;
         dx = 0;
         indicefilas = 3;
     }
-    else if (num == Keys::Down) {
+    else if (num ==Abajo) {
         dy = velocidad;
         dx = 0;
         indicefilas = 0;
     }
-    else if (num == Keys::Left) {
+    else if (num == Izquierda) {
         dx = -velocidad;
         dy = 0;
         indicefilas = 1;
     }
-    else if (num == Keys::Right) {
+    else if (num == Derecha) {
         dx = velocidad;
         dy = 0;
         indicefilas = 2;

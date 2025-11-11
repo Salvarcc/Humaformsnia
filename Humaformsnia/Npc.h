@@ -1,12 +1,13 @@
 #pragma once
 #include "Entidad.h"
 #include <string> 
+
 using namespace std;
 using namespace System;
 using namespace System::Drawing;
 using namespace System::Windows::Forms; 
 
-class NPC : public Entidad
+ref class NPC : public Entidad
 {
 public:
     NPC();
@@ -24,13 +25,12 @@ public:
     void mostrarMensaje();
 
 protected:
-    string mensaje; 
-
+   
     
 };
 
 
-NPC::NPC()
+NPC::NPC() : Entidad(0, 0, 0, 0)
 {
     
 }
