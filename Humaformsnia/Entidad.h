@@ -1,16 +1,19 @@
 #pragma once
+#include "conio.h"
+#include <cstdlib> 
 
-
+using namespace System;
+using namespace System::Drawing;
 
 class Entidad
 {
 public:
-	Entidad();
+	Entidad(int x, int y, int ancho, int alto, int velocidad);
 	~Entidad();
 
-	virtual void dibujar();
-	virtual void mover();
-	virtual void borrar();
+	virtual void dibujar(Graphics^ canvas) = 0;
+	virtual void mover() = 0;
+	virtual void borrar(Graphics^ canvas) = 0;
 
 	int getX();
 	int getY();
@@ -29,8 +32,13 @@ protected:
 	int velocidad;
 };
 
-Entidad::Entidad()
+Entidad::Entidad(int x, int y, int ancho, int alto, int velocidad)
 {
+	this->x = x;
+	this->y = y;
+	this->ancho = ancho;
+	this->alto = alto;
+	this->velocidad = velocidad;
 }
 
 Entidad::~Entidad()
