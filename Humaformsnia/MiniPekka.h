@@ -7,7 +7,8 @@ public:
     MiniPekka();
 
     void mover_imagen(Direccion num) override;
-
+private:
+   
 };
 
 

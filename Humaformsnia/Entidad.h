@@ -1,6 +1,5 @@
 #pragma once
 #include "conio.h"
-#include <cstdlib> 
 
 using namespace System;
 using namespace System::Drawing;
@@ -37,6 +36,7 @@ protected:
 	int ancho, alto;
 	int dx,dy;
 	int indicefilas, indicecolumnas;
+	String^ imagen;
 };
 
 Entidad::Entidad(int x, int y, int ancho, int alto)

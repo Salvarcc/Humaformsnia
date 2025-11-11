@@ -16,11 +16,11 @@ public:
 
 	void setVidas(int vidas);
 	void setVelocidad(int velocidad);
+	void cambiaimagen(String^ archivo);
 
 protected:
 	int vidas;
 	int velocidad;
-
 };
 
 Jugador::Jugador() : Entidad(0,0,0,0)
@@ -51,6 +51,17 @@ void Jugador::cambiardx_dy(Direccion num) {
 //	y += dy;
 //}
 
+void Jugador::cambiaimagen(String^ archivo)
+{
+	imagen = archivo;
+	//carga la imagen
+	Bitmap^ mi_sprite = gcnew Bitmap(gcnew String(imagen));
+
+	ancho = mi_sprite->Width / 4;
+	alto = mi_sprite->Height / 4;
+
+	delete mi_sprite;
+}
 
 int Jugador::getVidas() {
 	return vidas;

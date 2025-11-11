@@ -124,13 +124,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aliado.h" />
+    <ClInclude Include="AlienAliado.h" />
+    <ClInclude Include="AlienPrincipal.h" />
+    <ClInclude Include="Arbitro.h" />
     <ClInclude Include="Enemigo.h" />
     <ClInclude Include="Entidad.h" />
     <ClInclude Include="Jugador.h" />
+    <ClInclude Include="MiniPekka.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Npc.h" />
+    <ClInclude Include="Pelota.h" />
+    <ClInclude Include="RobotEnemigo.h" />
+    <ClInclude Include="Steve.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
