@@ -123,7 +123,10 @@
     <ClCompile Include="MyForm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Aliado.h" />
+    <ClInclude Include="Enemigo.h" />
     <ClInclude Include="Entidad.h" />
+    <ClInclude Include="Jugador.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>

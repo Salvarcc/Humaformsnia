@@ -8,7 +8,7 @@ using namespace System::Drawing;
 class Entidad
 {
 public:
-	Entidad(int x, int y, int ancho, int alto, int velocidad);
+	Entidad(int x, int y, int ancho, int alto);
 	~Entidad();
 
 	virtual void dibujar(Graphics^ canvas) = 0;
@@ -19,26 +19,34 @@ public:
 	int getY();
 	int getAncho();
 	int getAlto();
-	int getVelocidad();
+	int getDx();
+	int getDy();
+	int getIndicefilas();
+	int getIndicecolumnas();
 
 	void setX(int x);
 	void setY(int y);
 	void setAncho(int ancho);
 	void setAlto(int alto);
-	void setVelocidad(int velocidad);
+	void setDx(int dx);
+	void setDy(int dy);
+	void setIndicefilas(int indicefilas);
+	void setIndicecolumnas(int indicecolumnas);
 protected:
 	int x, y;
 	int ancho, alto;
-	int velocidad;
+	int dx,dy;
+	int indicefilas, indicecolumnas;
 };
 
-Entidad::Entidad(int x, int y, int ancho, int alto, int velocidad)
+Entidad::Entidad(int x, int y, int ancho, int alto)
 {
 	this->x = x;
 	this->y = y;
 	this->ancho = ancho;
 	this->alto = alto;
-	this->velocidad = velocidad;
+	dx = dy = 0;
+	indicecolumnas = indicefilas = 0;
 }
 
 Entidad::~Entidad()
@@ -56,8 +64,17 @@ int Entidad::getAncho() {
 int Entidad::getAlto() {
 	return alto;
 }
-int Entidad::getVelocidad() {
-	return velocidad;
+int Entidad::getDx() {
+	return dx;
+}
+int Entidad::getDy() {
+	return dy;
+}
+int Entidad::getIndicefilas() {
+	return indicefilas;
+}
+int Entidad::getIndicecolumnas() {
+	return indicecolumnas;
 }
 
 void Entidad::setX(int x) {
@@ -72,6 +89,15 @@ void Entidad::setAncho(int ancho) {
 void Entidad::setAlto(int alto) {
 	this->alto = alto;
 }
-void Entidad::setVelocidad(int velocidad) {
-	this->velocidad = velocidad;
+void Entidad::setDx(int dx) {
+	this->dx = dx;
+}
+void Entidad::setDy(int dy) {
+	this->dy = dy;
+}
+void Entidad::setIndicefilas(int indicefilas) {
+	this->indicefilas = indicefilas;
+}
+void Entidad::setIndicecolumnas(int indicecolumnas) {
+	this->indicecolumnas = indicecolumnas;
 }
