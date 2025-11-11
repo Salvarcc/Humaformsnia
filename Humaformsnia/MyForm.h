@@ -47,7 +47,14 @@ namespace Humaformsnia {
 
 		Direccion teclapulsada;
 		Jugador^ Alien;
-	private: System::Windows::Forms::Timer^ timer1;
+	private: System::Windows::Forms::Timer^ Menu;
+	private: System::Windows::Forms::Timer^ Mundo1;
+	private: System::Windows::Forms::Timer^ Mundo2;
+	private: System::Windows::Forms::Timer^ Mundo3;
+
+
+
+
 		   Graphics^ canvas;
 
 #pragma region Windows Form Designer generated code
@@ -58,13 +65,28 @@ namespace Humaformsnia {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->Menu = (gcnew System::Windows::Forms::Timer(this->components));
+			this->Mundo1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->Mundo2 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->Mundo3 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->SuspendLayout();
 			// 
-			// timer1
+			// Menu
 			// 
-			this->timer1->Enabled = true;
-			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
+			this->Menu->Enabled = true;
+			this->Menu->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
+			// 
+			// Mundo1
+			// 
+			this->Mundo1->Tick += gcnew System::EventHandler(this, &MyForm::Mundo1_Tick);
+			// 
+			// Mundo2
+			// 
+			this->Mundo2->Tick += gcnew System::EventHandler(this, &MyForm::Mundo2_Tick);
+			// 
+			// Mundo3
+			// 
+			this->Mundo3->Tick += gcnew System::EventHandler(this, &MyForm::Mundo3_Tick);
 			// 
 			// MyForm
 			// 
@@ -93,9 +115,11 @@ namespace Humaformsnia {
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
+		/*
 		Alien->cambiardxdy(teclapulsada);
 		Alien->moverimagen(teclapulsada);
 		Alien->mostrarimagen(buffer->Graphics);
+		*/
 		teclapulsada = Direccion::Ninguno;
 
 		buffer->Render(canvas);
@@ -103,5 +127,11 @@ namespace Humaformsnia {
 		delete espacio_para_buffer;
 		delete canvas;
 	}
-	};
+	private: System::Void Mundo1_Tick(System::Object^ sender, System::EventArgs^ e) {
+	}
+    private: System::Void Mundo2_Tick(System::Object^ sender, System::EventArgs^ e) {
+    }
+    private: System::Void Mundo3_Tick(System::Object^ sender, System::EventArgs^ e) {
+    }
+};
 }
