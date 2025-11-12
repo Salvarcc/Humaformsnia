@@ -23,7 +23,7 @@ namespace Humaformsnia {
 			//TODO: Add the constructor code here
 			Alien = gcnew Jugador();
 			Alien->cambiaimagen("Images//Alien.png");
-			fondomenu = gcnew Bitmap(gcnew String("images//FondoMenu.jpg"));
+			fondomenu = gcnew Bitmap(gcnew String("images//FondoMenus.jpg"));
 			//
 		}
 
@@ -94,7 +94,7 @@ namespace Humaformsnia {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1400, 700);
+			this->ClientSize = System::Drawing::Size(2100, 1050);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::MyForm_KeyDown);
