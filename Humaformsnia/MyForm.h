@@ -23,6 +23,7 @@ namespace Humaformsnia {
 			//TODO: Add the constructor code here
 			Alien = gcnew Jugador();
 			Alien->cambiaimagen("Images//Alien.png");
+			fondomenu = gcnew Bitmap(gcnew String("images//FondoMenu.jpg"));
 			//
 		}
 
@@ -47,6 +48,7 @@ namespace Humaformsnia {
 
 		Direccion teclapulsada;
 		Jugador^ Alien;
+		
 	private: System::Windows::Forms::Timer^ Menu;
 	private: System::Windows::Forms::Timer^ Mundo1;
 	private: System::Windows::Forms::Timer^ Mundo2;
@@ -54,7 +56,7 @@ namespace Humaformsnia {
 
 
 
-
+		   Bitmap^ fondomenu;
 		   Graphics^ canvas;
 
 #pragma region Windows Form Designer generated code
@@ -92,7 +94,7 @@ namespace Humaformsnia {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1382, 653);
+			this->ClientSize = System::Drawing::Size(1400, 700);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::MyForm_KeyDown);
@@ -115,19 +117,20 @@ namespace Humaformsnia {
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
-		/*
-		Alien->cambiardxdy(teclapulsada);
-		Alien->moverimagen(teclapulsada);
-		Alien->mostrarimagen(buffer->Graphics);
-		*/
-		teclapulsada = Direccion::Ninguno;
-
+		buffer->Graphics->DrawImage(fondomenu, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
 		buffer->Render(canvas);
 		delete buffer;
 		delete espacio_para_buffer;
 		delete canvas;
 	}
 	private: System::Void Mundo1_Tick(System::Object^ sender, System::EventArgs^ e) {
+		/*
+		Alien->cambiardxdy(teclapulsada);
+		Alien->moverimagen(teclapulsada);
+		Alien->mostrarimagen(buffer->Graphics);
+
+		teclapulsada = Direccion::Ninguno;
+		*/
 	}
     private: System::Void Mundo2_Tick(System::Object^ sender, System::EventArgs^ e) {
     }
