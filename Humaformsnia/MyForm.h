@@ -23,7 +23,7 @@ namespace Humaformsnia {
 			//TODO: Add the constructor code here
 			Alien = gcnew Jugador();
 			Alien->cambiaimagen("Images//Alien.png");
-			fondomenu = gcnew Bitmap(gcnew String("images//FondoMenus.jpg"));
+			fondomenu = gcnew Bitmap(gcnew String("images//FondoMenus1.jpg"));
 			//
 		}
 
