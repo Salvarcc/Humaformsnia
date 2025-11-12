@@ -2,7 +2,6 @@
 #include "Entidad.h"
 #include <string> 
 
-using namespace std;
 using namespace System;
 using namespace System::Drawing;
 using namespace System::Windows::Forms; 
@@ -20,19 +19,20 @@ public:
     virtual void borrar(Graphics^ canvas) override;
 
 
-    string getMensaje();
+    String^ getMensaje();
 
     void mostrarMensaje();
 
 protected:
-   
-    
+
+    String^ mensaje;
+
 };
 
 
 NPC::NPC() : Entidad(0, 0, 0, 0)
 {
-    
+
 }
 
 NPC::~NPC()
@@ -55,7 +55,7 @@ void NPC::borrar(Graphics^ canvas)
    
 }
 
-string NPC::getMensaje()
+String^ NPC::getMensaje()
 {
     return this->mensaje;
 }

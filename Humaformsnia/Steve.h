@@ -1,11 +1,11 @@
 #pragma once
 #include "Jugador.h" 
 
-class Steve : public Jugador
+ref class Steve : public Jugador
 {
 public:
     Steve();
-
+     
     void mover_imagen(Direccion num) override;
 
 };
