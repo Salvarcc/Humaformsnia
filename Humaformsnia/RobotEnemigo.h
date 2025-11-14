@@ -25,7 +25,7 @@ Robot::Robot(int x, int y) :Enemigo()
     this->x = x;
     this->y = y;
     dx = 0;
-    dy = 3;
+    dy = 8;
     indicecolumnas = 0;
     abajo = true;
 

@@ -6,6 +6,8 @@ enum class EfectoAliado {
     RalentizarRobots,
     DetenerPelotas
 };
+
+
 ref class Aliado : public Entidad
 
 {

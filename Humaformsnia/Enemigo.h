@@ -8,14 +8,14 @@ ref class Enemigo : public Entidad
 {
 protected:
 
+
     int dano;
     int velocidad;
     Bitmap^ sprite;
 
 
-
-
 public:
+
     Enemigo();
     ~Enemigo();
 

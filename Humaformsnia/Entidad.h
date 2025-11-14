@@ -7,6 +7,8 @@ using namespace System::Drawing;
 ref class Entidad
 {
 public:
+
+
 	Entidad(int x, int y, int ancho, int alto);
 	~Entidad();
 

@@ -13,6 +13,9 @@ public:
 
 AlienPrincipal::AlienPrincipal()
 {
+
+
+
 }
 
 void AlienPrincipal::mover_imagen(Direccion num)
