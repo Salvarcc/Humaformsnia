@@ -6,65 +6,68 @@ using namespace System::Drawing;
 
 ref class Enemigo : public Entidad
 {
+protected:
+
+
+    int dano;
+    int velocidad;
+    Bitmap^ sprite;
+
+
 public:
+
     Enemigo();
     ~Enemigo();
 
 
-    virtual void dibujar(Graphics^ canvas) override;
-    virtual void borrar(Graphics^ canvas) override;
-    void mover() override;
+    virtual void cambiar_imagen(String^ imagen) override;
+    virtual void mover(Graphics^ canvas) override;
+    virtual void mostrar(Graphics^ canvas) override;
 
     int getDano();
-     void setVelocidad(int velocidad);
+    void setVelocidad(int velocidad);
 
-protected:
-
-    int dano;
-    int velocidad;
-    Bitmap^ sprite; 
-
-  
-
-    void cambiarimagen();
 };
 
 
-Enemigo::Enemigo() : Entidad(0, 0, 0, 0)
+Enemigo::Enemigo() : Entidad(x, y, ancho, alto)
 {
     this->dano = 1;
     this->velocidad = 0;
 
-   
+
+
 }
 
 Enemigo::~Enemigo()
 {
-    
+
 }
 
-void Enemigo::dibujar(Graphics^ canvas)
+void Enemigo::cambiar_imagen(String^ imagen)
 {
-    
+
 }
 
-void Enemigo::borrar(Graphics^ canvas)
+
+void Enemigo::mover(Graphics^ canvas)
 {
+
 }
+
+void Enemigo::mostrar(Graphics^ canvas)
+{
+
+}
+
 
 int Enemigo::getDano()
 {
     return this->dano;
 }
 
+
 void Enemigo::setVelocidad(int velocidad)
 {
     this->velocidad = velocidad;
 }
-
-void Enemigo::cambiarimagen()
-{
-
-
-}
-

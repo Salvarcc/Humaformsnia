@@ -6,56 +6,51 @@ using namespace System;
 using namespace System::Drawing;
 using namespace System::Windows::Forms;
 
-ref class NPC : public Entidad
+ref class Visual : public Entidad
 {
 public:
-    NPC();
-    ~NPC();
+    Visual(int n);
+    ~Visual();
     void cambiaimagen(String^ archivo);
     void mostrarimagen(Graphics^ canvas);
     void animacion();
 
-    void mostrarMensaje();
+
 
 protected:
-
+    int n;
 };
 
 
-NPC::NPC() : Entidad(0, 0, 0, 0)
+Visual::Visual(int n) : Entidad(0, 0, 0, 0)
+{
+    this->n = n;
+}
+
+Visual::~Visual()
 {
 
 }
 
-NPC::~NPC()
-{
-
-}
-
-void NPC::animacion() {
+void Visual::animacion() {
     indicecolumnas++;
-    if (indicecolumnas > 8) indicecolumnas = 0;
+    if (indicecolumnas > n - 1) indicecolumnas = 0;
 }
 
-void NPC::cambiaimagen(String^ archivo) {
+void Visual::cambiaimagen(String^ archivo) {
     imagen = archivo;
     Bitmap^ mi_sprite = gcnew Bitmap(gcnew String(imagen));
 
-    ancho = mi_sprite->Width / 9;
+    ancho = mi_sprite->Width / n;
     alto = mi_sprite->Height;
 
     delete mi_sprite;
 }
 
-void NPC::mostrarimagen(Graphics^ canvas)
+void Visual::mostrarimagen(Graphics^ canvas)
 {
     Bitmap^ mi_sprite = gcnew Bitmap(gcnew String(imagen));
     Rectangle cuadro = Rectangle(indicecolumnas * ancho, indicefilas * alto, ancho, alto);
     Rectangle zoom = Rectangle(x, y, ancho, alto);
     canvas->DrawImage(mi_sprite, zoom, cuadro, GraphicsUnit::Pixel);
-}
-
-void NPC::mostrarMensaje()
-{
-
 }

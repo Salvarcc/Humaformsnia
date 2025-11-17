@@ -9,7 +9,7 @@ public:
 	Jugador();
 	~Jugador();
 	void cambiardxdy(Direccion num);
-    void moverimagen(Direccion num) ;
+	void moverimagen(Direccion num);
 	void cambiaimagen(String^ archivo);
 	void mostrarimagen(Graphics^ canvas);
 
@@ -18,15 +18,18 @@ public:
 
 	void setVidas(int vidas);
 	void setVelocidad(int velocidad);
-	
+
 
 protected:
 	int vidas;
 	int velocidad;
 };
 
-Jugador::Jugador() : Entidad(0,0,0,0)
+Jugador::Jugador() : Entidad(0, 0, 0, 0)
 {
+	x = 30;
+	y = 250;
+	vidas = 3;
 }
 
 Jugador::~Jugador()
