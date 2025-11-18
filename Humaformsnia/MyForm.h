@@ -1,11 +1,11 @@
-#pragma once
+﻿#pragma once
 #include "Jugador.h"
 #include "RobotEnemigo.h"
 #include "Npc.h"
 #include "Visual.h"
 #include "AlienAliado.h"
 #include "Carga.h"
-
+#include "Pelota.h"
 #include <Vector>
 
 
@@ -115,6 +115,11 @@ namespace Humaformsnia {
 			E1 = gcnew Bitmap(gcnew String("Images//InstruccionesE.png"));
 			S2 = gcnew Bitmap(gcnew String("Images//InstruccionesS.png"));
 
+			
+			// mundo 2
+
+
+			
 
 			CERO = gcnew Bitmap(gcnew String("Images//CERO.png"));
 			UNO = gcnew Bitmap(gcnew String("Images//UNO.png"));
@@ -152,6 +157,17 @@ namespace Humaformsnia {
 				robots->Add(nuevo);
 			}
 			//_________________________________________________
+			//__________creacion de pelotas ___________
+		
+			pelotas = gcnew List<Pelota^>();
+			indice_pelota = 0;
+			intervalo_creacion = 20;
+			contador_pelotas = 0;
+			fondo_mundo_2 = gcnew Bitmap(gcnew String("Images//mundo_2.jpg"));;
+
+			Mundo2->Interval = 50;
+			 
+		
 		// aqui activamos el mundo 1 que nos toca 
 			Mundo1->Interval = 50;
 
@@ -218,6 +234,7 @@ namespace Humaformsnia {
 		Bitmap^ N;
 		Bitmap^ Raya;
 		Bitmap^ I;
+
 		int y1 = 100, y2 = 100, y3 = 100, y4 = 100, y5 = 100, y6 = 100, y7 = 100, y8 = 100, dy1 = 1, dy2 = 1, dy3 = 1, dy4 = 1, dy5 = 1, dy6 = 1, dy7 = 1, dy8 = 1;
 		bool m2 = false, m3 = false, m4 = false, m5 = false, m6 = false, m7 = false, m8 = false;
 
@@ -260,9 +277,13 @@ namespace Humaformsnia {
 
 
 
+		// mundos 2_____________________
 
-
-
+		int indice_pelota;   
+		int intervalo_creacion;      
+		int contador_pelotas;
+		Bitmap^ fondo_mundo_2;
+		//______________________________
 
 		int velocidad = 1;
 		int anchooobjetivo = 1280;
@@ -346,7 +367,9 @@ namespace Humaformsnia {
 		Bitmap^ Carga1;
 		Bitmap^ Nave;
 
+		// mundos 2 
 
+		Bitmap^ mundo2;
 
 
 		Bitmap^ fondopregunta1;
@@ -362,7 +385,8 @@ namespace Humaformsnia {
 		//__vector de los robot 
 		List<Robot^>^ robots; //
 		//---------------------
-
+		//_______________________
+		List<Pelota^>^ pelotas;
 		//___- Buffer__________
 		BufferedGraphicsContext^ contexto;
 		BufferedGraphics^ bufferS;
@@ -649,6 +673,7 @@ namespace Humaformsnia {
 		Alien->cambiardxdy(teclapulsada);
 		Alien->moverimagen(teclapulsada);
 		Alien->mostrarimagen(buffer->Graphics);
+	
 
 		if (Alien->getVidas() == 3) {
 			Verde->mostrarimagen(buffer->Graphics);
@@ -668,8 +693,10 @@ namespace Humaformsnia {
 		if (Colision(
 			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, Portal1->getX() - 50, Portal1->getY() - 50, Portal1->getAncho() - 70, Portal1->getAlto() - 50))
 		{
-			Mundo2->Enabled = true;
+			Mundo2->Enabled = true; 
 			Mundo1->Enabled = false;
+			Alien->setX(50);
+			Alien->setY(250);
 		}
 		Marciano1->mostrarimagen(buffer->Graphics);
 		if (contador % 2 == 0)Marciano1->animacion();
@@ -739,6 +766,89 @@ namespace Humaformsnia {
 
 	}
 	private: System::Void Mundo2_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+		canvas = this->CreateGraphics();
+		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
+		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
+
+
+		buffer->Graphics->DrawImage(fondo_mundo_2, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
+
+		// creacion  y eliminar las pelotas 
+		indice_pelota++;
+
+		if (indice_pelota >= intervalo_creacion) {
+
+			Pelota^ nueva = gcnew Pelota(buffer->Graphics, contador_pelotas);
+			nueva->cambiar_imagen("Images//pelotica[1].jpg");
+			pelotas->Add(nueva);
+			indice_pelota = 0;
+			contador_pelotas++;
+		}
+
+		
+		// mostramos las pelotas 
+
+		for (int i = 0; i < pelotas->Count; i++) {
+			pelotas[i]->mover(buffer->Graphics);
+			pelotas[i]->mostrar(buffer->Graphics);
+
+			// colisiones ________________________________________________________
+			if (Colision(
+				Alien->getX() - 50, Alien->getY() - 50,
+				Alien->getAncho() - 80, Alien->getAlto() - 30,
+				pelotas[i]->getX() - 50, pelotas[i]->getY() - 50,
+				pelotas[i]->getAncho() - 70, pelotas[i]->getAlto() - 50))
+			{
+				Alien->setX(100);
+				Alien->setY(300);
+				Alien->setVidas(Alien->getVidas() - 1);
+
+				if (Alien->getVidas() <= 0) {
+					Alien->setVidas(3);
+				
+					Mundo2->Enabled = false;
+				}
+			}
+			//_____________________________________________________________________
+			
+			// Pelota eliminadas _______________________________________
+			if (pelotas[i]->getX() + pelotas[i]->getAncho() < 300) {
+				pelotas->RemoveAt(i);
+				i--;
+			}
+			//_________________________________________________
+		}
+
+		
+		Alien->cambiardxdy(teclapulsada);
+		Alien->moverimagen(teclapulsada);
+		Alien->mostrarimagen(buffer->Graphics);
+		Alien->setVidas(3);
+		
+		if (Alien->getVidas() == 3) {
+			Verde->mostrarimagen(buffer->Graphics);
+			if (contador % 2 == 0) Verde->animacion();
+		}
+		if (Alien->getVidas() == 2) {
+			Amarillo->mostrarimagen(buffer->Graphics);
+			if (contador % 2 == 0) Amarillo->animacion();
+		}
+		if (Alien->getVidas() == 1) {
+			Rojo->mostrarimagen(buffer->Graphics);
+			if (contador % 2 == 0) Rojo->animacion();
+		}
+
+		teclapulsada = Direccion::Ninguno;
+
+		
+		buffer->Render(canvas);
+		contador++;
+
+	
+		delete buffer;
+		delete espacio_para_buffer;
+		delete canvas;
 	}
 	private: System::Void Mundo3_Tick(System::Object^ sender, System::EventArgs^ e) {
 	}

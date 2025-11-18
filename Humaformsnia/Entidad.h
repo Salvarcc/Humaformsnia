@@ -9,9 +9,6 @@ ref class Entidad
 public:
 	Entidad(int x, int y, int ancho, int alto);
 	~Entidad();
-
-	
-
 	int getX();
 	int getY();
 	int getAncho();
