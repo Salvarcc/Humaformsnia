@@ -57,7 +57,7 @@ namespace Humaformsnia {
 			//____________________________________________
 			Marciano1 = gcnew NPC();
 			M1hablando = gcnew NPC();
-			Verde = gcnew Visual(12);
+			Verde = gcnew Visual(12); 
 			Amarillo = gcnew Visual(12);
 			Rojo = gcnew Visual(12);
 			Portal1 = gcnew Visual(8);
