@@ -60,6 +60,7 @@ namespace Humaformsnia {
 			Verde = gcnew Visual(12);
 			Amarillo = gcnew Visual(12);
 			Rojo = gcnew Visual(12);
+			Portal1 = gcnew Visual(8);
 			Marciano1->cambiaimagen("Images//AlienAmarrillo.png");
 			M1hablando->cambiaimagen("Images//alianita2.png");
 			Verde->cambiaimagen("Images//Vidaverde2.png");
@@ -71,6 +72,9 @@ namespace Humaformsnia {
 			Rojo->cambiaimagen("Images//Vidaroja.png");
 			Rojo->setX(1150);
 			Rojo->setY(-50);
+			Portal1->cambiaimagen("Images//PortalNether4.png");
+			Portal1->setX(1250);
+			Portal1->setY(300);
 			M1hablando->setX(800);
 			M1hablando->setY(100);
 			fondomenu = gcnew Bitmap(gcnew String("images//FondoMenus.jpg"));
@@ -196,6 +200,8 @@ namespace Humaformsnia {
 		Visual^ Verde;
 		Visual^ Amarillo;
 		Visual^ Rojo;
+		Visual^ Portal1;
+		Visual^ Portal2;
 		bool entered = false;
 		int incremental = 0;
 		String^ frase = "He intentado cruzar al otro lado para obtener \nla respuesta,pero no puedo, si quieres llegar al \notro lado debes descubrir el algoritmo de los \nrobots para poder pasar, uno de nuestros \naliados se quedo en la mitad del camino, si \nte acercas a el seguro te ayudara a llegar a la \nrespuesta, suerte viajero.";
@@ -656,7 +662,15 @@ namespace Humaformsnia {
 			Rojo->mostrarimagen(buffer->Graphics);
 			if (contador % 2 == 0)Rojo->animacion();
 		}
+		Portal1->mostrarimagen(buffer->Graphics);
+		Portal1->animacion();
 
+		if (Colision(
+			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, Portal1->getX() - 50, Portal1->getY() - 50, Portal1->getAncho() - 70, Portal1->getAlto() - 50))
+		{
+			Mundo2->Enabled = true;
+			Mundo1->Enabled = false;
+		}
 		Marciano1->mostrarimagen(buffer->Graphics);
 		if (contador % 2 == 0)Marciano1->animacion();
 
