@@ -6,6 +6,7 @@
 #include "AlienAliado.h"
 #include "Carga.h"
 #include "Pelota.h"
+#include "Arbitro.h"
 #include <Vector>
 
 
@@ -53,7 +54,10 @@ namespace Humaformsnia {
 			// ALIADO__________________________________
 			aliado = gcnew AlienAliado();
 			aliado->cambiar_imagen("images//Agualien.png");
-
+			 
+	
+			arbitro = gcnew Arbitro();
+			arbitro->cambiar_imagen("images//Arbitro[1].png");
 			//____________________________________________
 			Marciano1 = gcnew NPC();
 			M1hablando = gcnew NPC();
@@ -166,7 +170,7 @@ namespace Humaformsnia {
 			fondo_mundo_2 = gcnew Bitmap(gcnew String("Images//mundo_2.jpg"));;
 
 			Mundo2->Interval = 50;
-			 
+			pelotas_detenidas = false;
 		
 		// aqui activamos el mundo 1 que nos toca 
 			Mundo1->Interval = 50;
@@ -387,6 +391,9 @@ namespace Humaformsnia {
 		//---------------------
 		//_______________________
 		List<Pelota^>^ pelotas;
+		Arbitro^ arbitro;
+		bool pelotas_detenidas;
+	
 		//___- Buffer__________
 		BufferedGraphicsContext^ contexto;
 		BufferedGraphics^ bufferS;
@@ -697,6 +704,7 @@ namespace Humaformsnia {
 			Mundo1->Enabled = false;
 			Alien->setX(50);
 			Alien->setY(250);
+			Alien->setVidas(3);
 		}
 		Marciano1->mostrarimagen(buffer->Graphics);
 		if (contador % 2 == 0)Marciano1->animacion();
@@ -765,67 +773,34 @@ namespace Humaformsnia {
 
 
 	}
-	private: System::Void Mundo2_Tick(System::Object^ sender, System::EventArgs^ e) {
 
+
+	// MUNDO_2____________________________________________________________________________________
+
+	private: System::Void Mundo2_Tick(System::Object^ sender, System::EventArgs^ e) {
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
-
-
 		buffer->Graphics->DrawImage(fondo_mundo_2, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
 
-		// creacion  y eliminar las pelotas 
-		indice_pelota++;
 
-		if (indice_pelota >= intervalo_creacion) {
-
-			Pelota^ nueva = gcnew Pelota(buffer->Graphics, contador_pelotas);
-			nueva->cambiar_imagen("Images//pelotica[1].jpg");
-			pelotas->Add(nueva);
-			indice_pelota = 0;
-			contador_pelotas++;
+		if (!pelotas_detenidas) {
+			indice_pelota++;
+			if (indice_pelota >= intervalo_creacion) {
+				Pelota^ nueva = gcnew Pelota(buffer->Graphics, contador_pelotas);
+				nueva->cambiar_imagen("Images//pelotica[1].jpg");
+				pelotas->Add(nueva);
+				indice_pelota = 0;
+				contador_pelotas++;
+			}
 		}
 
-		
-		// mostramos las pelotas 
-
-		for (int i = 0; i < pelotas->Count; i++) {
-			pelotas[i]->mover(buffer->Graphics);
-			pelotas[i]->mostrar(buffer->Graphics);
-
-			// colisiones ________________________________________________________
-			if (Colision(
-				Alien->getX() - 50, Alien->getY() - 50,
-				Alien->getAncho() - 80, Alien->getAlto() - 30,
-				pelotas[i]->getX() - 50, pelotas[i]->getY() - 50,
-				pelotas[i]->getAncho() - 70, pelotas[i]->getAlto() - 50))
-			{
-				Alien->setX(100);
-				Alien->setY(300);
-				Alien->setVidas(Alien->getVidas() - 1);
-
-				if (Alien->getVidas() <= 0) {
-					Alien->setVidas(3);
-				
-					Mundo2->Enabled = false;
-				}
-			}
-			//_____________________________________________________________________
-			
-			// Pelota eliminadas _______________________________________
-			if (pelotas[i]->getX() + pelotas[i]->getAncho() < 300) {
-				pelotas->RemoveAt(i);
-				i--;
-			}
-			//_________________________________________________
-		}
-
-		
-		Alien->cambiardxdy(teclapulsada);
+		Alien->cambiardxdy_2(teclapulsada);
 		Alien->moverimagen(teclapulsada);
 		Alien->mostrarimagen(buffer->Graphics);
-		Alien->setVidas(3);
-		
+		Portal1->mostrarimagen(buffer->Graphics);
+		Portal1->animacion();
+
 		if (Alien->getVidas() == 3) {
 			Verde->mostrarimagen(buffer->Graphics);
 			if (contador % 2 == 0) Verde->animacion();
@@ -839,13 +814,51 @@ namespace Humaformsnia {
 			if (contador % 2 == 0) Rojo->animacion();
 		}
 
-		teclapulsada = Direccion::Ninguno;
-
-		
-		buffer->Render(canvas);
-		contador++;
+		// mover pelotas
+		for (int i = 0; i < pelotas->Count; i++) {
 
 	
+			if (contador % 2 == 0)
+			{
+				if (!pelotas_detenidas) {
+					pelotas[i]->mover(buffer->Graphics);
+				}
+			}
+			// mostramos la pelota 
+			pelotas[i]->mostrar(buffer->Graphics);
+
+			//colision con el arbitro 
+			if (Colision(
+				Alien->getX() - 50, Alien->getY() - 50,Alien->getAncho() - 80, Alien->getAlto() - 30,pelotas[i]->getX() - 50, pelotas[i]->getY() - 50,pelotas[i]->getAncho() - 70, pelotas[i]->getAlto() - 50))
+			{
+				Alien->setX(100);
+				Alien->setY(300);
+				Alien->setVidas(Alien->getVidas() - 1);
+				if (Alien->getVidas() <= 0) {
+					Alien->setVidas(3);
+					Mundo2->Enabled = false;
+				}
+			}
+
+			if (Colision(Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30,arbitro->getX() - 50, arbitro->getY() - 50, arbitro->getAncho() - 70, arbitro->getAlto() - 50))
+			{
+				arbitro->Activo();
+				pelotas_detenidas = true; 
+			}
+
+		//elimna las pelotas que ya pasaon del limite
+			if (!pelotas_detenidas && pelotas[i]->getX() + pelotas[i]->getAncho() < 300) {
+				pelotas->RemoveAt(i);
+				i--;
+			}
+		}
+
+		arbitro->mover(buffer->Graphics);
+		arbitro->mostrar(buffer->Graphics);
+		teclapulsada = Direccion::Ninguno;
+
+		buffer->Render(canvas);
+		contador++;
 		delete buffer;
 		delete espacio_para_buffer;
 		delete canvas;

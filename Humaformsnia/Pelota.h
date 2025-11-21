@@ -16,7 +16,15 @@ public:
 
 Pelota::Pelota(Graphics^ canvas, int numero_pelota)
 {
-    this->dano = 1;
+    Random Aleatorio;
+
+    int variable= Aleatorio.Next(-15,-10);
+    int variable1 = Aleatorio.Next(-10,-6);
+
+    int variable2 = Aleatorio.Next(6, 8);
+    int variable3 = Aleatorio.Next(8, 12);
+
+    this->dano = 1;   
     this->velocidad = 2;
 
     this->x = canvas->VisibleClipBounds.Width - 150;
@@ -28,13 +36,18 @@ Pelota::Pelota(Graphics^ canvas, int numero_pelota)
 
     if (numero_pelota % 2 == 0) {
         rebotando_abajo = true;  
-        this->y = canvas->VisibleClipBounds.Height / 2-100;dx = -8; dy = 6;
+        this->y = canvas->VisibleClipBounds.Height / 2-100;
+        dx = variable1;
+        dy = variable2;
+
+
     }
+
     else {
         rebotando_abajo = false;  
         this->y = canvas->VisibleClipBounds.Height / 2;
-        dx = -10;
-        dy = 10;
+        dx = variable;
+        dy = variable3;
     }
 
     indicecolumnas = 0;
@@ -52,25 +65,44 @@ void Pelota::cambiar_imagen(String^ nombre_archivo)
 
 void Pelota::mover(Graphics^ canvas)
 {
-    x += dx;
+    Random Aleatorio;
+
+   
+    float factor = 0.5; 
+
+    x += dx * factor;
+
+    x += Aleatorio.Next(-1, 1); 
+
 
     if (rebotando_abajo) {
         y += dy;
-        if (y + alto >= canvas->VisibleClipBounds.Height-40)
+
+        if (y + alto >= canvas->VisibleClipBounds.Height - 40) {
             rebotando_abajo = false;
+
+          
+            dy = Aleatorio.Next(6, 9);
+        }
     }
     else {
         y -= dy;
-        if (y <= 150)
+
+   
+        if (y <= 150) {
             rebotando_abajo = true;
+
+           
+            dy = Aleatorio.Next(6, 9);
+        }
     }
 
+    // ANIMACIÓN
     indicecolumnas++;
     if (indicecolumnas > 4) indicecolumnas = 0;
-
-
-  
 }
+
+
 
 void Pelota::mostrar(Graphics^ canvas)
 {
