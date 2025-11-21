@@ -61,12 +61,16 @@ namespace Humaformsnia {
 			//____________________________________________
 			Marciano1 = gcnew NPC();
 			M1hablando = gcnew NPC();
+			Marciano2 = gcnew NPC();
+			M2hablando = gcnew NPC();
 			Verde = gcnew Visual(12); 
 			Amarillo = gcnew Visual(12);
 			Rojo = gcnew Visual(12);
 			Portal1 = gcnew Visual(8);
 			Marciano1->cambiaimagen("Images//AlienAmarrillo.png");
 			M1hablando->cambiaimagen("Images//alianita2.png");
+			Marciano2->cambiaimagen("Images//AlienVerde.png");
+			M2hablando->cambiaimagen("Images//AlienVerdeHablando.png");
 			Verde->cambiaimagen("Images//Vidaverde2.png");
 			Verde->setX(1150);
 			Verde->setY(-50);
@@ -165,7 +169,7 @@ namespace Humaformsnia {
 		
 			pelotas = gcnew List<Pelota^>();
 			indice_pelota = 0;
-			intervalo_creacion = 20;
+			intervalo_creacion = 35;
 			contador_pelotas = 0;
 			fondo_mundo_2 = gcnew Bitmap(gcnew String("Images//mundo_2.jpg"));;
 
@@ -217,14 +221,19 @@ namespace Humaformsnia {
 		AlienAliado^ aliado;
 		NPC^ Marciano1;
 		NPC^ M1hablando;
+		NPC^ Marciano2;
+		NPC^ M2hablando;
 		Visual^ Verde;
 		Visual^ Amarillo;
 		Visual^ Rojo;
 		Visual^ Portal1;
 		Visual^ Portal2;
 		bool entered = false;
+		int NPCH;
 		int incremental = 0;
 		String^ frase = "He intentado cruzar al otro lado para obtener \nla respuesta,pero no puedo, si quieres llegar al \notro lado debes descubrir el algoritmo de los \nrobots para poder pasar, uno de nuestros \naliados se quedo en la mitad del camino, si \nte acercas a el seguro te ayudara a llegar a la \nrespuesta, suerte viajero.";
+		String^ frase2 = "Me alegro ver que has llegado hasta aca, pero \naun debemos cruzar a la segunda respuesta, pero \nese humano conocido como messi no nos deja\n avanzar, intenta atravesar la cancha \nesquivando los balones, el arbitro aliado te \nayudara a llegar al otro lado si te acercas a el, \nsuerte viajero.";
+		
 		String^ textillo;
 		int grr = 0;
 		bool iniciar = false;
@@ -761,6 +770,7 @@ namespace Humaformsnia {
 
 		if (Colision(Alien->getX() - 30, Alien->getY() - 20, Alien->getAncho() - 60, Alien->getAlto() - 40, Marciano1->getX() - 30, Marciano1->getY() - 20, Marciano1->getAncho() - 60, Marciano1->getAlto() - 40)) {
 			Alien->setY(Alien->getY() + 50);
+			NPCH = 1;
 			this->NPChabla->Enabled = true;
 		}
 
@@ -769,6 +779,10 @@ namespace Humaformsnia {
 		teclapulsada = Direccion::Ninguno;
 
 		buffer->Render(canvas);
+
+		delete buffer;
+		delete espacio_para_buffer;
+		delete canvas;
 		contador++;
 
 
@@ -782,8 +796,8 @@ namespace Humaformsnia {
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		buffer->Graphics->DrawImage(fondo_mundo_2, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
-
-
+		
+		arbitro->setY(158);
 		if (!pelotas_detenidas) {
 			indice_pelota++;
 			if (indice_pelota >= intervalo_creacion) {
@@ -795,7 +809,7 @@ namespace Humaformsnia {
 			}
 		}
 
-		Alien->cambiardxdy_2(teclapulsada);
+		Alien->cambiardxdy(teclapulsada);
 		Alien->moverimagen(teclapulsada);
 		Alien->mostrarimagen(buffer->Graphics);
 		Portal1->mostrarimagen(buffer->Graphics);
@@ -813,6 +827,16 @@ namespace Humaformsnia {
 			Rojo->mostrarimagen(buffer->Graphics);
 			if (contador % 2 == 0) Rojo->animacion();
 		}
+
+		Marciano2->mostrarimagen(buffer->Graphics);
+		if (contador % 2 == 0)Marciano2->animacion();
+
+		if (Colision(Alien->getX() - 30, Alien->getY() - 20, Alien->getAncho() - 60, Alien->getAlto() - 40, Marciano2->getX() - 30, Marciano2->getY() - 20, Marciano2->getAncho() - 60, Marciano2->getAlto() - 40)) {
+			Alien->setY(Alien->getY() + 50);
+			NPCH = 2;
+			this->NPChabla->Enabled = true;
+		}
+
 
 		// mover pelotas
 		for (int i = 0; i < pelotas->Count; i++) {
@@ -867,37 +891,71 @@ namespace Humaformsnia {
 	}
 	private: System::Void NPChabla_Tick(System::Object^ sender, System::EventArgs^ e) {
 		this->Mundo1->Enabled = false;
+		this->Mundo2->Enabled = false;
 
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
-		buffer->Graphics->DrawImage(fondomundo1, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
-		this->label1->Visible = true;
-		if (subida % 1 == 0 && texto < 306) {
-			this->label1->Text = L"" + textillo + frase[texto];
-			texto++;
-		}
-		textillo = this->label1->Text;
-		subida++;
-		M1hablando->mostrarimagen(buffer->Graphics);
-		if (subida % 2 == 0) {
-
-			M1hablando->animacion();
-		}
-
-		if (texto == 306 && entered) {
-			texto = 0;
-			this->label1->Visible = false;
-			this->label1->Text = L"";
+		if (NPCH == 1) {
+			buffer->Graphics->DrawImage(fondomundo1, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
+			this->label1->Visible = true;
+			if (subida % 1 == 0 && texto < 306) {
+				this->label1->Text = L"" + textillo + frase[texto];
+				texto++;
+			}
 			textillo = this->label1->Text;
-			this->Mundo1->Enabled = true;
-			this->NPChabla->Enabled = false;
+			subida++;
+			M1hablando->mostrarimagen(buffer->Graphics);
+			if (subida % 2 == 0) {
+
+				M1hablando->animacion();
+			}
+
+			if (texto == 306 && entered) {
+				texto = 0;
+				this->label1->Visible = false;
+				this->label1->Text = L"";
+				textillo = this->label1->Text;
+				this->Mundo1->Enabled = true;
+				this->NPChabla->Enabled = false;
+			}
+			entered = false;
+			buffer->Render(canvas);
+			delete buffer;
+			delete espacio_para_buffer;
+			delete canvas;
 		}
-		entered = false;
-		buffer->Render(canvas);
-		delete buffer;
-		delete espacio_para_buffer;
-		delete canvas;
+		if (NPCH == 2) {
+			buffer->Graphics->DrawImage(fondo_mundo_2, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
+			this->label1->Visible = true;
+			if (subida % 1 == 0 && texto < 289) {
+				this->label1->Text = L"" + textillo + frase2[texto];
+				texto++;
+			}
+			textillo = this->label1->Text;
+			subida++;
+			M2hablando->setY(100);
+			M2hablando->setX(800);
+			M2hablando->mostrarimagen(buffer->Graphics);
+			if (subida % 2 == 0) {
+
+				M2hablando->animacion();
+			}
+
+			if (texto == 289 && entered) {
+				texto = 0;
+				this->label1->Visible = false;
+				this->label1->Text = L"";
+				textillo = this->label1->Text;
+				this->Mundo2->Enabled = true;
+				this->NPChabla->Enabled = false;
+			}
+			entered = false;
+			buffer->Render(canvas);
+			delete buffer;
+			delete espacio_para_buffer;
+			delete canvas;
+		}
 	}
 
 	private: System::Void BtnJugar_Click(System::Object^ sender, System::EventArgs^ e) {
