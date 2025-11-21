@@ -9,6 +9,7 @@ public:
 	Jugador();
 	~Jugador();
 	void cambiardxdy(Direccion num);
+	void cambiardxdy_2(Direccion num);
 	void moverimagen(Direccion num);
 	void cambiaimagen(String^ archivo);
 	void mostrarimagen(Graphics^ canvas);
@@ -44,6 +45,46 @@ void Jugador::cambiardxdy(Direccion num) {
 	case Derecha:	dx = 5;  dy = 0; indicecolumnas++; break;
 	case Ninguno:	dx = 0; dy = 0; break;
 	}
+}
+void Jugador::cambiardxdy_2(Direccion num)
+{
+
+
+	switch (num)
+	{
+	case Arriba:
+		if (y > 100)
+		{
+			dx = 0; dy = -5; indicecolumnas++; break;
+		}
+		else
+			dx = 0; dy = 0; break
+			;
+	case Abajo:
+
+		if (y < 580)
+		{
+			dx = 0; dy = 5; indicecolumnas++; break;
+		}
+		else
+			dx = 0; dy = 0; break;
+
+	case Izquierda:
+
+		dx = -5; dy = 0; indicecolumnas++; break;
+
+
+
+	case Derecha:
+		dx = 5;  dy = 0; indicecolumnas++; break;
+
+
+
+
+	case Ninguno:
+		dx = 0; dy = 0; break;
+	}
+
 }
 void Jugador::moverimagen(Direccion num)
 {
@@ -91,4 +132,3 @@ int Jugador::getVelocidad() {
 void Jugador::setVelocidad(int velocidad) {
 	this->velocidad = velocidad;
 }
-

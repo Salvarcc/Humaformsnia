@@ -1,7 +1,7 @@
 #pragma once
-#include "Enemigo.h"
+#include "Entidad.h"
 
-ref class AlienAliado : public Enemigo
+ref class AlienAliado : public Entidad
 {
 private:
     bool activo;
@@ -10,19 +10,18 @@ public:
 
     AlienAliado();
 
-    void cambiar_imagen(String^ nombre_archivo) override;
-    void mover(Graphics^ canvas) override;
-    void mostrar(Graphics^ canvas) override;
+    void cambiar_imagen(String^ nombre_archivo);
+    void mover(Graphics^ canvas);
+    void mostrar(Graphics^ canvas);
 
     void setActivo(bool activo);
     void Activo() { activo = true; }
 };
 
-AlienAliado::AlienAliado() :Enemigo()
+AlienAliado::AlienAliado() :Entidad(x, y, ancho, alto)
 {
 
-    this->dano = 1;
-    this->velocidad = 2;
+
     this->x = 670;
     this->y = 300;
     dx = 0;
