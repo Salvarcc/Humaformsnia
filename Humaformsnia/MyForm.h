@@ -45,7 +45,7 @@ namespace Humaformsnia {
 			AlienInstrucciones->cambia_alieninstrucciones("Images//Alien.png");
 
 			Cargas = gcnew Carga();
-			Cargas->cambia_imagen("Images//SPRITECARGA.png");
+			Cargas->cambia_imagen("Images//LOADING.png");
 
 			Teclas = gcnew Carga();
 			Teclas->cambia_tecla("Images//TECLAS.png");

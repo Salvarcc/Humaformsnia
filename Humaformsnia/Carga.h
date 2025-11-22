@@ -65,7 +65,7 @@ void Carga::mostrar_imagen(Graphics^ canvas)
 	//define un rectangulo para cada imagen
 	Rectangle cuadro = Rectangle(indice_columnas * W, indice_filas * H, W, H);
 	//zoom
-	Rectangle zoom = Rectangle(x, y, W, H);
+	Rectangle zoom = Rectangle(x+50, y-80, W*1.5, H*1.5);
 	//dibuja la imagen
 	canvas->DrawImage(mi_sprite, zoom, cuadro, GraphicsUnit::Pixel);
 }
