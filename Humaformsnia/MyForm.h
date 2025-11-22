@@ -7,6 +7,7 @@
 #include "Carga.h"
 #include "Pelota.h"
 #include "Arbitro.h"
+#include "Messi.h"
 #include <Vector>
 
 
@@ -67,6 +68,8 @@ namespace Humaformsnia {
 			Amarillo = gcnew Visual(12);
 			Rojo = gcnew Visual(12);
 			Portal1 = gcnew Visual(8);
+			Portal2 = gcnew Visual(8);
+			Portal3 = gcnew Visual(8);
 			Marciano1->cambiaimagen("Images//AlienAmarrillo.png");
 			M1hablando->cambiaimagen("Images//alianita2.png");
 			Marciano2->cambiaimagen("Images//AlienVerde.png");
@@ -83,6 +86,12 @@ namespace Humaformsnia {
 			Portal1->cambiaimagen("Images//PortalNether4.png");
 			Portal1->setX(1250);
 			Portal1->setY(300);
+			Portal2->cambiaimagen("Images//PortalCielo.png");
+			Portal2->setX(1250);
+			Portal2->setY(100);
+			Portal3->cambiaimagen("Images//PortalCielo.png");
+			Portal3->setX(1250);
+			Portal3->setY(500);
 			M1hablando->setX(800);
 			M1hablando->setY(100);
 			fondomenu = gcnew Bitmap(gcnew String("images//FondoMenus.jpg"));
@@ -149,6 +158,8 @@ namespace Humaformsnia {
 
 			//
 			robots = gcnew List<Robot^>();
+			messi = gcnew Messi(1250,325);
+			messi->cambiar_imagen("images//Messi.png");
 
 			// ________ creacion de los robot  ________
 
@@ -219,6 +230,7 @@ namespace Humaformsnia {
 		Direccion teclapulsada;
 		Jugador^ Alien;
 		AlienAliado^ aliado;
+		Messi^ messi;
 		NPC^ Marciano1;
 		NPC^ M1hablando;
 		NPC^ Marciano2;
@@ -228,6 +240,7 @@ namespace Humaformsnia {
 		Visual^ Rojo;
 		Visual^ Portal1;
 		Visual^ Portal2;
+		Visual^ Portal3;
 		bool entered = false;
 		int NPCH;
 		int incremental = 0;
@@ -704,7 +717,7 @@ namespace Humaformsnia {
 			if (contador % 2 == 0)Rojo->animacion();
 		}
 		Portal1->mostrarimagen(buffer->Graphics);
-		Portal1->animacion();
+		if (contador % 3 == 0)Portal1->animacion();
 
 		if (Colision(
 			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, Portal1->getX() - 50, Portal1->getY() - 50, Portal1->getAncho() - 70, Portal1->getAlto() - 50))
@@ -812,8 +825,44 @@ namespace Humaformsnia {
 		Alien->cambiardxdy(teclapulsada);
 		Alien->moverimagen(teclapulsada);
 		Alien->mostrarimagen(buffer->Graphics);
-		Portal1->mostrarimagen(buffer->Graphics);
-		Portal1->animacion();
+		Portal2->mostrarimagen(buffer->Graphics);
+		if(contador%3==0)Portal2->animacion();
+		Portal3->mostrarimagen(buffer->Graphics);
+		if (contador % 3 == 0)Portal3->animacion();
+		messi->mostrar(buffer->Graphics);
+		if (contador % 2 == 0)messi->mover(buffer->Graphics);
+
+
+		if (Colision(
+			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, Portal2->getX() - 50, Portal2->getY() - 50, Portal2->getAncho() - 70, Portal2->getAlto() - 50))
+		{
+			Mundo3->Enabled = true;
+			
+			Alien->setX(50);
+			Alien->setY(250);
+			Alien->setVidas(3);
+			Mundo2->Enabled = false;
+		}
+
+		if (Colision(
+			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, Portal3->getX() - 50, Portal3->getY() - 50, Portal3->getAncho() - 70, Portal3->getAlto() - 50))
+		{
+			Mundo3->Enabled = true;
+			
+			Alien->setX(50);
+			Alien->setY(250);
+			Alien->setVidas(3);
+			Mundo2->Enabled = false;
+		}
+
+		if (Colision(
+			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, messi->getX() - 50, messi->getY() - 50, messi->getAncho() - 70, messi->getAlto() - 50))
+		{
+
+			Alien->setX(30);
+			Alien->setY(250);
+			Alien->setVidas(Alien->getVidas() - 1);
+		}
 
 		if (Alien->getVidas() == 3) {
 			Verde->mostrarimagen(buffer->Graphics);
@@ -877,7 +926,7 @@ namespace Humaformsnia {
 			}
 		}
 
-		arbitro->mover(buffer->Graphics);
+		if (contador % 2 == 0)arbitro->mover(buffer->Graphics);
 		arbitro->mostrar(buffer->Graphics);
 		teclapulsada = Direccion::Ninguno;
 

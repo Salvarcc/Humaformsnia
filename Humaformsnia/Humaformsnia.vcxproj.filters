@@ -38,13 +38,7 @@
     <ClInclude Include="Npc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MiniPekka.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Arbitro.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AlienPrincipal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AlienAliado.h">
@@ -56,7 +50,13 @@
     <ClInclude Include="RobotEnemigo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Steve.h">
+    <ClInclude Include="Carga.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Visual.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Messi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
