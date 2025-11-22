@@ -37,6 +37,10 @@ namespace Humaformsnia {
 			//ALIEN________________
 			Alien = gcnew Jugador();
 			Alien->cambiaimagen("Images//Alien.png");
+			Minipekka = gcnew Jugador();
+			Minipekka->cambiaimagen("Images//Añasito.png");
+			Steve = gcnew Jugador();
+			Steve->cambiaimagen("Images//Stevon.png");
 			//_______________________________________
 
 
@@ -55,6 +59,7 @@ namespace Humaformsnia {
 			// ALIADO__________________________________
 			aliado = gcnew AlienAliado();
 			aliado->cambiar_imagen("images//Agualien.png");
+
 
 
 			arbitro = gcnew Arbitro();
@@ -229,6 +234,8 @@ namespace Humaformsnia {
 		Carga^ Teclas;
 		Direccion teclapulsada;
 		Jugador^ Alien;
+		Jugador^ Steve;
+		Jugador^ Minipekka;
 		AlienAliado^ aliado;
 		Messi^ messi;
 		NPC^ Marciano1;
@@ -613,14 +620,14 @@ namespace Humaformsnia {
 
 
 		teclapulsada = Ninguno;
-		if (e->KeyCode == Keys::Up) teclapulsada = Direccion::Arriba;
-		if (e->KeyCode == Keys::Down) teclapulsada = Direccion::Abajo;
-		if (e->KeyCode == Keys::Left) teclapulsada = Direccion::Izquierda;
-		if (e->KeyCode == Keys::Right) teclapulsada = Direccion::Derecha;
-		if (e->KeyCode == Keys::W) teclapulsada = Direccion::Arriba;
-		if (e->KeyCode == Keys::S) teclapulsada = Direccion::Abajo;
-		if (e->KeyCode == Keys::A) teclapulsada = Direccion::Izquierda;
-		if (e->KeyCode == Keys::D) teclapulsada = Direccion::Derecha;
+		if (e->KeyCode == Keys::Up) teclapulsada = Direccion::Arriba2;
+		if (e->KeyCode == Keys::Down) teclapulsada = Direccion::Abajo2;
+		if (e->KeyCode == Keys::Left) teclapulsada = Direccion::Izquierda2;
+		if (e->KeyCode == Keys::Right) teclapulsada = Direccion::Derecha2;
+		if (e->KeyCode == Keys::W) teclapulsada = Direccion::Arriba1;
+		if (e->KeyCode == Keys::S) teclapulsada = Direccion::Abajo1;
+		if (e->KeyCode == Keys::A) teclapulsada = Direccion::Izquierda1;
+		if (e->KeyCode == Keys::D) teclapulsada = Direccion::Derecha1;
 		if (e->KeyCode == Keys::C) entered = true;
 		if (e->KeyCode == Keys::Enter) entered = true;
 
@@ -937,6 +944,25 @@ namespace Humaformsnia {
 		delete canvas;
 	}
 	private: System::Void Mundo3_Tick(System::Object^ sender, System::EventArgs^ e) {
+		canvas = this->CreateGraphics();
+		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
+		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
+		buffer->Graphics->DrawImage(fondo_mundo_2, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
+
+		Steve->cambiardxdy(teclapulsada);
+		Steve->moverimagen(teclapulsada);
+		Steve->mostrarimagen(buffer->Graphics);
+		Minipekka->cambiardxdyD(teclapulsada);
+		Minipekka->moverimagenD(teclapulsada);
+		Minipekka->mostrarimagen(buffer->Graphics);
+
+		teclapulsada = Direccion::Ninguno;
+
+		buffer->Render(canvas);
+		contador++;
+		delete buffer;
+		delete espacio_para_buffer;
+		delete canvas;
 	}
 	private: System::Void NPChabla_Tick(System::Object^ sender, System::EventArgs^ e) {
 		this->Mundo1->Enabled = false;

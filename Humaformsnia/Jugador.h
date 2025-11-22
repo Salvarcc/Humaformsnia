@@ -1,7 +1,8 @@
 #pragma once
 #include "Entidad.h"
 
-enum Direccion { Arriba, Abajo, Izquierda, Derecha, Ninguno };
+enum Direccion { Arriba1, Abajo1, Izquierda1, Derecha1, Ninguno, Arriba2, Abajo2, Izquierda2, Derecha2
+};
 
 ref class Jugador : public Entidad
 {
@@ -9,8 +10,10 @@ public:
 	Jugador();
 	~Jugador();
 	void cambiardxdy(Direccion num);
+	void cambiardxdyD(Direccion num);
 	void cambiardxdy_2(Direccion num);
 	void moverimagen(Direccion num);
+	void moverimagenD(Direccion num);
 	void cambiaimagen(String^ archivo);
 	void mostrarimagen(Graphics^ canvas);
 
@@ -39,10 +42,20 @@ Jugador::~Jugador()
 void Jugador::cambiardxdy(Direccion num) {
 	switch (num)
 	{
-	case Arriba:	dx = 0; dy = -5; indicecolumnas++; break;
-	case Abajo:		dx = 0; dy = 5; indicecolumnas++; break;
-	case Izquierda:	dx = -5; dy = 0; indicecolumnas++; break;
-	case Derecha:	dx = 5;  dy = 0; indicecolumnas++; break;
+	case Arriba1:	dx = 0; dy = -5; indicecolumnas++; break;
+	case Abajo1:		dx = 0; dy = 5; indicecolumnas++; break;
+	case Izquierda1:	dx = -5; dy = 0; indicecolumnas++; break;
+	case Derecha1:	dx = 5;  dy = 0; indicecolumnas++; break;
+	case Ninguno:	dx = 0; dy = 0; break;
+	}
+}
+void Jugador::cambiardxdyD(Direccion num) {
+	switch (num)
+	{
+	case Arriba2:	dx = 0; dy = -5; indicecolumnas++; break;
+	case Abajo2:		dx = 0; dy = 5; indicecolumnas++; break;
+	case Izquierda2:	dx = -5; dy = 0; indicecolumnas++; break;
+	case Derecha2:	dx = 5;  dy = 0; indicecolumnas++; break;
 	case Ninguno:	dx = 0; dy = 0; break;
 	}
 }
@@ -52,7 +65,7 @@ void Jugador::cambiardxdy_2(Direccion num)
 
 	switch (num)
 	{
-	case Arriba:
+	case Arriba1:
 		if (y > 100)
 		{
 			dx = 0; dy = -5; indicecolumnas++; break;
@@ -60,7 +73,7 @@ void Jugador::cambiardxdy_2(Direccion num)
 		else
 			dx = 0; dy = 0; break
 			;
-	case Abajo:
+	case Abajo1:
 
 		if (y < 580)
 		{
@@ -69,13 +82,13 @@ void Jugador::cambiardxdy_2(Direccion num)
 		else
 			dx = 0; dy = 0; break;
 
-	case Izquierda:
+	case Izquierda1:
 
 		dx = -5; dy = 0; indicecolumnas++; break;
 
 
 
-	case Derecha:
+	case Derecha1:
 		dx = 5;  dy = 0; indicecolumnas++; break;
 
 
@@ -88,10 +101,21 @@ void Jugador::cambiardxdy_2(Direccion num)
 }
 void Jugador::moverimagen(Direccion num)
 {
-	if (num == Arriba) indicefilas = 1;
-	if (num == Abajo)	indicefilas = 0;
-	if (num == Derecha) indicefilas = 2;
-	if (num == Izquierda) indicefilas = 3;
+	if (num == Arriba1) indicefilas = 1;
+	if (num == Abajo1)	indicefilas = 0;
+	if (num == Derecha1) indicefilas = 2;
+	if (num == Izquierda1) indicefilas = 3;
+
+	if (indicecolumnas > 3) indicecolumnas = 0;
+	x += dx;
+	y += dy;
+}
+void Jugador::moverimagenD(Direccion num)
+{
+	if (num == Arriba2) indicefilas = 1;
+	if (num == Abajo2)	indicefilas = 0;
+	if (num == Derecha2) indicefilas = 2;
+	if (num == Izquierda2) indicefilas = 3;
 
 	if (indicecolumnas > 3) indicecolumnas = 0;
 	x += dx;
