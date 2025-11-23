@@ -39,8 +39,12 @@ namespace Humaformsnia {
 			Alien->cambiaimagen("Images//Alien.png");
 			Minipekka = gcnew Jugador();
 			Minipekka->cambiaimagen("Images//Añasito.png");
+			Minipekka->setX(1300);
+			Minipekka->setY(0);
 			Steve = gcnew Jugador();
 			Steve->cambiaimagen("Images//Stevon.png");
+			Steve->setX(0);
+			Steve->setY(600);
 			//_______________________________________
 
 
@@ -101,6 +105,7 @@ namespace Humaformsnia {
 			M1hablando->setY(100);
 			fondomenu = gcnew Bitmap(gcnew String("images//FondoMenus.jpg"));
 			fondomundo1 = gcnew Bitmap(gcnew String("images//Mundo1.jpg"));
+			fondomundo3 = gcnew Bitmap(gcnew String("images//Mundo3.png"));
 			H = gcnew Bitmap(gcnew String("images//H.png"));
 			U = gcnew Bitmap(gcnew String("images//U.png"));
 			M = gcnew Bitmap(gcnew String("images//M.png"));
@@ -253,6 +258,9 @@ namespace Humaformsnia {
 		int incremental = 0;
 		String^ frase = "He intentado cruzar al otro lado para obtener \nla respuesta,pero no puedo, si quieres llegar al \notro lado debes descubrir el algoritmo de los \nrobots para poder pasar, uno de nuestros \naliados se quedo en la mitad del camino, si \nte acercas a el seguro te ayudara a llegar a la \nrespuesta, suerte viajero.";
 		String^ frase2 = "Me alegro ver que has llegado hasta aca, pero \naun debemos cruzar a la segunda respuesta, pero \nese humano conocido como messi no nos deja\n avanzar, intenta atravesar la cancha \nesquivando los balones, el arbitro aliado te \nayudara a llegar al otro lado si te acercas a el, \nsuerte viajero.";
+		
+		int Ultitecla;
+		bool malder=false, malaba=false, malarr=false, malizq=false;
 
 		String^ textillo;
 		int grr = 0;
@@ -260,6 +268,7 @@ namespace Humaformsnia {
 		int Botonazo;
 		int subida = 0, texto = 0;
 		Bitmap^ fondomundo1;
+		Bitmap^ fondomundo3;
 		Bitmap^ H;
 		Bitmap^ U;
 		Bitmap^ M;
@@ -623,11 +632,34 @@ namespace Humaformsnia {
 		if (e->KeyCode == Keys::Up) teclapulsada = Direccion::Arriba2;
 		if (e->KeyCode == Keys::Down) teclapulsada = Direccion::Abajo2;
 		if (e->KeyCode == Keys::Left) teclapulsada = Direccion::Izquierda2;
-		if (e->KeyCode == Keys::Right) teclapulsada = Direccion::Derecha2;
-		if (e->KeyCode == Keys::W) teclapulsada = Direccion::Arriba1;
-		if (e->KeyCode == Keys::S) teclapulsada = Direccion::Abajo1;
-		if (e->KeyCode == Keys::A) teclapulsada = Direccion::Izquierda1;
-		if (e->KeyCode == Keys::D) teclapulsada = Direccion::Derecha1;
+		if (e->KeyCode == Keys::Right) {
+			teclapulsada = Direccion::Derecha2;
+			Ultitecla = 1;
+		}
+		if (e->KeyCode == Keys::W) {
+			if (!malarr) {
+				teclapulsada = Direccion::Arriba1;
+				Ultitecla = 3;
+			}
+		}
+		if (e->KeyCode == Keys::S) {
+			if (!malaba) {
+				teclapulsada = Direccion::Abajo1;
+				Ultitecla = 4;
+			}
+		}
+		if (e->KeyCode == Keys::A) {
+			if (!malizq) {
+				teclapulsada = Direccion::Izquierda1;
+				Ultitecla = 2;
+			}
+		}
+		if (e->KeyCode == Keys::D) {
+			if (!malder) {
+				teclapulsada = Direccion::Derecha1;
+				Ultitecla = 1;
+			}
+		}
 		if (e->KeyCode == Keys::C) entered = true;
 		if (e->KeyCode == Keys::Enter) entered = true;
 
@@ -947,7 +979,11 @@ namespace Humaformsnia {
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
-		buffer->Graphics->DrawImage(fondo_mundo_2, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
+		buffer->Graphics->DrawImage(fondomundo3, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
+
+		//this->label1->Enabled = true;
+		//this->label1->Visible = true;
+		//this->label1->Text = L"" + (Steve->getX() + 40) + " " + (Steve->getY() + 25 + 78) + " " + (Steve->getAncho() - 80) + " " + (Steve->getAlto() - 50);
 
 		Steve->cambiardxdy(teclapulsada);
 		Steve->moverimagen(teclapulsada);
@@ -955,6 +991,65 @@ namespace Humaformsnia {
 		Minipekka->cambiardxdyD(teclapulsada);
 		Minipekka->moverimagenD(teclapulsada);
 		Minipekka->mostrarimagen(buffer->Graphics);
+
+		malder = malarr = malaba = malizq = false;
+
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 90, 125, 1, 700))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 408, 0, 1, 158))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 573, 135, 1, 150))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 223, 270, 1, 128))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 283, 525, 1, 40))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 428, 395, 1, 213))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 573, 570, 1, 200))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 658, 0, 1, 103))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 723, 210, 1, 600))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 853, 340, 1, 178))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 983, 340, 1, 75))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1073, 500, 1, 60))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1003, 0, 1, 90))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1128, 0, 1, 263))malder = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1263, 0, 1, 555))malder = true;
+
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 90 + 27, 125, 1, 700))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 408 + 27, 0, 1, 158))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 573 + 27, 135, 1, 150))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 223 + 27, 270, 1, 128))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 283 + 27, 525, 1, 40))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 428 + 27, 395, 1, 213))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 573 + 27, 570, 1, 200))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 658 + 27, 0, 1, 103))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 723 + 27, 210, 1, 600))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 853 + 27, 340, 1, 178))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 983 + 27, 340, 1, 75))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1073 + 27, 500, 1, 60))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1003 + 27, 0, 1, 90))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1128 + 27, 0, 1, 263))malizq = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1263 + 27, 0, 1, 555))malizq = true;
+
+
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 90, 128, 193, 1))malaba = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 225, 273, 378, 1))malaba = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 115, 568, 193, 1))malaba = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 425, 583, 183, 1))malaba = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 425, 398, 183, 1))malaba = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 400, 138, 193, 1))malaba = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 655, 78, 188, 1))malaba = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 725, 213, 283, 1))malaba = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 850, 343, 163, 1))malaba = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1070, 503, 188, 1))malaba = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 960, 563, 143, 1))malaba = true;
+
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 90, 128+27, 193, 1))malarr = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 225, 273 + 27, 378, 1))malarr = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 115, 568 + 27, 193, 1))malarr = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 425, 583 + 27, 183, 1))malarr = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 425, 398 + 27, 183, 1))malarr = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 400, 138 + 27, 193, 1))malarr = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 655, 78 + 27, 188, 1))malarr = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 725, 213 + 27, 283, 1))malarr = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 850, 343 + 27, 163, 1))malarr = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1070, 503 + 27, 188, 1))malarr = true;
+		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 960, 563 + 27, 143, 1))malarr = true;
 
 		teclapulsada = Direccion::Ninguno;
 
@@ -1079,7 +1174,14 @@ namespace Humaformsnia {
 			if (grr == 3)this->BtnCreditos->Image = gcnew Bitmap(gcnew String("images//Creditos.jpg"));
 			if (grr == 4)this->BtnCreditos->Image = gcnew Bitmap(gcnew String("images//CreditosMorado.png"));
 			if (grr == 5)this->BtnCreditos->Image = gcnew Bitmap(gcnew String("images//Creditos.jpg"));
-			if (grr == 6)this->PressBtn->Enabled = false;
+			if (grr == 6) {
+				this->PressBtn->Enabled = false;
+				this->Menu->Enabled = false;
+				this->Mundo3->Enabled = true;
+				this->BtnJugar->Visible = false;
+				this->BtnCreditos->Visible = false;
+				this->BtnSalir->Visible = false;
+			}
 			grr++;
 		}
 		if (Botonazo == 3) {
