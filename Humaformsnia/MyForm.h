@@ -213,7 +213,7 @@ namespace Humaformsnia {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		Carga^ AlienInstrucciones;
+		Carga^ AlienInstrucciones;  
 		Carga^ Cargas;
 		Carga^ Teclas;
 		Direccion teclapulsada;
