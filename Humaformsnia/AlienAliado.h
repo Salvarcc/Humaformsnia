@@ -9,7 +9,7 @@ private:
 public:
 
     AlienAliado();
-
+                                               
     void cambiar_imagen(String^ nombre_archivo) ;
     void mover(Graphics^ canvas) ;
     void mostrar(Graphics^ canvas) ;
