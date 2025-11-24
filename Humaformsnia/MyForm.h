@@ -185,6 +185,30 @@ namespace Humaformsnia {
 			bufferS = contexto->Allocate(g, this->ClientRectangle);
 
 
+			//  game over ______________________----------
+
+			// game over 
+
+
+			fondoGO = gcnew Bitmap(gcnew String("Images//fondo_go1.jpg"));
+			fondoGO1 = gcnew Bitmap(gcnew String("images//fondo_go2.jpg"));
+			//personaje_GO = gcnew Personaje_go();
+			//personaje_GO->cambiar_imagen("Images//mmm.jpg");
+
+			_G = gcnew Bitmap(gcnew String("images//g_game.jpg"));
+			_A = gcnew Bitmap(gcnew String("images//a_game.jpg"));
+			_M = gcnew Bitmap(gcnew String("images//m_game.jpg"));
+			_E = gcnew Bitmap(gcnew String("images//e_game_.png"));
+			_O = gcnew Bitmap(gcnew String("images//o_game_.png"));
+			_V = gcnew Bitmap(gcnew String("images//v_game.jpg"));
+			_E1 = gcnew Bitmap(gcnew String("images//e_game_.png"));
+			_R = gcnew Bitmap(gcnew String("images//r_game.jpg"));
+			P_go = gcnew Bitmap(gcnew String("images//person_.png"));
+			go = gcnew Bitmap(gcnew String("images//person__1.png"));
+			continua = gcnew Bitmap(gcnew String("images//continua_1.png"));
+			this->KeyPreview = true;
+			contadorFondo = 0;
+			
 			Logos->Enabled = true;
 			CargaUno->Enabled = false;
 			InstruccionesUno->Enabled = false;
@@ -193,6 +217,8 @@ namespace Humaformsnia {
 			BtnJugar->Visible = false;
 			BtnCreditos->Visible = false;
 			BtnSalir->Visible = false;
+
+			
 
 		}
 	protected:
@@ -416,6 +442,29 @@ namespace Humaformsnia {
 		int contador = 0;
 
 		int intervalo = 0;
+		// game over_______________--------
+		bool l1 = false, l2 = false, l3 = false, l4 = false, l5 = false, l6 = false, l7 = false, l8 = false, b9 = false;
+		int contadorTipeo = 0;
+
+		
+		Bitmap^ go;
+		Bitmap^ fondoGO;
+		Bitmap^ fondoGO1;
+		Bitmap^ _G;
+		Bitmap^ _A;
+		Bitmap^ _M;
+		Bitmap^ _E;
+		Bitmap^ _O;
+		Bitmap^ _V;
+		Bitmap^ _E1;
+		Bitmap^ _R;
+		Bitmap^ P_go;
+		Bitmap^ continua;
+		bool usarFondo1 = true;
+		int contadorFondo = 0;
+		int nivel_actual = 0;
+
+
 	private: System::Windows::Forms::Timer^ Menu;
 	private: System::Windows::Forms::Timer^ Mundo1;
 	private: System::Windows::Forms::Timer^ Mundo2;
@@ -430,7 +479,10 @@ namespace Humaformsnia {
 		   System::Windows::Forms::Timer^ CargaUno;
 		   System::Windows::Forms::Timer^ PreguntaUno;
 		   System::Windows::Forms::Timer^ InstruccionesUno;
+			private: System::Windows::Forms::Button^ BtnSi;
+	        private: System::Windows::Forms::Button^ BtnNo;
 
+			private: System::Windows::Forms::Timer^ GameOver;
 
 #pragma region Windows Form Designer generated code
 		   /// <summary>
@@ -443,7 +495,10 @@ namespace Humaformsnia {
 			   this->Menu = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->Mundo1 = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->Mundo2 = (gcnew System::Windows::Forms::Timer(this->components));
+
 			   this->Mundo3 = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->GameOver = (gcnew System::Windows::Forms::Timer(this->components));
+
 			   this->BtnJugar = (gcnew System::Windows::Forms::Button());
 			   this->PressBtn = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->NPChabla = (gcnew System::Windows::Forms::Timer(this->components));
@@ -455,6 +510,10 @@ namespace Humaformsnia {
 			   this->CargaUno = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->PreguntaUno = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->InstruccionesUno = (gcnew System::Windows::Forms::Timer(this->components));
+
+			   this->BtnSi = (gcnew System::Windows::Forms::Button());
+			   this->BtnNo = (gcnew System::Windows::Forms::Button());
+
 			   this->SuspendLayout();
 			   // 
 			   // Logos
@@ -554,6 +613,34 @@ namespace Humaformsnia {
 			   this->BtnSalir->MouseEnter += gcnew System::EventHandler(this, &MyForm::BtnSalir_MouseEnter);
 			   this->BtnSalir->MouseLeave += gcnew System::EventHandler(this, &MyForm::BtnSalir_MouseLeave);
 			   // 
+               // BtnSi
+               // 
+			   this->BtnSi->Image = gcnew Bitmap(gcnew String("images//si.jpg"));
+			   this->BtnSi->Location = System::Drawing::Point(540, 345);
+			   this->BtnSi->Name = L"BtnSi";
+			   this->BtnSi->Size = System::Drawing::Size(127, 49);
+			   this->BtnSi->TabIndex = 3;
+			   this->BtnSi->UseVisualStyleBackColor = true;
+			   this->BtnSi->Click += gcnew System::EventHandler(this, &MyForm::BtnSi_Click);
+
+			   this->BtnSi->Visible = false;
+			   // 
+			   // BtnNo
+			   // 
+			   
+			   this->BtnNo->Image = gcnew Bitmap(gcnew String("images//no.jpg"));
+
+			   this->BtnNo->Location = System::Drawing::Point(737, 345);
+			   this->BtnNo->Name = L"BtnNo1";
+			   this->BtnNo->Size = System::Drawing::Size(127, 49);
+			   this->BtnNo->TabIndex = 4;
+			   this->BtnNo->UseVisualStyleBackColor = true;
+			   this->BtnNo->Click += gcnew System::EventHandler(this, &MyForm::BtnNo_Click);
+
+			   this->BtnNo->Visible = false;
+
+
+			   // 
 			   // label1
 			   // 
 			   this->label1->AutoSize = true;
@@ -566,6 +653,13 @@ namespace Humaformsnia {
 			   this->label1->Text = L"";
 			   this->label1->Font = (gcnew System::Drawing::Font(L"Myanmar Text", 25, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(0)));
+
+
+			   // 
+			 // GAMEOVER
+			 // 
+			   this->GameOver->Tick += gcnew System::EventHandler(this, &MyForm::GameOver_Tick);
+			
 			   // 
 			   // MyForm
 			   // 
@@ -576,6 +670,9 @@ namespace Humaformsnia {
 			   this->Controls->Add(this->BtnCreditos);
 			   this->Controls->Add(this->BtnJugar);
 			   this->Controls->Add(this->label1);
+			   this->Controls->Add(this->BtnSi);
+			   this->Controls->Add(this->BtnNo);
+
 			   this->KeyPreview = true;
 			   this->Name = L"MyForm";
 			   this->Text = L"MyForm";
@@ -681,6 +778,7 @@ namespace Humaformsnia {
 	private: System::Void Mundo1_Tick(System::Object^ sender, System::EventArgs^ e) {
 
 		bool normal = true;
+		nivel_actual = 1;
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
@@ -752,7 +850,11 @@ namespace Humaformsnia {
 				Alien->setY(250);
 				Alien->setVidas(Alien->getVidas() - 1);
 			}
+			if (Alien->getVidas()==0) {
 
+				GameOver->Enabled = true;
+				Mundo1->Enabled = false;
+			}
 			if (Colision(Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30,
 				aliado->getX() - 50, aliado->getY() - 50, aliado->getAncho() - 70, aliado->getAlto() - 50))
 			{
@@ -792,6 +894,8 @@ namespace Humaformsnia {
 	// MUNDO_2____________________________________________________________________________________
 
 	private: System::Void Mundo2_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+		nivel_actual = 2;
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
@@ -802,7 +906,7 @@ namespace Humaformsnia {
 			indice_pelota++;
 			if (indice_pelota >= intervalo_creacion) {
 				Pelota^ nueva = gcnew Pelota(buffer->Graphics, contador_pelotas);
-				nueva->cambiar_imagen("Images//pelotica[1].jpg");
+				nueva->cambiar_imagen("Images//pelotica[1].png");
 				pelotas->Add(nueva);
 				indice_pelota = 0;
 				contador_pelotas++;
@@ -858,10 +962,7 @@ namespace Humaformsnia {
 				Alien->setX(100);
 				Alien->setY(300);
 				Alien->setVidas(Alien->getVidas() - 1);
-				if (Alien->getVidas() <= 0) {
-					Alien->setVidas(3);
-					Mundo2->Enabled = false;
-				}
+				
 			}
 
 			if (Colision(Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30,arbitro->getX() - 50, arbitro->getY() - 50, arbitro->getAncho() - 70, arbitro->getAlto() - 50))
@@ -876,7 +977,11 @@ namespace Humaformsnia {
 				i--;
 			}
 		}
+		if (Alien->getVidas() == 0) {
 
+			GameOver->Enabled = true;
+			Mundo2->Enabled = false;
+		}
 		arbitro->mover(buffer->Graphics);
 		arbitro->mostrar(buffer->Graphics);
 		teclapulsada = Direccion::Ninguno;
@@ -1452,16 +1557,125 @@ namespace Humaformsnia {
 
 		buffer->Render(canvas);
 	}
+	private: System::Void GameOver_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+
+		canvas = this->CreateGraphics();
+		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
+		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
+
+		contadorFondo++;
+		if (contadorFondo % 2 == 0) {
+			usarFondo1 = !usarFondo1;
+		}
+
+		if (usarFondo1)
+		{
+			buffer->Graphics->DrawImage(fondoGO, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height));
+		}
+		else
+			buffer->Graphics->DrawImage(fondoGO1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height));
+
+
+
+
+		contadorTipeo++;
+		if (contadorTipeo == 5) { l1 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 10) { l2 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 15) { l3 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 20) { l4 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 25) { l5 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 30) { l6 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 35) { l7 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 40) { l8 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 40) { l8 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 45) { b9 = true; System::Console::Beep(900, 20); }
+
+		
+
+
+
+
+		if (contadorFondo < 12) {
+
+			buffer->Graphics->DrawImage(go, 650, 420);
+
+		}
+		else { buffer->Graphics->DrawImage(P_go, 650, 420); }
+
+
+
+		if (l1) buffer->Graphics->DrawImage(_G, 450, 100  );
+		if (l2) buffer->Graphics->DrawImage(_A, 520, 102);
+		if (l3) buffer->Graphics->DrawImage(_M, 590, 103);
+		if (l4) buffer->Graphics->DrawImage(_E, 660, 106);
+
+		if (l5) buffer->Graphics->DrawImage(_O, 790, 100);
+		if (l6) buffer->Graphics->DrawImage(_V, 860, 100);
+		if (l7) buffer->Graphics->DrawImage(_E1, 930,100+1);
+		if (l8) {
+			buffer->Graphics->DrawImage(_R, 1000, 100+2);
+
+		
+
+		}
+		if (b9) {
+			buffer->Graphics->DrawImage(continua, 560, 240);
+			this->BtnSi->Visible = true;
+			this->BtnNo->Visible = true;
+
+		}
+		buffer->Render(canvas);
+		delete buffer;
+		delete espacio_para_buffer;
+		delete canvas;
+
+	
+
+
+
+	}
+	   private: System::Void BtnSi_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		   GameOver->Enabled = false;
+		   BtnSi->Visible = false;
+		   BtnNo->Visible = false;
+
+		  
+		   contadorFondo = 0;
+		   contadorTipeo = 0;
+
+		   l1 = l2 = l3 = l4 = false;
+		   l5 = l6 = l7 = l8 = false;
+		   b9 = false;
+
+		   usarFondo1 = true;
+
+		   Alien->setVidas(3);
+		   Alien->setX(50);
+		   Alien->setY(300);
+
+		   pelotas->Clear();
+		   contador_pelotas = 0;
+
+		   if (nivel_actual == 1) {
+			   Mundo1->Enabled = true;
+		   }
+		   else if (nivel_actual == 2) {
+			   Mundo2->Enabled = true;
+		   }
+		
+		
+		   }
+
+    private: System::Void BtnNo_Click(System::Object^ sender, System::EventArgs^ e) {
+				  
+		
+		Application::Exit();
+
+
+			  }
+
 
 	};
 }
-public ref class Clase_Colisiones abstract sealed
-{
-public:
-	static bool ColisionUsando_InsertectsWith(int obj1X, int obj1Y, int obj1A, int obj1L, int obj2X, int obj2Y, int obj2A, int obj2L)
-	{
-		System::Drawing::Rectangle rectObj1 = System::Drawing::Rectangle(obj1X, obj1Y, obj1A, obj1L);
-		System::Drawing::Rectangle rectObj2 = System::Drawing::Rectangle(obj2X, obj2Y, obj2A, obj2L);
-		return rectObj1.IntersectsWith(rectObj2);
-	}
-};
