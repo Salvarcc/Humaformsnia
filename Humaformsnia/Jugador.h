@@ -22,6 +22,8 @@ public:
 
 	void setVidas(int vidas);
 	void setVelocidad(int velocidad);
+	void setIndicec(int indicec);
+	void setIndicef(int indicef);
 
 
 protected:
@@ -155,4 +157,10 @@ int Jugador::getVelocidad() {
 
 void Jugador::setVelocidad(int velocidad) {
 	this->velocidad = velocidad;
+}
+void Jugador::setIndicec(int indicec) {
+	this->indicecolumnas = indicec;
+}
+void Jugador::setIndicef(int indicef) {
+	this->indicefilas = indicef;
 }
