@@ -45,7 +45,7 @@ namespace Humaformsnia {
 			AlienInstrucciones->cambia_alieninstrucciones("Images//Alien.png");
 
 			Cargas = gcnew Carga();
-			Cargas->cambia_imagen("Images//LOADING.png");
+			Cargas->cambia_imagen("Images//SPRITESCARGA.png");
 
 			Teclas = gcnew Carga();
 			Teclas->cambia_tecla("Images//TECLAS.png");
@@ -104,10 +104,10 @@ namespace Humaformsnia {
 			R = gcnew Bitmap(gcnew String("Images//R.png"));
 			E = gcnew Bitmap(gcnew String("Images//E.png"));
 			G = gcnew Bitmap(gcnew String("Images//G.png"));
-			Up = gcnew Bitmap(gcnew String("Images//Up.png")); // cambiar
-			Np = gcnew Bitmap(gcnew String("Images//Np.png")); //cambiar
+			Up = gcnew Bitmap(gcnew String("Images//Up.png")); 
+			Np = gcnew Bitmap(gcnew String("Images//Np.png"));
 			T = gcnew Bitmap(gcnew String("Images//T.png"));
-			Ap = gcnew Bitmap(gcnew String("Images//Ap.png")); // cambiar
+			Ap = gcnew Bitmap(gcnew String("Images//Ap.png")); 
 
 			I1 = gcnew Bitmap(gcnew String("Images//InstruccionesI.png"));
 			N1 = gcnew Bitmap(gcnew String("Images//InstruccionesN.png"));
@@ -131,12 +131,23 @@ namespace Humaformsnia {
 
 			CERO = gcnew Bitmap(gcnew String("Images//CERO.png"));
 			UNO = gcnew Bitmap(gcnew String("Images//UNO.png"));
-			Pregunta1 = gcnew Bitmap(gcnew String("Images//preguntauno.png"));
+			DOS = gcnew Bitmap(gcnew String("Images//DOS.png"));
+			TRES = gcnew Bitmap(gcnew String("Images//TRES.png"));
+
+			Pregunta1 = gcnew Bitmap(gcnew String("Images//PREGUNTA1.png"));
+			Respuesta1 = gcnew Bitmap(gcnew String("Images//RESPUESTA1.png"));
+			Pregunta2 = gcnew Bitmap(gcnew String("Images//PREGUNTA2.png"));
+			Respuesta2 = gcnew Bitmap(gcnew String("Images//RESPUESTA2.png")); 
+			Pregunta3 = gcnew Bitmap(gcnew String("Images//PREGUNTA3.png"));
+			Respuesta3 = gcnew Bitmap(gcnew String("Images//RESPUESTA3.png"));
+			
 			Carga1 = gcnew Bitmap(gcnew String("Images//Carga1.jpeg"));
 
 			Nave = gcnew Bitmap(gcnew String("Images//NAVEE.png"));
 
 			fondopregunta1 = gcnew Bitmap(gcnew String("Images//Fondo1.png"));
+			fondopregunta2 = gcnew Bitmap(gcnew String("Images//Fondo2.png"));
+			fondopregunta3 = gcnew Bitmap(gcnew String("Images//Fondo3.png"));
 
 			espacio_para_buffer = BufferedGraphicsManager::Current;
 			buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
@@ -185,10 +196,15 @@ namespace Humaformsnia {
 			bufferS = contexto->Allocate(g, this->ClientRectangle);
 
 
-			Logos->Enabled = true;
+			Logos->Enabled = false;
 			CargaUno->Enabled = false;
 			InstruccionesUno->Enabled = false;
 			PreguntaUno->Enabled = false;
+			RespuestaUno->Enabled = false;
+			PreguntaDos->Enabled = false;
+			RespuestaDos->Enabled = false;
+			PreguntaTres->Enabled = true;
+			RespuestaTres->Enabled = false;
 			Menu->Enabled = false;
 			BtnJugar->Visible = false;
 			BtnCreditos->Visible = false;
@@ -267,6 +283,8 @@ namespace Humaformsnia {
 		int Y_A = 10;
 		int Y_CERO = 10;
 		int Y_UNO = 10;
+		int Y_DOS = 10;
+
 		int ancho_pregunta = 80;
 		int C_P = 1;
 		int C_R;
@@ -278,6 +296,8 @@ namespace Humaformsnia {
 		int C_A;
 		int C_CERO;
 		int C_UNO;
+		int C_DOS;
+		
 		int X_P1 = 700;
 		int Y_P1 = 450;
 		int W_P1 = 10;
@@ -299,9 +319,20 @@ namespace Humaformsnia {
 		//______________________________
 
 		int velocidad = 1;
-		int anchooobjetivo = 1280;
-		int altoobjetivo = 720;
+		int anchooobjetivo_pregunta2 = 1120;
+		int altoobjetivo_pregunta2 = 520;
+		
+		int anchooobjetivo_pregunta1 = 1280;
+		int altoobjetivo_pregunta1 = 720;
+		
+		int anchooobjetivor= 1200;
+		int altoobjetivor = 400;
 
+		int anchooobjetivorespuesta2 = 1200;
+		int altoobjetivorespuesta2 = 400;
+
+		int anchooobjetivo_pregunta3 = 1200;
+		int altoobjetivo_pregunta3 = 400;
 
 		// carga1
 
@@ -359,6 +390,9 @@ namespace Humaformsnia {
 		Bitmap^ Ap;
 		Bitmap^ CERO;
 		Bitmap^ UNO;
+		Bitmap^ DOS;
+		Bitmap^ TRES;
+
 
 
 		Bitmap^ I1;
@@ -377,6 +411,12 @@ namespace Humaformsnia {
 
 
 		Bitmap^ Pregunta1;
+		Bitmap^ Respuesta1;
+		Bitmap^ Pregunta2;
+		Bitmap^ Respuesta2; 
+		Bitmap^ Pregunta3;
+		Bitmap^ Respuesta3;
+
 		Bitmap^ Carga1;
 		Bitmap^ Nave;
 
@@ -386,6 +426,9 @@ namespace Humaformsnia {
 
 
 		Bitmap^ fondopregunta1;
+		Bitmap^ fondopregunta2;
+		Bitmap^ fondopregunta3;
+
 
 		BufferedGraphics^ buffer;
 		BufferedGraphicsContext^ espacio_para_buffer;
@@ -429,7 +472,13 @@ namespace Humaformsnia {
 		   System::Windows::Forms::Timer^ Logos;
 		   System::Windows::Forms::Timer^ CargaUno;
 		   System::Windows::Forms::Timer^ PreguntaUno;
-		   System::Windows::Forms::Timer^ InstruccionesUno;
+private: System::Windows::Forms::Timer^ RespuestaUno;
+private: System::Windows::Forms::Timer^ PreguntaDos;
+private: System::Windows::Forms::Timer^ RespuestaDos;
+private: System::Windows::Forms::Timer^ PreguntaTres;
+private: System::Windows::Forms::Timer^ RespuestaTres;
+private: System::Windows::Forms::Timer^ InstruccionesDos;
+	   System::Windows::Forms::Timer^ InstruccionesUno;
 
 
 #pragma region Windows Form Designer generated code
@@ -450,42 +499,24 @@ namespace Humaformsnia {
 			   this->BtnCreditos = (gcnew System::Windows::Forms::Button());
 			   this->BtnSalir = (gcnew System::Windows::Forms::Button());
 			   this->label1 = (gcnew System::Windows::Forms::Label());
-
 			   this->Logos = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->CargaUno = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->PreguntaUno = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->InstruccionesUno = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->RespuestaUno = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->PreguntaDos = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->RespuestaDos = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->PreguntaTres = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->RespuestaTres = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->InstruccionesDos = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->SuspendLayout();
-			   // 
-			   // Logos
-			   // 
-			   this->Logos->Tick += gcnew System::EventHandler(this, &MyForm::Logos_Tick);
-			   // 
-			   // CargaUno
-			   // 
-			   this->CargaUno->Enabled = false;
-			   this->CargaUno->Tick += gcnew System::EventHandler(this, &MyForm::Carga1_Tick);
-			   // 
-			   // PreguntaUno
-			   // 
-			   this->PreguntaUno->Interval = 10;
-			   this->PreguntaUno->Tick += gcnew System::EventHandler(this, &MyForm::Pregunta1_Tick);
-			   // 
-			   // InstruccionesUno
-			   // 
-			   this->InstruccionesUno->Interval = 10;
-			   this->InstruccionesUno->Tick += gcnew System::EventHandler(this, &MyForm::InstruccionesUno_Tick);// Logos
-
-
 			   // 
 			   // Menu
 			   // 
 			   this->Menu->Tick += gcnew System::EventHandler(this, &MyForm::Menu_Tick);
 			   // 
-			   // 
 			   // Mundo1
 			   // 
-			   this->Mundo1->Enabled = false;
 			   this->Mundo1->Tick += gcnew System::EventHandler(this, &MyForm::Mundo1_Tick);
 			   // 
 			   // Mundo2
@@ -495,10 +526,6 @@ namespace Humaformsnia {
 			   // Mundo3
 			   // 
 			   this->Mundo3->Tick += gcnew System::EventHandler(this, &MyForm::Mundo3_Tick);
-			   // 
-			  // NPChabla
-			  // 
-			   this->NPChabla->Tick += gcnew System::EventHandler(this, &MyForm::NPChabla_Tick);
 			   // 
 			   // BtnJugar
 			   // 
@@ -511,7 +538,6 @@ namespace Humaformsnia {
 			   this->BtnJugar->Location = System::Drawing::Point(597, 300);
 			   this->BtnJugar->Margin = System::Windows::Forms::Padding(7, 6, 7, 6);
 			   this->BtnJugar->Name = L"BtnJugar";
-			   this->BtnJugar->Image = gcnew Bitmap(gcnew String("images//Jugar.png"));
 			   this->BtnJugar->Size = System::Drawing::Size(6, 6);
 			   this->BtnJugar->TabIndex = 0;
 			   this->BtnJugar->UseVisualStyleBackColor = false;
@@ -525,6 +551,10 @@ namespace Humaformsnia {
 			   this->PressBtn->Interval = 300;
 			   this->PressBtn->Tick += gcnew System::EventHandler(this, &MyForm::PressBtn_Tick);
 			   // 
+			   // NPChabla
+			   // 
+			   this->NPChabla->Tick += gcnew System::EventHandler(this, &MyForm::NPChabla_Tick);
+			   // 
 			   // BtnCreditos
 			   // 
 			   this->BtnCreditos->AutoSize = true;
@@ -532,7 +562,6 @@ namespace Humaformsnia {
 			   this->BtnCreditos->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->BtnCreditos->Location = System::Drawing::Point(597, 400);
 			   this->BtnCreditos->Name = L"BtnCreditos";
-			   this->BtnCreditos->Image = gcnew Bitmap(gcnew String("images//Creditos.jpg"));
 			   this->BtnCreditos->Size = System::Drawing::Size(6, 6);
 			   this->BtnCreditos->TabIndex = 1;
 			   this->BtnCreditos->UseVisualStyleBackColor = false;
@@ -546,7 +575,6 @@ namespace Humaformsnia {
 			   this->BtnSalir->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			   this->BtnSalir->Location = System::Drawing::Point(597, 500);
 			   this->BtnSalir->Name = L"BtnSalir";
-			   this->BtnSalir->Image = gcnew Bitmap(gcnew String("images//Salir.jpg"));
 			   this->BtnSalir->Size = System::Drawing::Size(6, 6);
 			   this->BtnSalir->TabIndex = 2;
 			   this->BtnSalir->UseVisualStyleBackColor = false;
@@ -557,15 +585,62 @@ namespace Humaformsnia {
 			   // label1
 			   // 
 			   this->label1->AutoSize = true;
-			   this->label1->Visible = false;
+			   this->label1->Font = (gcnew System::Drawing::Font(L"Myanmar Text", 25, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
 			   this->label1->Location = System::Drawing::Point(100, 150);
 			   this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			   this->label1->Name = L"label1";
-			   this->label1->Size = System::Drawing::Size(57, 16);
+			   this->label1->Size = System::Drawing::Size(0, 60);
 			   this->label1->TabIndex = 0;
-			   this->label1->Text = L"";
-			   this->label1->Font = (gcnew System::Drawing::Font(L"Myanmar Text", 25, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(0)));
+			   this->label1->Visible = false;
+			   // 
+			   // Logos
+			   // 
+			   this->Logos->Tick += gcnew System::EventHandler(this, &MyForm::Logos_Tick);
+			   // 
+			   // CargaUno
+			   // 
+			   this->CargaUno->Tick += gcnew System::EventHandler(this, &MyForm::Carga1_Tick);
+			   // 
+			   // PreguntaUno
+			   // 
+			   this->PreguntaUno->Interval = 10;
+			   this->PreguntaUno->Tick += gcnew System::EventHandler(this, &MyForm::Pregunta1_Tick);
+			   // 
+			   // InstruccionesUno
+			   // 
+			   this->InstruccionesUno->Interval = 10;
+			   this->InstruccionesUno->Tick += gcnew System::EventHandler(this, &MyForm::InstruccionesUno_Tick);
+			   // 
+			   // RespuestaUno
+			   // 
+			   this->RespuestaUno->Interval = 10;
+			   this->RespuestaUno->Tick += gcnew System::EventHandler(this, &MyForm::RespuestaUno_Tick);
+			   // 
+			   // PreguntaDos
+			   // 
+			   this->PreguntaDos->Interval = 10;
+			   this->PreguntaDos->Tick += gcnew System::EventHandler(this, &MyForm::PreguntaDos_Tick);
+			   // 
+			   // RespuestaDos
+			   // 
+			   this->RespuestaDos->Interval = 10;
+			   this->RespuestaDos->Tick += gcnew System::EventHandler(this, &MyForm::RespuestaDos_Tick);
+			   // 
+			   // PreguntaTres
+			   // 
+			   this->PreguntaTres->Interval = 10;
+			   this->PreguntaTres->Tick += gcnew System::EventHandler(this, &MyForm::PreguntaTres_Tick);
+			   // 
+			   // RespuestaTres
+			   // 
+			   this->RespuestaTres->Interval = 10;
+			   this->RespuestaTres->Tick += gcnew System::EventHandler(this, &MyForm::RespuestaTres_Tick);
+			   // 
+			   // InstruccionesDos
+			   // 
+			   this->InstruccionesDos->Interval = 10;
+			   this->InstruccionesDos->Tick += gcnew System::EventHandler(this, &MyForm::InstruccionesDos_Tick);
 			   // 
 			   // MyForm
 			   // 
@@ -581,6 +656,7 @@ namespace Humaformsnia {
 			   this->Text = L"MyForm";
 			   this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::MyForm_KeyDown);
 			   this->ResumeLayout(false);
+			   this->PerformLayout();
 
 		   }
 #pragma endregion
@@ -709,7 +785,7 @@ namespace Humaformsnia {
 		if (Colision(
 			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, Portal1->getX() - 50, Portal1->getY() - 50, Portal1->getAncho() - 70, Portal1->getAlto() - 50))
 		{
-			Mundo2->Enabled = true;
+			RespuestaUno->Enabled = true;
 			Mundo1->Enabled = false;
 			Alien->setX(50);
 			Alien->setY(250);
@@ -789,7 +865,6 @@ namespace Humaformsnia {
 	}
 
 
-		   // MUNDO_2____________________________________________________________________________________
 
 	private: System::Void Mundo2_Tick(System::Object^ sender, System::EventArgs^ e) {
 		canvas = this->CreateGraphics();
@@ -1109,7 +1184,43 @@ namespace Humaformsnia {
 
 
 	}
+private: System::Void Carga1_Tick(System::Object^ sender, System::EventArgs^ e) {
 
+		buffer->Graphics->Clear(Color::Black);
+
+		buffer->Graphics->DrawImage(Carga1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, Carga1->Width, Carga1->Height, GraphicsUnit::Pixel);
+		buffer->Graphics->DrawImage(Nave, X_Nave, Y_Nave);
+
+		X_Nave += 50;
+		xcontrol += 50;
+
+
+		Cargas->mover_imagen(porcentajes);
+		Cargas->mostrar_imagen(buffer->Graphics);
+
+
+		for (int i = 0; i < 9; i++) {
+
+			if (xcontrol == 150)
+			{
+				xcontrol = 0;
+				porcentajes++;
+
+			}
+
+		}
+
+		buffer->Render(canvas);
+
+		if (X_Nave > 1500)
+
+		{
+
+			CargaUno->Enabled = false;
+			PreguntaUno->Enabled = true;
+		}
+
+	}
 	private: System::Void Pregunta1_Tick(System::Object^ sender, System::EventArgs^ e) {
 
 		buffer->Graphics->Clear(Color::Black);
@@ -1215,7 +1326,7 @@ namespace Humaformsnia {
 
 			buffer->Graphics->DrawImage(Pregunta1, X_P1, Y_P1, W_P1, H_P1);
 
-			if (W_P1 < anchooobjetivo && H_P1 < altoobjetivo) {
+			if (W_P1 < anchooobjetivo_pregunta1 && H_P1 < altoobjetivo_pregunta1) {
 
 				X_P1 -= 8;
 				Y_P1 -= 4.5;
@@ -1233,51 +1344,18 @@ namespace Humaformsnia {
 
 			PreguntaUno->Enabled = false;
 			InstruccionesUno->Enabled = true;
-
+			
+			
 		}
 
 		buffer->Render(canvas);
 
+	
+	
 
 	}
 
-	private: System::Void Carga1_Tick(System::Object^ sender, System::EventArgs^ e) {
-
-		buffer->Graphics->Clear(Color::Black);
-
-		buffer->Graphics->DrawImage(Carga1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, Carga1->Width, Carga1->Height, GraphicsUnit::Pixel);
-		buffer->Graphics->DrawImage(Nave, X_Nave, Y_Nave);
-
-		X_Nave += 50;
-		xcontrol += 50;
-
-
-		Cargas->mover_imagen(porcentajes);
-		Cargas->mostrar_imagen(buffer->Graphics);
-
-
-		for (int i = 0; i < 9; i++) {
-
-			if (xcontrol == 150)
-			{
-				xcontrol = 0;
-				porcentajes++;
-
-			}
-
-		}
-
-		buffer->Render(canvas);
-
-		if (X_Nave > 1500)
-
-		{
-
-			CargaUno->Enabled = false;
-			PreguntaUno->Enabled = true;
-		}
-
-	}
+	
 	private: System::Void InstruccionesUno_Tick(System::Object^ sender, System::EventArgs^ e) {
 
 		buffer->Graphics->Clear(Color::Black);
@@ -1447,21 +1525,960 @@ namespace Humaformsnia {
 		if (cambioin == 2) {
 			InstruccionesUno->Enabled = false;
 			Mundo1->Enabled = true;
+			C_P = 1;
+			C_R = 0;
+			C_E = 0;
+			C_G = 0;
+			C_U = 0;
+			C_N = 0;
+			C_T = 0;
+			C_A = 0;
+			C_CERO = 0;
+			C_UNO = 0;
+			C_I1 = 0;
+			C_N1 = 0;
+			C_S1 = 0;
+			C_T1 = 0;
+			C_R1 = 0;
+			C_U1 = 0;
+			C_C1 = 0;
+			C_C2 = 0;
+			C_I2 = 0;
+			C_O1 = 0;
+			C_N2 = 0;
+			C_E1 = 0;
+			C_S2 = 0;
+			Y_P = 10;
+			Y_R = 10;
+			Y_E = 10;
+			Y_G = 10;
+			Y_U = 10;
+			Y_N = 10;
+			Y_T = 10;
+			Y_A = 10;
+			Y_CERO = 10;
+		    Y_UNO = 10; 
+			Y_DOS = 10;
 
+		 cambio = 0;
+		 X_P1 = 700;
+		 Y_P1 = 450;
+		 W_P1 = 10;
+		 H_P1 = 10;
 		}
 
 		buffer->Render(canvas);
 	}
 
-	};
-}
-public ref class Clase_Colisiones abstract sealed
-{
-public:
-	static bool ColisionUsando_InsertectsWith(int obj1X, int obj1Y, int obj1A, int obj1L, int obj2X, int obj2Y, int obj2A, int obj2L)
+	private: System::Void RespuestaUno_Tick(System::Object^ sender, System::EventArgs^ e) {
+		
+
+		buffer->Graphics->Clear(Color::Black);
+
+		buffer->Graphics->DrawImage(fondopregunta1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta1->Width, fondopregunta1->Height, GraphicsUnit::Pixel);
+		buffer->Graphics->DrawImage(R, 300 - ancho_pregunta, Y_P-8);
+		buffer->Graphics->DrawImage(E, 390 - ancho_pregunta, Y_R - 8);
+		buffer->Graphics->DrawImage(S1, 465 - ancho_pregunta, Y_E - 8);
+		buffer->Graphics->DrawImage(P, 550 - ancho_pregunta, Y_G - 8);
+		buffer->Graphics->DrawImage(Up, 630 - ancho_pregunta, Y_U - 8);
+		buffer->Graphics->DrawImage(E, 720 - ancho_pregunta, Y_N - 8);
+		buffer->Graphics->DrawImage(S1, 800 - ancho_pregunta, Y_T - 8);
+		buffer->Graphics->DrawImage(T, 880 - ancho_pregunta, Y_A - 8);
+		buffer->Graphics->DrawImage(Ap, 965 - ancho_pregunta, Y_CERO - 8);
+		buffer->Graphics->DrawImage(CERO, 1100 - ancho_pregunta, Y_UNO - 8);
+		buffer->Graphics->DrawImage(UNO, 1200 - ancho_pregunta, Y_DOS - 8);
+
+
+		int caida1 = 4;
+		int subida = 2;
+		int caida2 = 1;
+
+
+		if (C_P == 1)
+		{
+			Y_P += caida1;
+			if (Y_P >= 80) { Y_P = 80; C_P = 2; }
+		}
+		if (C_P == 2)
+		{
+			Y_P -= subida;
+			if (Y_P <= 50) { Y_P = 50; C_P = 3; }
+		}
+		if (C_P == 3)
+		{
+			Y_P += caida2;
+			if (Y_P >= 80) { Y_P = 80; C_P = 4; }
+		}
+
+
+
+
+		if (C_R == 1) { Y_R += caida1; if (Y_R >= 80) { Y_R = 80; C_R = 2; } }
+		if (C_R == 2) { Y_R -= subida; if (Y_R <= 50) { Y_R = 50; C_R = 3; } }
+		if (C_R == 3) { Y_R += caida2; if (Y_R >= 80) { Y_R = 80; C_R = 4; } }
+
+
+		if (C_E == 1) { Y_E += caida1; if (Y_E >= 80) { Y_E = 80; C_E = 2; } }
+		else if (C_E == 2) { Y_E -= subida; if (Y_E <= 50) { Y_E = 50; C_E = 3; } }
+		else if (C_E == 3) { Y_E += caida2; if (Y_E >= 80) { Y_E = 80; C_E = 4; } }
+
+
+		if (C_G == 1) { Y_G += caida1; if (Y_G >= 80) { Y_G = 80; C_G = 2; } }
+		else if (C_G == 2) { Y_G -= subida; if (Y_G <= 50) { Y_G = 50; C_G = 3; } }
+		else if (C_G == 3) { Y_G += caida2; if (Y_G >= 80) { Y_G = 80; C_G = 4; } }
+
+		if (C_U == 1) { Y_U += caida1; if (Y_U >= 80) { Y_U = 80; C_U = 2; } }
+		else if (C_U == 2) { Y_U -= subida; if (Y_U <= 50) { Y_U = 50; C_U = 3; } }
+		else if (C_U == 3) { Y_U += caida2; if (Y_U >= 80) { Y_U = 80; C_U = 4; } }
+
+
+		if (C_N == 1) { Y_N += caida1; if (Y_N >= 80) { Y_N = 80; C_N = 2; } }
+		else if (C_N == 2) { Y_N -= subida; if (Y_N <= 50) { Y_N = 50; C_N = 3; } }
+		else if (C_N == 3) { Y_N += caida2; if (Y_N >= 80) { Y_N = 80; C_N = 4; } }
+
+
+		if (C_T == 1) { Y_T += caida1; if (Y_T >= 80) { Y_T = 80; C_T = 2; } }
+		else if (C_T == 2) { Y_T -= subida; if (Y_T <= 50) { Y_T = 50; C_T = 3; } }
+		else if (C_T == 3) { Y_T += caida2; if (Y_T >= 80) { Y_T = 80; C_T = 4; } }
+
+
+		if (C_A == 1) { Y_A += caida1; if (Y_A >= 80) { Y_A = 80; C_A = 2; } }
+		else if (C_A == 2) { Y_A -= subida; if (Y_A <= 50) { Y_A = 50; C_A = 3; } }
+		else if (C_A == 3) { Y_A += caida2; if (Y_A >= 80) { Y_A = 80; C_A = 4; } }
+
+
+		if (C_CERO == 1) { Y_CERO += caida1; if (Y_CERO >= 80) { Y_CERO = 80; C_CERO = 2; } }
+		else if (C_CERO == 2) { Y_CERO -= subida; if (Y_CERO <= 50) { Y_CERO = 50; C_CERO = 3; } }
+		else if (C_CERO == 3) { Y_CERO += caida2; if (Y_CERO >= 80) { Y_CERO = 80; C_CERO = 4; } }
+
+		if (C_UNO == 1) { Y_UNO += caida1; if (Y_UNO >= 80) { Y_UNO = 80; C_UNO = 2; } }
+		else if (C_UNO == 2) { Y_UNO -= subida; if (Y_UNO <= 50) { Y_UNO = 50; C_UNO = 3; } }
+		else if (C_UNO == 3) { Y_UNO += caida2; if (Y_UNO >= 80) { Y_UNO = 80; C_UNO = 4; } }
+
+		if (C_DOS == 1) { Y_DOS += caida1; if (Y_DOS >= 80) { Y_DOS = 80; C_DOS = 2; } }
+		else if (C_DOS == 2) { Y_DOS -= subida; if (Y_DOS <= 50) { Y_DOS = 50; C_DOS = 3; } }
+		else if (C_DOS == 3) { Y_DOS += caida2; if (Y_DOS >= 80) { Y_DOS = 80; C_DOS = 4; } }
+		
+
+		if (Y_P == 38)
+			C_R = 1;
+		if (Y_R == 38)
+			C_E = 1;
+		if (Y_E == 38)
+			C_G = 1;
+		if (Y_G == 38)
+			C_U = 1;
+		if (Y_U == 38)
+			C_N = 1;
+		if (Y_N == 38)
+			C_T = 1;
+		if (Y_T == 38)
+			C_A = 1;
+		if (Y_A == 38)
+			C_CERO = 1;
+		if (Y_CERO == 38)
+			C_UNO = 1;
+		if (Y_UNO== 38)
+			C_DOS = 1;
+		
+
+
+		if (C_DOS == 4) {
+
+			buffer->Graphics->DrawImage(Respuesta1, X_P1+30, Y_P1, W_P1, H_P1);
+
+			if (W_P1 < anchooobjetivor && H_P1 < altoobjetivor) {
+
+				X_P1 -= 7.5;
+				Y_P1 -= 2.5;
+
+				W_P1 += velocidad * 15;
+				H_P1 += velocidad * 5;
+
+			}
+			cambio++;
+
+
+		}
+
+		if (cambio == 200) {
+
+			RespuestaUno->Enabled = false;
+			C_P = 1;
+			C_R = 0;
+			C_E = 0;
+			C_G = 0;
+			C_U = 0;
+			C_N = 0;
+			C_T = 0;
+			C_A = 0;
+			C_CERO = 0;
+			C_UNO = 0;
+			C_DOS = 0;
+			C_I1 = 0;
+			C_N1 = 0;
+			C_S1 = 0;
+			C_T1 = 0;
+			C_R1 = 0;
+			C_U1 = 0;
+			C_C1 = 0;
+			C_C2 = 0;
+			C_I2 = 0;
+			C_O1 = 0;
+			C_N2 = 0;
+			C_E1 = 0;
+			C_S2 = 0;
+			Y_P = 10;
+			Y_R = 10;
+			Y_E = 10;
+			Y_G = 10;
+			Y_U = 10;
+			Y_N = 10;
+			Y_T = 10;
+			Y_A = 10;
+			Y_CERO = 10;
+			Y_UNO = 10;
+			Y_DOS = 10;
+			cambio = 0;
+			X_P1 = 700;
+			Y_P1 = 450;
+			W_P1 = 10;
+			H_P1 = 10;
+		}
+
+		buffer->Render(g);
+
+
+
+
+
+	} //CHECK 
+
+private: System::Void PreguntaDos_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+
+	buffer->Graphics->Clear(Color::Black);
+	buffer->Graphics->DrawImage(fondopregunta2, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta2->Width, fondopregunta2->Height, GraphicsUnit::Pixel);
+	buffer->Graphics->DrawImage(P, 400 - ancho_pregunta, Y_P);
+	buffer->Graphics->DrawImage(R, 480 - ancho_pregunta, Y_R);
+	buffer->Graphics->DrawImage(E, 565 - ancho_pregunta, Y_E);
+	buffer->Graphics->DrawImage(G, 645 - ancho_pregunta, Y_G);
+	buffer->Graphics->DrawImage(Up, 725 - ancho_pregunta, Y_U);
+	buffer->Graphics->DrawImage(Np, 810 - ancho_pregunta, Y_N);
+	buffer->Graphics->DrawImage(T, 890 - ancho_pregunta, Y_T);
+	buffer->Graphics->DrawImage(Ap, 975 - ancho_pregunta, Y_A);
+	buffer->Graphics->DrawImage(CERO, 1100 - ancho_pregunta, Y_CERO);
+	buffer->Graphics->DrawImage(DOS, 1190 - ancho_pregunta, Y_UNO);
+
+	int caida1 = 4;
+	int subida = 2;
+	int caida2 = 1;
+
+
+	if (C_P == 1)
 	{
-		System::Drawing::Rectangle rectObj1 = System::Drawing::Rectangle(obj1X, obj1Y, obj1A, obj1L);
-		System::Drawing::Rectangle rectObj2 = System::Drawing::Rectangle(obj2X, obj2Y, obj2A, obj2L);
-		return rectObj1.IntersectsWith(rectObj2);
+		Y_P += caida1;
+		if (Y_P >= 80) { Y_P = 80; C_P = 2; }
 	}
+	if (C_P == 2)
+	{
+		Y_P -= subida;
+		if (Y_P <= 50) { Y_P = 50; C_P = 3; }
+	}
+	if (C_P == 3)
+	{
+		Y_P += caida2;
+		if (Y_P >= 80) { Y_P = 80; C_P = 4; }
+	}
+
+
+
+
+	if (C_R == 1) { Y_R += caida1; if (Y_R >= 80) { Y_R = 80; C_R = 2; } }
+	if (C_R == 2) { Y_R -= subida; if (Y_R <= 50) { Y_R = 50; C_R = 3; } }
+	if (C_R == 3) { Y_R += caida2; if (Y_R >= 80) { Y_R = 80; C_R = 4; } }
+
+
+	if (C_E == 1) { Y_E += caida1; if (Y_E >= 80) { Y_E = 80; C_E = 2; } }
+	else if (C_E == 2) { Y_E -= subida; if (Y_E <= 50) { Y_E = 50; C_E = 3; } }
+	else if (C_E == 3) { Y_E += caida2; if (Y_E >= 80) { Y_E = 80; C_E = 4; } }
+
+
+	if (C_G == 1) { Y_G += caida1; if (Y_G >= 80) { Y_G = 80; C_G = 2; } }
+	else if (C_G == 2) { Y_G -= subida; if (Y_G <= 50) { Y_G = 50; C_G = 3; } }
+	else if (C_G == 3) { Y_G += caida2; if (Y_G >= 80) { Y_G = 80; C_G = 4; } }
+
+	if (C_U == 1) { Y_U += caida1; if (Y_U >= 80) { Y_U = 80; C_U = 2; } }
+	else if (C_U == 2) { Y_U -= subida; if (Y_U <= 50) { Y_U = 50; C_U = 3; } }
+	else if (C_U == 3) { Y_U += caida2; if (Y_U >= 80) { Y_U = 80; C_U = 4; } }
+
+
+	if (C_N == 1) { Y_N += caida1; if (Y_N >= 80) { Y_N = 80; C_N = 2; } }
+	else if (C_N == 2) { Y_N -= subida; if (Y_N <= 50) { Y_N = 50; C_N = 3; } }
+	else if (C_N == 3) { Y_N += caida2; if (Y_N >= 80) { Y_N = 80; C_N = 4; } }
+
+
+	if (C_T == 1) { Y_T += caida1; if (Y_T >= 80) { Y_T = 80; C_T = 2; } }
+	else if (C_T == 2) { Y_T -= subida; if (Y_T <= 50) { Y_T = 50; C_T = 3; } }
+	else if (C_T == 3) { Y_T += caida2; if (Y_T >= 80) { Y_T = 80; C_T = 4; } }
+
+
+	if (C_A == 1) { Y_A += caida1; if (Y_A >= 80) { Y_A = 80; C_A = 2; } }
+	else if (C_A == 2) { Y_A -= subida; if (Y_A <= 50) { Y_A = 50; C_A = 3; } }
+	else if (C_A == 3) { Y_A += caida2; if (Y_A >= 80) { Y_A = 80; C_A = 4; } }
+
+
+	if (C_CERO == 1) { Y_CERO += caida1; if (Y_CERO >= 80) { Y_CERO = 80; C_CERO = 2; } }
+	else if (C_CERO == 2) { Y_CERO -= subida; if (Y_CERO <= 50) { Y_CERO = 50; C_CERO = 3; } }
+	else if (C_CERO == 3) { Y_CERO += caida2; if (Y_CERO >= 80) { Y_CERO = 80; C_CERO = 4; } }
+
+	if (C_UNO == 1) { Y_UNO += caida1; if (Y_UNO >= 80) { Y_UNO = 80; C_UNO = 2; } }
+	else if (C_UNO == 2) { Y_UNO -= subida; if (Y_UNO <= 50) { Y_UNO = 50; C_UNO = 3; } }
+	else if (C_UNO == 3) { Y_UNO += caida2; if (Y_UNO >= 80) { Y_UNO = 80; C_UNO = 4; } }
+
+	if (Y_P == 38)
+		C_R = 1;
+	if (Y_R == 38)
+		C_E = 1;
+	if (Y_E == 38)
+		C_G = 1;
+	if (Y_G == 38)
+		C_U = 1;
+	if (Y_U == 38)
+		C_N = 1;
+	if (Y_N == 38)
+		C_T = 1;
+	if (Y_T == 38)
+		C_A = 1;
+	if (Y_A == 38)
+		C_CERO = 1;
+	if (Y_CERO == 38)
+		C_UNO = 1;
+
+
+	if (C_UNO == 4) {
+
+		buffer->Graphics->DrawImage(Pregunta2, X_P1, Y_P1+35, W_P1, H_P1);
+
+		if (W_P1 < anchooobjetivo_pregunta2 && H_P1 < anchooobjetivo_pregunta2) {
+
+			X_P1 -= 8;
+			Y_P1 -= 4.5;
+
+			W_P1 += velocidad * 16;
+			H_P1 += velocidad * 9;
+
+		}
+		cambio++;
+
+
+	}
+
+	if (cambio == 200) {
+
+		PreguntaDos->Enabled = false;
+		RespuestaDos->Enabled = true;
+		C_P = 1;
+		C_R = 0;
+		C_E = 0;
+		C_G = 0;
+		C_U = 0;
+		C_N = 0;
+		C_T = 0;
+		C_A = 0;
+		C_CERO = 0;
+		C_UNO = 0;
+		C_DOS = 0;
+		C_I1 = 0;
+		C_N1 = 0;
+		C_S1 = 0;
+		C_T1 = 0;
+		C_R1 = 0;
+		C_U1 = 0;
+		C_C1 = 0;
+		C_C2 = 0;
+		C_I2 = 0;
+		C_O1 = 0;
+		C_N2 = 0;
+		C_E1 = 0;
+		C_S2 = 0;
+		Y_P = 10;
+		Y_R = 10;
+		Y_E = 10;
+		Y_G = 10;
+		Y_U = 10;
+		Y_N = 10;
+		Y_T = 10;
+		Y_A = 10;
+		Y_CERO = 10;
+		Y_UNO = 10;
+		Y_DOS = 10;
+		cambio = 0;
+		X_P1 = 700;
+		Y_P1 = 450;
+		W_P1 = 10;
+		H_P1 = 10;
+
+	}
+
+	buffer->Render(canvas);
+
+
+
+
+}
+
+private: System::Void RespuestaDos_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+
+	buffer->Graphics->Clear(Color::Black);
+
+	buffer->Graphics->DrawImage(fondopregunta2, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta2->Width, fondopregunta2->Height, GraphicsUnit::Pixel);
+	buffer->Graphics->DrawImage(R, 300 - ancho_pregunta, Y_P - 8);
+	buffer->Graphics->DrawImage(E, 390 - ancho_pregunta, Y_R - 8);
+	buffer->Graphics->DrawImage(S1, 465 - ancho_pregunta, Y_E - 8);
+	buffer->Graphics->DrawImage(P, 550 - ancho_pregunta, Y_G - 8);
+	buffer->Graphics->DrawImage(Up, 630 - ancho_pregunta, Y_U - 8);
+	buffer->Graphics->DrawImage(E, 720 - ancho_pregunta, Y_N - 8);
+	buffer->Graphics->DrawImage(S1, 800 - ancho_pregunta, Y_T - 8);
+	buffer->Graphics->DrawImage(T, 880 - ancho_pregunta, Y_A - 8);
+	buffer->Graphics->DrawImage(Ap, 965 - ancho_pregunta, Y_CERO - 8);
+	buffer->Graphics->DrawImage(CERO, 1100 - ancho_pregunta, Y_UNO - 8);
+	buffer->Graphics->DrawImage(DOS, 1185 - ancho_pregunta, Y_DOS - 8);
+
+	int caida1 = 4;
+	int subida = 2;
+	int caida2 = 1;
+
+
+	if (C_P == 1)
+	{
+		Y_P += caida1;
+		if (Y_P >= 80) { Y_P = 80; C_P = 2; }
+	}
+	if (C_P == 2)
+	{
+		Y_P -= subida;
+		if (Y_P <= 50) { Y_P = 50; C_P = 3; }
+	}
+	if (C_P == 3)
+	{
+		Y_P += caida2;
+		if (Y_P >= 80) { Y_P = 80; C_P = 4; }
+	}
+
+
+
+
+	if (C_R == 1) { Y_R += caida1; if (Y_R >= 80) { Y_R = 80; C_R = 2; } }
+	if (C_R == 2) { Y_R -= subida; if (Y_R <= 50) { Y_R = 50; C_R = 3; } }
+	if (C_R == 3) { Y_R += caida2; if (Y_R >= 80) { Y_R = 80; C_R = 4; } }
+
+
+	if (C_E == 1) { Y_E += caida1; if (Y_E >= 80) { Y_E = 80; C_E = 2; } }
+	else if (C_E == 2) { Y_E -= subida; if (Y_E <= 50) { Y_E = 50; C_E = 3; } }
+	else if (C_E == 3) { Y_E += caida2; if (Y_E >= 80) { Y_E = 80; C_E = 4; } }
+
+
+	if (C_G == 1) { Y_G += caida1; if (Y_G >= 80) { Y_G = 80; C_G = 2; } }
+	else if (C_G == 2) { Y_G -= subida; if (Y_G <= 50) { Y_G = 50; C_G = 3; } }
+	else if (C_G == 3) { Y_G += caida2; if (Y_G >= 80) { Y_G = 80; C_G = 4; } }
+
+	if (C_U == 1) { Y_U += caida1; if (Y_U >= 80) { Y_U = 80; C_U = 2; } }
+	else if (C_U == 2) { Y_U -= subida; if (Y_U <= 50) { Y_U = 50; C_U = 3; } }
+	else if (C_U == 3) { Y_U += caida2; if (Y_U >= 80) { Y_U = 80; C_U = 4; } }
+
+
+	if (C_N == 1) { Y_N += caida1; if (Y_N >= 80) { Y_N = 80; C_N = 2; } }
+	else if (C_N == 2) { Y_N -= subida; if (Y_N <= 50) { Y_N = 50; C_N = 3; } }
+	else if (C_N == 3) { Y_N += caida2; if (Y_N >= 80) { Y_N = 80; C_N = 4; } }
+
+
+	if (C_T == 1) { Y_T += caida1; if (Y_T >= 80) { Y_T = 80; C_T = 2; } }
+	else if (C_T == 2) { Y_T -= subida; if (Y_T <= 50) { Y_T = 50; C_T = 3; } }
+	else if (C_T == 3) { Y_T += caida2; if (Y_T >= 80) { Y_T = 80; C_T = 4; } }
+
+
+	if (C_A == 1) { Y_A += caida1; if (Y_A >= 80) { Y_A = 80; C_A = 2; } }
+	else if (C_A == 2) { Y_A -= subida; if (Y_A <= 50) { Y_A = 50; C_A = 3; } }
+	else if (C_A == 3) { Y_A += caida2; if (Y_A >= 80) { Y_A = 80; C_A = 4; } }
+
+
+	if (C_CERO == 1) { Y_CERO += caida1; if (Y_CERO >= 80) { Y_CERO = 80; C_CERO = 2; } }
+	else if (C_CERO == 2) { Y_CERO -= subida; if (Y_CERO <= 50) { Y_CERO = 50; C_CERO = 3; } }
+	else if (C_CERO == 3) { Y_CERO += caida2; if (Y_CERO >= 80) { Y_CERO = 80; C_CERO = 4; } }
+
+
+	if (C_UNO == 1) { Y_UNO += caida1; if (Y_UNO >= 80) { Y_UNO = 80; C_UNO = 2; } }
+	else if (C_UNO == 2) { Y_UNO -= subida; if (Y_UNO <= 50) { Y_UNO = 50; C_UNO = 3; } }
+	else if (C_UNO == 3) { Y_UNO += caida2; if (Y_UNO >= 80) { Y_UNO = 80; C_UNO = 4; } }
+
+	if (C_DOS == 1) { Y_DOS += caida1; if (Y_DOS >= 80) { Y_DOS = 80; C_DOS = 2; } }
+	else if (C_DOS == 2) { Y_DOS -= subida; if (Y_DOS <= 50) { Y_DOS = 50; C_DOS = 3; } }
+	else if (C_DOS == 3) { Y_DOS += caida2; if (Y_DOS >= 80) { Y_DOS = 80; C_DOS = 4; } }
+
+
+	if (Y_P == 38)
+		C_R = 1;
+	if (Y_R == 38)
+		C_E = 1;
+	if (Y_E == 38)
+		C_G = 1;
+	if (Y_G == 38)
+		C_U = 1;
+	if (Y_U == 38)
+		C_N = 1;
+	if (Y_N == 38)
+		C_T = 1;
+	if (Y_T == 38)
+		C_A = 1;
+	if (Y_A == 38)
+		C_CERO = 1;
+	if (Y_CERO == 38)
+		C_UNO = 1;
+	if (Y_UNO == 38)
+		C_DOS = 1;
+
+
+	if (C_DOS == 4) {
+
+		buffer->Graphics->DrawImage(Respuesta2, X_P1+20, Y_P1, W_P1, H_P1);
+
+		if (W_P1 < anchooobjetivor && H_P1 < altoobjetivor) {
+
+			X_P1 -= 7.5;
+			Y_P1 -= 2.5;
+
+			W_P1 += velocidad * 15;
+			H_P1 += velocidad * 5;
+
+		}
+		cambio++;
+
+
+	}
+
+	if (cambio == 200) {
+
+		RespuestaDos->Enabled = false;
+		PreguntaTres->Enabled = true;
+
+
+		C_P = 1;
+		C_R = 0;
+		C_E = 0;
+		C_G = 0;
+		C_U = 0;
+		C_N = 0;
+		C_T = 0;
+		C_A = 0;
+		C_CERO = 0;
+		C_UNO = 0;
+		C_DOS = 0;
+		C_I1 = 0;
+		C_N1 = 0;
+		C_S1 = 0;
+		C_T1 = 0;
+		C_R1 = 0;
+		C_U1 = 0;
+		C_C1 = 0;
+		C_C2 = 0;
+		C_I2 = 0;
+		C_O1 = 0;
+		C_N2 = 0;
+		C_E1 = 0;
+		C_S2 = 0;
+		Y_P = 10;
+		Y_R = 10;
+		Y_E = 10;
+		Y_G = 10;
+		Y_U = 10;
+		Y_N = 10;
+		Y_T = 10;
+		Y_A = 10;
+		Y_CERO = 10;
+		Y_UNO = 10;
+		Y_DOS = 10;
+		cambio = 0;
+		X_P1 = 700;
+		Y_P1 = 450;
+		W_P1 = 10;
+		H_P1 = 10;
+	}
+
+	buffer->Render(g);
+
+
+
+
+
+}
+private: System::Void PreguntaTres_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+
+	buffer->Graphics->Clear(Color::Black);
+	buffer->Graphics->DrawImage(fondopregunta3, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta3->Width, fondopregunta3->Height, GraphicsUnit::Pixel);
+	buffer->Graphics->DrawImage(P, 400 - ancho_pregunta, Y_P);
+	buffer->Graphics->DrawImage(R, 480 - ancho_pregunta, Y_R);
+	buffer->Graphics->DrawImage(E, 565 - ancho_pregunta, Y_E);
+	buffer->Graphics->DrawImage(G, 645 - ancho_pregunta, Y_G);
+	buffer->Graphics->DrawImage(Up, 725 - ancho_pregunta, Y_U);
+	buffer->Graphics->DrawImage(Np, 810 - ancho_pregunta, Y_N);
+	buffer->Graphics->DrawImage(T, 890 - ancho_pregunta, Y_T);
+	buffer->Graphics->DrawImage(Ap, 975 - ancho_pregunta, Y_A);
+	buffer->Graphics->DrawImage(CERO, 1100 - ancho_pregunta, Y_CERO);
+	buffer->Graphics->DrawImage(TRES, 1190 - ancho_pregunta, Y_UNO);
+
+	int caida1 = 4;
+	int subida = 2;
+	int caida2 = 1;
+
+
+	if (C_P == 1)
+	{
+		Y_P += caida1;
+		if (Y_P >= 80) { Y_P = 80; C_P = 2; }
+	}
+	if (C_P == 2)
+	{
+		Y_P -= subida;
+		if (Y_P <= 50) { Y_P = 50; C_P = 3; }
+	}
+	if (C_P == 3)
+	{
+		Y_P += caida2;
+		if (Y_P >= 80) { Y_P = 80; C_P = 4; }
+	}
+
+
+
+
+	if (C_R == 1) { Y_R += caida1; if (Y_R >= 80) { Y_R = 80; C_R = 2; } }
+	if (C_R == 2) { Y_R -= subida; if (Y_R <= 50) { Y_R = 50; C_R = 3; } }
+	if (C_R == 3) { Y_R += caida2; if (Y_R >= 80) { Y_R = 80; C_R = 4; } }
+
+
+	if (C_E == 1) { Y_E += caida1; if (Y_E >= 80) { Y_E = 80; C_E = 2; } }
+	else if (C_E == 2) { Y_E -= subida; if (Y_E <= 50) { Y_E = 50; C_E = 3; } }
+	else if (C_E == 3) { Y_E += caida2; if (Y_E >= 80) { Y_E = 80; C_E = 4; } }
+
+
+	if (C_G == 1) { Y_G += caida1; if (Y_G >= 80) { Y_G = 80; C_G = 2; } }
+	else if (C_G == 2) { Y_G -= subida; if (Y_G <= 50) { Y_G = 50; C_G = 3; } }
+	else if (C_G == 3) { Y_G += caida2; if (Y_G >= 80) { Y_G = 80; C_G = 4; } }
+
+	if (C_U == 1) { Y_U += caida1; if (Y_U >= 80) { Y_U = 80; C_U = 2; } }
+	else if (C_U == 2) { Y_U -= subida; if (Y_U <= 50) { Y_U = 50; C_U = 3; } }
+	else if (C_U == 3) { Y_U += caida2; if (Y_U >= 80) { Y_U = 80; C_U = 4; } }
+
+
+	if (C_N == 1) { Y_N += caida1; if (Y_N >= 80) { Y_N = 80; C_N = 2; } }
+	else if (C_N == 2) { Y_N -= subida; if (Y_N <= 50) { Y_N = 50; C_N = 3; } }
+	else if (C_N == 3) { Y_N += caida2; if (Y_N >= 80) { Y_N = 80; C_N = 4; } }
+
+
+	if (C_T == 1) { Y_T += caida1; if (Y_T >= 80) { Y_T = 80; C_T = 2; } }
+	else if (C_T == 2) { Y_T -= subida; if (Y_T <= 50) { Y_T = 50; C_T = 3; } }
+	else if (C_T == 3) { Y_T += caida2; if (Y_T >= 80) { Y_T = 80; C_T = 4; } }
+
+
+	if (C_A == 1) { Y_A += caida1; if (Y_A >= 80) { Y_A = 80; C_A = 2; } }
+	else if (C_A == 2) { Y_A -= subida; if (Y_A <= 50) { Y_A = 50; C_A = 3; } }
+	else if (C_A == 3) { Y_A += caida2; if (Y_A >= 80) { Y_A = 80; C_A = 4; } }
+
+
+	if (C_CERO == 1) { Y_CERO += caida1; if (Y_CERO >= 80) { Y_CERO = 80; C_CERO = 2; } }
+	else if (C_CERO == 2) { Y_CERO -= subida; if (Y_CERO <= 50) { Y_CERO = 50; C_CERO = 3; } }
+	else if (C_CERO == 3) { Y_CERO += caida2; if (Y_CERO >= 80) { Y_CERO = 80; C_CERO = 4; } }
+
+	if (C_UNO == 1) { Y_UNO += caida1; if (Y_UNO >= 80) { Y_UNO = 80; C_UNO = 2; } }
+	else if (C_UNO == 2) { Y_UNO -= subida; if (Y_UNO <= 50) { Y_UNO = 50; C_UNO = 3; } }
+	else if (C_UNO == 3) { Y_UNO += caida2; if (Y_UNO >= 80) { Y_UNO = 80; C_UNO = 4; } }
+
+	if (Y_P == 38)
+		C_R = 1;
+	if (Y_R == 38)
+		C_E = 1;
+	if (Y_E == 38)
+		C_G = 1;
+	if (Y_G == 38)
+		C_U = 1;
+	if (Y_U == 38)
+		C_N = 1;
+	if (Y_N == 38)
+		C_T = 1;
+	if (Y_T == 38)
+		C_A = 1;
+	if (Y_A == 38)
+		C_CERO = 1;
+	if (Y_CERO == 38)
+		C_UNO = 1;
+
+
+	if (C_UNO == 4) {
+
+		buffer->Graphics->DrawImage(Pregunta3, X_P1+10, Y_P1 + 35, W_P1, H_P1);
+
+		if (W_P1 < anchooobjetivo_pregunta3 && H_P1 < altoobjetivo_pregunta3) {
+
+			X_P1 -= 7.5;
+			Y_P1 -= 2.5;
+
+			W_P1 += velocidad * 15;
+			H_P1 += velocidad * 5;
+
+		}
+		cambio++;
+
+
+	}
+
+	if (cambio == 200) {
+
+		PreguntaTres->Enabled = false;
+		RespuestaTres->Enabled = true;
+		C_P = 1;
+		C_R = 0;
+		C_E = 0;
+		C_G = 0;
+		C_U = 0;
+		C_N = 0;
+		C_T = 0;
+		C_A = 0;
+		C_CERO = 0;
+		C_UNO = 0;
+		C_DOS = 0;
+		C_I1 = 0;
+		C_N1 = 0;
+		C_S1 = 0;
+		C_T1 = 0;
+		C_R1 = 0;
+		C_U1 = 0;
+		C_C1 = 0;
+		C_C2 = 0;
+		C_I2 = 0;
+		C_O1 = 0;
+		C_N2 = 0;
+		C_E1 = 0;
+		C_S2 = 0;
+		Y_P = 10;
+		Y_R = 10;
+		Y_E = 10;
+		Y_G = 10;
+		Y_U = 10;
+		Y_N = 10;
+		Y_T = 10;
+		Y_A = 10;
+		Y_CERO = 10;
+		Y_UNO = 10;
+		Y_DOS = 10;
+		cambio = 0;
+		X_P1 = 700;
+		Y_P1 = 450;
+		W_P1 = 10;
+		H_P1 = 10;
+
+	}
+
+	buffer->Render(canvas);
+
+
+
+
+
+
+
+}
+private: System::Void RespuestaTres_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+
+	buffer->Graphics->Clear(Color::Black);
+
+	buffer->Graphics->DrawImage(fondopregunta3, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta3->Width, fondopregunta3->Height, GraphicsUnit::Pixel);
+	buffer->Graphics->DrawImage(R, 300 - ancho_pregunta, Y_P - 8);
+	buffer->Graphics->DrawImage(E, 390 - ancho_pregunta, Y_R - 8);
+	buffer->Graphics->DrawImage(S1, 465 - ancho_pregunta, Y_E - 8);
+	buffer->Graphics->DrawImage(P, 550 - ancho_pregunta, Y_G - 8);
+	buffer->Graphics->DrawImage(Up, 630 - ancho_pregunta, Y_U - 8);
+	buffer->Graphics->DrawImage(E, 720 - ancho_pregunta, Y_N - 8);
+	buffer->Graphics->DrawImage(S1, 800 - ancho_pregunta, Y_T - 8);
+	buffer->Graphics->DrawImage(T, 880 - ancho_pregunta, Y_A - 8);
+	buffer->Graphics->DrawImage(Ap, 965 - ancho_pregunta, Y_CERO - 8);
+	buffer->Graphics->DrawImage(CERO, 1100 - ancho_pregunta, Y_UNO - 8);
+	buffer->Graphics->DrawImage(TRES, 1185 - ancho_pregunta, Y_DOS - 8);
+
+	int caida1 = 4;
+	int subida = 2;
+	int caida2 = 1;
+
+
+	if (C_P == 1)
+	{
+		Y_P += caida1;
+		if (Y_P >= 80) { Y_P = 80; C_P = 2; }
+	}
+	if (C_P == 2)
+	{
+		Y_P -= subida;
+		if (Y_P <= 50) { Y_P = 50; C_P = 3; }
+	}
+	if (C_P == 3)
+	{
+		Y_P += caida2;
+		if (Y_P >= 80) { Y_P = 80; C_P = 4; }
+	}
+
+
+
+
+	if (C_R == 1) { Y_R += caida1; if (Y_R >= 80) { Y_R = 80; C_R = 2; } }
+	if (C_R == 2) { Y_R -= subida; if (Y_R <= 50) { Y_R = 50; C_R = 3; } }
+	if (C_R == 3) { Y_R += caida2; if (Y_R >= 80) { Y_R = 80; C_R = 4; } }
+
+
+	if (C_E == 1) { Y_E += caida1; if (Y_E >= 80) { Y_E = 80; C_E = 2; } }
+	else if (C_E == 2) { Y_E -= subida; if (Y_E <= 50) { Y_E = 50; C_E = 3; } }
+	else if (C_E == 3) { Y_E += caida2; if (Y_E >= 80) { Y_E = 80; C_E = 4; } }
+
+
+	if (C_G == 1) { Y_G += caida1; if (Y_G >= 80) { Y_G = 80; C_G = 2; } }
+	else if (C_G == 2) { Y_G -= subida; if (Y_G <= 50) { Y_G = 50; C_G = 3; } }
+	else if (C_G == 3) { Y_G += caida2; if (Y_G >= 80) { Y_G = 80; C_G = 4; } }
+
+	if (C_U == 1) { Y_U += caida1; if (Y_U >= 80) { Y_U = 80; C_U = 2; } }
+	else if (C_U == 2) { Y_U -= subida; if (Y_U <= 50) { Y_U = 50; C_U = 3; } }
+	else if (C_U == 3) { Y_U += caida2; if (Y_U >= 80) { Y_U = 80; C_U = 4; } }
+
+
+	if (C_N == 1) { Y_N += caida1; if (Y_N >= 80) { Y_N = 80; C_N = 2; } }
+	else if (C_N == 2) { Y_N -= subida; if (Y_N <= 50) { Y_N = 50; C_N = 3; } }
+	else if (C_N == 3) { Y_N += caida2; if (Y_N >= 80) { Y_N = 80; C_N = 4; } }
+
+
+	if (C_T == 1) { Y_T += caida1; if (Y_T >= 80) { Y_T = 80; C_T = 2; } }
+	else if (C_T == 2) { Y_T -= subida; if (Y_T <= 50) { Y_T = 50; C_T = 3; } }
+	else if (C_T == 3) { Y_T += caida2; if (Y_T >= 80) { Y_T = 80; C_T = 4; } }
+
+
+	if (C_A == 1) { Y_A += caida1; if (Y_A >= 80) { Y_A = 80; C_A = 2; } }
+	else if (C_A == 2) { Y_A -= subida; if (Y_A <= 50) { Y_A = 50; C_A = 3; } }
+	else if (C_A == 3) { Y_A += caida2; if (Y_A >= 80) { Y_A = 80; C_A = 4; } }
+
+
+	if (C_CERO == 1) { Y_CERO += caida1; if (Y_CERO >= 80) { Y_CERO = 80; C_CERO = 2; } }
+	else if (C_CERO == 2) { Y_CERO -= subida; if (Y_CERO <= 50) { Y_CERO = 50; C_CERO = 3; } }
+	else if (C_CERO == 3) { Y_CERO += caida2; if (Y_CERO >= 80) { Y_CERO = 80; C_CERO = 4; } }
+
+
+	if (C_UNO == 1) { Y_UNO += caida1; if (Y_UNO >= 80) { Y_UNO = 80; C_UNO = 2; } }
+	else if (C_UNO == 2) { Y_UNO -= subida; if (Y_UNO <= 50) { Y_UNO = 50; C_UNO = 3; } }
+	else if (C_UNO == 3) { Y_UNO += caida2; if (Y_UNO >= 80) { Y_UNO = 80; C_UNO = 4; } }
+
+	if (C_DOS == 1) { Y_DOS += caida1; if (Y_DOS >= 80) { Y_DOS = 80; C_DOS = 2; } }
+	else if (C_DOS == 2) { Y_DOS -= subida; if (Y_DOS <= 50) { Y_DOS = 50; C_DOS = 3; } }
+	else if (C_DOS == 3) { Y_DOS += caida2; if (Y_DOS >= 80) { Y_DOS = 80; C_DOS = 4; } }
+
+
+	if (Y_P == 38)
+		C_R = 1;
+	if (Y_R == 38)
+		C_E = 1;
+	if (Y_E == 38)
+		C_G = 1;
+	if (Y_G == 38)
+		C_U = 1;
+	if (Y_U == 38)
+		C_N = 1;
+	if (Y_N == 38)
+		C_T = 1;
+	if (Y_T == 38)
+		C_A = 1;
+	if (Y_A == 38)
+		C_CERO = 1;
+	if (Y_CERO == 38)
+		C_UNO = 1;
+	if (Y_UNO == 38)
+		C_DOS = 1;
+
+
+	if (C_DOS == 4) {
+
+		buffer->Graphics->DrawImage(Respuesta3, X_P1 + 20, Y_P1, W_P1, H_P1);
+
+		if (W_P1 < anchooobjetivorespuesta2 && H_P1 < altoobjetivorespuesta2) {
+
+			X_P1 -= 7.5;
+			Y_P1 -= 2.5;
+
+			W_P1 += velocidad * 15;
+			H_P1 += velocidad * 5;
+
+		}
+		cambio++;
+
+
+	}
+
+	if (cambio == 200) {
+
+		RespuestaTres->Enabled = false;
+
+
+		C_P = 1;
+		C_R = 0;
+		C_E = 0;
+		C_G = 0;
+		C_U = 0;
+		C_N = 0;
+		C_T = 0;
+		C_A = 0;
+		C_CERO = 0;
+		C_UNO = 0;
+		C_DOS = 0;
+		C_I1 = 0;
+		C_N1 = 0;
+		C_S1 = 0;
+		C_T1 = 0;
+		C_R1 = 0;
+		C_U1 = 0;
+		C_C1 = 0;
+		C_C2 = 0;
+		C_I2 = 0;
+		C_O1 = 0;
+		C_N2 = 0;
+		C_E1 = 0;
+		C_S2 = 0;
+		Y_P = 10;
+		Y_R = 10;
+		Y_E = 10;
+		Y_G = 10;
+		Y_U = 10;
+		Y_N = 10;
+		Y_T = 10;
+		Y_A = 10;
+		Y_CERO = 10;
+		Y_UNO = 10;
+		Y_DOS = 10;
+		cambio = 0;
+		X_P1 = 700;
+		Y_P1 = 450;
+		W_P1 = 10;
+		H_P1 = 10;
+	}
+
+	buffer->Render(g);
+
+
+
+}
+private: System::Void InstruccionesDos_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+
+
+
+
+
+
+}
 };
+}
