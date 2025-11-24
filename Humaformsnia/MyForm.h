@@ -980,9 +980,9 @@ namespace Humaformsnia {
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		buffer->Graphics->DrawImage(fondomundo3, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
 
-		this->label1->Enabled = true;
-		this->label1->Visible = true;
-		this->label1->Text = L"" + (Steve->getX() + 40) + " " + (Steve->getY() + 25 + 78) + " " + (Steve->getAncho() - 80) + " " + (Steve->getAlto() - 50);
+		//this->label1->Enabled = true;
+		//this->label1->Visible = true;
+		//this->label1->Text = L"" + (Steve->getX() + 40) + " " + (Steve->getY() + 25 + 78) + " " + (Steve->getAncho() - 80) + " " + (Steve->getAlto() - 50);
 		if (final)teclapulsada = Direccion::Abajo1;
 		Steve->cambiardxdy(teclapulsada);
 		Steve->moverimagen(teclapulsada);
