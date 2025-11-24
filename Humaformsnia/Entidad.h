@@ -49,7 +49,7 @@ Entidad::~Entidad()
 }
 int Entidad::getX() {
 	return x;
-}
+} 
 int Entidad::getY() {
 	return y;
 }
