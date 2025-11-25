@@ -43,12 +43,22 @@ namespace Humaformsnia {
 
 			AlienInstrucciones = gcnew Carga();
 			AlienInstrucciones->cambia_alieninstrucciones("Images//Alien.png");
+			SteveInstrucciones = gcnew Carga();
+			SteveInstrucciones->cambia_alieninstrucciones("Images//Steve.png");
+			MiniPekkaInstrucciones = gcnew Carga();
+			MiniPekkaInstrucciones->cambia_alieninstrucciones("Images//MiniPekka.png");
 
 			Cargas = gcnew Carga();
 			Cargas->cambia_imagen("Images//SPRITESCARGA.png");
 
 			Teclas = gcnew Carga();
 			Teclas->cambia_tecla("Images//TECLAS.png");
+
+			Nave = gcnew Carga();
+			Nave->cambia_nave("Images//NAVEEE.png");
+
+
+
 			canvas = this->CreateGraphics();
 
 			// ALIADO__________________________________
@@ -142,8 +152,9 @@ namespace Humaformsnia {
 			Respuesta3 = gcnew Bitmap(gcnew String("Images//RESPUESTA3.png"));
 			
 			Carga1 = gcnew Bitmap(gcnew String("Images//Carga1.jpeg"));
+			Carga2 = gcnew Bitmap(gcnew String("Images//Carga2.jpeg"));
+			Carga3 = gcnew Bitmap(gcnew String("Images//Carga3.jpeg"));
 
-			Nave = gcnew Bitmap(gcnew String("Images//NAVEE.png"));
 
 			fondopregunta1 = gcnew Bitmap(gcnew String("Images//Fondo1.png"));
 			fondopregunta2 = gcnew Bitmap(gcnew String("Images//Fondo2.png"));
@@ -198,12 +209,17 @@ namespace Humaformsnia {
 
 			Logos->Enabled = false;
 			CargaUno->Enabled = false;
+			CargaDos->Enabled = false;
+			CargaTres->Enabled = true;
+
 			InstruccionesUno->Enabled = false;
+			InstruccionesDos->Enabled = false;
+			Mundo1->Enabled = false;
 			PreguntaUno->Enabled = false;
 			RespuestaUno->Enabled = false;
 			PreguntaDos->Enabled = false;
 			RespuestaDos->Enabled = false;
-			PreguntaTres->Enabled = true;
+			PreguntaTres->Enabled = false;
 			RespuestaTres->Enabled = false;
 			Menu->Enabled = false;
 			BtnJugar->Visible = false;
@@ -230,8 +246,12 @@ namespace Humaformsnia {
 		/// Required designer variable.
 		/// </summary>
 		Carga^ AlienInstrucciones;
+		Carga^ SteveInstrucciones;
+		Carga^ MiniPekkaInstrucciones;
 		Carga^ Cargas;
 		Carga^ Teclas;
+		Carga^ Nave;
+
 		Direccion teclapulsada;
 		Jugador^ Alien;
 		AlienAliado^ aliado;
@@ -338,7 +358,21 @@ namespace Humaformsnia {
 
 		int porcentajes = 1;
 		int xcontrol = 0;
+		int navecontrol = 0;
+
 		int cambio = 0;
+		bool escapep1 = false;
+		bool escapei1 = false;
+		bool escaper1 = false;
+		bool escapep2 = false;
+		bool escaper2 = false;
+		bool escapep3 = false;
+		bool escapei2 = false;
+		bool escapei2_1 = false;
+		bool escapei2_2 = false;
+
+		bool escaper3 = false;
+
 
 		// variables instrucciones
 
@@ -374,7 +408,7 @@ namespace Humaformsnia {
 		int C_S2;
 
 		int tecla = 1;
-		int controltecla = 0;
+		int controltecla = 1;
 		int contrologos = 0;
 		int cambioin = 0;
 		Bitmap^ fondologo;
@@ -418,7 +452,8 @@ namespace Humaformsnia {
 		Bitmap^ Respuesta3;
 
 		Bitmap^ Carga1;
-		Bitmap^ Nave;
+		Bitmap^ Carga2;
+		Bitmap^ Carga3;
 
 		// mundos 2 
 
@@ -478,6 +513,8 @@ private: System::Windows::Forms::Timer^ RespuestaDos;
 private: System::Windows::Forms::Timer^ PreguntaTres;
 private: System::Windows::Forms::Timer^ RespuestaTres;
 private: System::Windows::Forms::Timer^ InstruccionesDos;
+private: System::Windows::Forms::Timer^ CargaDos;
+private: System::Windows::Forms::Timer^ CargaTres;
 	   System::Windows::Forms::Timer^ InstruccionesUno;
 
 
@@ -509,6 +546,8 @@ private: System::Windows::Forms::Timer^ InstruccionesDos;
 			   this->PreguntaTres = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->RespuestaTres = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->InstruccionesDos = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->CargaDos = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->CargaTres = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->SuspendLayout();
 			   // 
 			   // Menu
@@ -642,6 +681,14 @@ private: System::Windows::Forms::Timer^ InstruccionesDos;
 			   this->InstruccionesDos->Interval = 10;
 			   this->InstruccionesDos->Tick += gcnew System::EventHandler(this, &MyForm::InstruccionesDos_Tick);
 			   // 
+			   // CargaDos
+			   // 
+			   this->CargaDos->Tick += gcnew System::EventHandler(this, &MyForm::CargaDos_Tick);
+			   // 
+			   // CargaTres
+			   // 
+			   this->CargaTres->Tick += gcnew System::EventHandler(this, &MyForm::CargaTres_Tick);
+			   // 
 			   // MyForm
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -687,9 +734,437 @@ private: System::Windows::Forms::Timer^ InstruccionesDos;
 		if (e->KeyCode == Keys::C) entered = true;
 		if (e->KeyCode == Keys::Enter) entered = true;
 
+		if (escapep1) {
+		if (e->KeyCode == Keys::Escape) {
+
+
+			PreguntaUno->Enabled = false;
+			escapep1 = false;
+			C_P = 1;
+			C_R = 0;
+			C_E = 0;
+			C_G = 0;
+			C_U = 0;
+			C_N = 0;
+			C_T = 0;
+			C_A = 0;
+			C_CERO = 0;
+			C_UNO = 0;
+			C_I1 = 1;
+			C_N1 = 0;
+			C_S1 = 0;
+			C_T1 = 0;
+			C_R1 = 0;
+			C_U1 = 0;
+			C_C1 = 0;
+			C_C2 = 0;
+			C_I2 = 0;
+			C_O1 = 0;
+			C_N2 = 0;
+			C_E1 = 0;
+			C_S2 = 0;
+			Y_P = 10;
+			Y_R = 10;
+			Y_E = 10;
+			Y_G = 10;
+			Y_U = 10;
+			Y_N = 10;
+			Y_T = 10;
+			Y_A = 10;
+			Y_CERO = 10;
+			Y_UNO = 10;
+			Y_DOS = 10;
+
+			cambio = 0;
+			X_P1 = 700;
+			Y_P1 = 450;
+			W_P1 = 10;
+			H_P1 = 10;
+			InstruccionesUno->Enabled = true;
+
+		}
+	}
+		if (escapei1) {
+			if (e->KeyCode == Keys::Escape) {
+
+
+				InstruccionesUno->Enabled = false;
+				Mundo1->Enabled = true;
+				escapei1 = false;
+				C_P = 1;
+				C_R = 0;
+				C_E = 0;
+				C_G = 0;
+				C_U = 0;
+				C_N = 0;
+				C_T = 0;
+				C_A = 0;
+				C_CERO = 0;
+				C_UNO = 0;
+				C_I1 = 1;
+				C_N1 = 0;
+				C_S1 = 0;
+				C_T1 = 0;
+				C_R1 = 0;
+				C_U1 = 0;
+				C_C1 = 0;
+				C_C2 = 0;
+				C_I2 = 0;
+				C_O1 = 0;
+				C_N2 = 0;
+				C_E1 = 0;
+				C_S2 = 0;
+				Y_P = 10;
+				Y_R = 10;
+				Y_E = 10;
+				Y_G = 10;
+				Y_U = 10;
+				Y_N = 10;
+				Y_T = 10;
+				Y_A = 10;
+				Y_CERO = 10;
+				Y_UNO = 10;
+				Y_DOS = 10;
+
+				cambio = 0;
+				X_P1 = 700;
+				Y_P1 = 450;
+				W_P1 = 10;
+				H_P1 = 10;
+			}
+		}
+		if (escaper1) {
+			if (e->KeyCode == Keys::Escape) {
+
+
+				RespuestaUno->Enabled = false;
+				escaper1 = false;
+				C_P = 1;
+				C_R = 0;
+				C_E = 0;
+				C_G = 0;
+				C_U = 0;
+				C_N = 0;
+				C_T = 0;
+				C_A = 0;
+				C_CERO = 0;
+				C_UNO = 0;
+				C_I1 =1;
+				C_N1 = 0;
+				C_S1 = 0;
+				C_T1 = 0;
+				C_R1 = 0;
+				C_U1 = 0;
+				C_C1 = 0;
+				C_C2 = 0;
+				C_I2 = 0;
+				C_O1 = 0;
+				C_N2 = 0;
+				C_E1 = 0;
+				C_S2 = 0;
+				Y_P = 10;
+				Y_R = 10;
+				Y_E = 10;
+				Y_G = 10;
+				Y_U = 10;
+				Y_N = 10;
+				Y_T = 10;
+				Y_A = 10;
+				Y_CERO = 10;
+				Y_UNO = 10;
+				Y_DOS = 10;
+
+				cambio = 0;
+				X_P1 = 700;
+				Y_P1 = 450;
+				W_P1 = 10;
+				H_P1 = 10;
+				
+				porcentajes = 1;
+				tecla = 1;
+				navecontrol = 0;
+				xcontrol = 0;
+
+				CargaDos->Enabled = true;
+
+			}
+		}
+		if (escapep2) {
+			if (e->KeyCode == Keys::Escape) {
+
+
+				PreguntaDos->Enabled = false;
+				Mundo2->Enabled = true;
+				escapep2 = false;
+				C_P = 1;
+				C_R = 0;
+				C_E = 0;
+				C_G = 0;
+				C_U = 0;
+				C_N = 0;
+				C_T = 0;
+				C_A = 0;
+				C_CERO = 0;
+				C_UNO = 0;
+				C_I1 = 1;
+				C_N1 = 0;
+				C_S1 = 0;
+				C_T1 = 0;
+				C_R1 = 0;
+				C_U1 = 0;
+				C_C1 = 0;
+				C_C2 = 0;
+				C_I2 = 0;
+				C_O1 = 0;
+				C_N2 = 0;
+				C_E1 = 0;
+				C_S2 = 0;
+				Y_P = 10;
+				Y_R = 10;
+				Y_E = 10;
+				Y_G = 10;
+				Y_U = 10;
+				Y_N = 10;
+				Y_T = 10;
+				Y_A = 10;
+				Y_CERO = 10;
+				Y_UNO = 10;
+				Y_DOS = 10;
+
+				cambio = 0;
+				X_P1 = 700;
+				Y_P1 = 450;
+				W_P1 = 10;
+				H_P1 = 10;
+			}
+		}
+		if (escaper2) {
+			if (e->KeyCode == Keys::Escape) {
+
+
+				RespuestaDos->Enabled = false;
+				CargaTres->Enabled = true;
+				escaper2 = false;
+				C_P = 1;
+				C_R = 0;
+				C_E = 0;
+				C_G = 0;
+				C_U = 0;
+				C_N = 0;
+				C_T = 0;
+				C_A = 0;
+				C_CERO = 0;
+				C_UNO = 0;
+				C_I1 = 0;
+				C_N1 = 0;
+				C_S1 = 0;
+				C_T1 = 0;
+				C_R1 = 0;
+				C_U1 = 0;
+				C_C1 = 0;
+				C_C2 = 0;
+				C_I2 = 0;
+				C_O1 = 0;
+				C_N2 = 0;
+				C_E1 = 0;
+				C_S2 = 0;
+				Y_P = 10;
+				Y_R = 10;
+				Y_E = 10;
+				Y_G = 10;
+				Y_U = 10;
+				Y_N = 10;
+				Y_T = 10;
+				Y_A = 10;
+				Y_CERO = 10;
+				Y_UNO = 10;
+				Y_DOS = 10;
+
+				cambio = 0;
+				X_P1 = 700;
+				Y_P1 = 450;
+				W_P1 = 10;
+				H_P1 = 10;
+
+				porcentajes = 1;
+				tecla = 1;
+				navecontrol = 0;
+				xcontrol = 0;
+				Nave->setXt(800);
+			}
+		}
+		if (escapep3) {
+			if (e->KeyCode == Keys::Escape) {
+
+
+				PreguntaTres->Enabled = false;
+				InstruccionesDos->Enabled = true;
+				escapep3 = false;
+				C_P = 1;
+				C_R = 0;
+				C_E = 0;
+				C_G = 0;
+				C_U = 0;
+				C_N = 0;
+				C_T = 0;
+				C_A = 0;
+				C_CERO = 0;
+				C_UNO = 0;
+				C_I1 = 1;
+				C_N1 = 0;
+				C_S1 = 0;
+				C_T1 = 0;
+				C_R1 = 0;
+				C_U1 = 0;
+				C_C1 = 0;
+				C_C2 = 0;
+				C_I2 = 0;
+				C_O1 = 0;
+				C_N2 = 0;
+				C_E1 = 0;
+				C_S2 = 0;
+				Y_P = 10;
+				Y_R = 10;
+				Y_E = 10;
+				Y_G = 10;
+				Y_U = 10;
+				Y_N = 10;
+				Y_T = 10;
+				Y_A = 10;
+				Y_CERO = 10;
+				Y_UNO = 10;
+				Y_DOS = 10;
+
+				cambio = 0;
+				X_P1 = 700;
+				Y_P1 = 450;
+				W_P1 = 10;
+				H_P1 = 10;
+
+				porcentajes = 1;
+				tecla = 1;
+				navecontrol = 0;
+				xcontrol = 0;
+			}
+		}
+
+		if (escapei2) {
+			if (e->KeyCode == Keys::Escape) {
+
+				escapei2 = false;
+				escapei2_1 = true;
+				
+				tecla = 1;
+				controltecla = 1;
+				cambioin = 0;
+				
+			}
+		}
+
+		if (escapei2_2) {
+
+			if (e->KeyCode == Keys::Escape) {
+				
+				escapei2_1 = false;
+
+				InstruccionesDos->Enabled = false;
+				Mundo3->Enabled = true;
+
+				C_P = 1;
+				C_R = 0;
+				C_E = 0;
+				C_G = 0;
+				C_U = 0;
+				C_N = 0;
+				C_T = 0;
+				C_A = 0;
+				C_CERO = 0;
+				C_UNO = 0;
+				C_I1 = 0;
+				C_N1 = 0;
+				C_S1 = 0;
+				C_T1 = 0;
+				C_R1 = 0;
+				C_U1 = 0;
+				C_C1 = 0;
+				C_C2 = 0;
+				C_I2 = 0;
+				C_O1 = 0;
+				C_N2 = 0;
+				C_E1 = 0;
+				C_S2 = 0;
+				Y_P = 10;
+				Y_R = 10;
+				Y_E = 10;
+				Y_G = 10;
+				Y_U = 10;
+				Y_N = 10;
+				Y_T = 10;
+				Y_A = 10;
+				Y_CERO = 10;
+				Y_UNO = 10;
+				Y_DOS = 10;
+
+				cambio = 0;
+				X_P1 = 700;
+				Y_P1 = 450;
+				W_P1 = 10;
+				H_P1 = 10;
 
 
 
+
+			}
+		}
+		if (escaper3) {
+			if (e->KeyCode == Keys::Escape) {
+
+
+				RespuestaTres->Enabled = false;
+				escaper3 = false;
+				C_P = 1;
+				C_R = 0;
+				C_E = 0;
+				C_G = 0;
+				C_U = 0;
+				C_N = 0;
+				C_T = 0;
+				C_A = 0;
+				C_CERO = 0;
+				C_UNO = 0;
+				C_I1 = 0;
+				C_N1 = 0;
+				C_S1 = 0;
+				C_T1 = 0;
+				C_R1 = 0;
+				C_U1 = 0;
+				C_C1 = 0;
+				C_C2 = 0;
+				C_I2 = 0;
+				C_O1 = 0;
+				C_N2 = 0;
+				C_E1 = 0;
+				C_S2 = 0;
+				Y_P = 10;
+				Y_R = 10;
+				Y_E = 10;
+				Y_G = 10;
+				Y_U = 10;
+				Y_N = 10;
+				Y_T = 10;
+				Y_A = 10;
+				Y_CERO = 10;
+				Y_UNO = 10;
+				Y_DOS = 10;
+
+				cambio = 0;
+				X_P1 = 700;
+				Y_P1 = 450;
+				W_P1 = 10;
+				H_P1 = 10;
+			}
+		}
+		
 	}
 	private: System::Void Menu_Tick(System::Object^ sender, System::EventArgs^ e) {
 
@@ -757,9 +1232,7 @@ private: System::Windows::Forms::Timer^ InstruccionesDos;
 	private: System::Void Mundo1_Tick(System::Object^ sender, System::EventArgs^ e) {
 
 		bool normal = true;
-		canvas = this->CreateGraphics();
-		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
-		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
+		
 		buffer->Graphics->DrawImage(fondomundo1, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
 
 		Alien->cambiardxdy(teclapulsada);
@@ -787,11 +1260,16 @@ private: System::Windows::Forms::Timer^ InstruccionesDos;
 		{
 			RespuestaUno->Enabled = true;
 			Mundo1->Enabled = false;
+			porcentajes = 1;
+			tecla = 1;
+			navecontrol = 0;
+			xcontrol = 0;
 			Alien->setX(50);
 			Alien->setY(250);
 			Alien->setVidas(3);
 		}
 		Marciano1->mostrarimagen(buffer->Graphics);
+
 		if (contador % 2 == 0)Marciano1->animacion();
 
 		for (int i = 0; i < robots->Count; i++) {
@@ -856,9 +1334,7 @@ private: System::Windows::Forms::Timer^ InstruccionesDos;
 
 		buffer->Render(canvas);
 
-		delete buffer;
-		delete espacio_para_buffer;
-		delete canvas;
+		
 		contador++;
 
 
@@ -1189,52 +1665,69 @@ private: System::Void Carga1_Tick(System::Object^ sender, System::EventArgs^ e) 
 		buffer->Graphics->Clear(Color::Black);
 
 		buffer->Graphics->DrawImage(Carga1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, Carga1->Width, Carga1->Height, GraphicsUnit::Pixel);
-		buffer->Graphics->DrawImage(Nave, X_Nave, Y_Nave);
 
-		X_Nave += 50;
-		xcontrol += 50;
+		
+		
 
 
 		Cargas->mover_imagen(porcentajes);
 		Cargas->mostrar_imagen(buffer->Graphics);
-
-
-		for (int i = 0; i < 9; i++) {
+		
+		
+		Nave->mostrar_nave(buffer->Graphics);
+		Nave->mover_nave(tecla);
+		
+		xcontrol += 50;
+		navecontrol += 30;
+		
 
 			if (xcontrol == 150)
 			{
 				xcontrol = 0;
+				
 				porcentajes++;
 
 			}
 
-		}
+			if (navecontrol == 30) {
+
+				tecla++;
+				navecontrol = 0;
+			}
+		
+			if (tecla == 11)
+				tecla = 1;
+
+		
+			if (porcentajes == 10)
+			{
+				CargaUno->Enabled = false;
+				PreguntaUno->Enabled = true;
+				tecla = 1;
+				controltecla = 1;
+
+			
+			}
+		
+
+
 
 		buffer->Render(canvas);
-
-		if (X_Nave > 1500)
-
-		{
-
-			CargaUno->Enabled = false;
-			PreguntaUno->Enabled = true;
-		}
-
 	}
 	private: System::Void Pregunta1_Tick(System::Object^ sender, System::EventArgs^ e) {
 
 		buffer->Graphics->Clear(Color::Black);
 		buffer->Graphics->DrawImage(fondopregunta1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta1->Width, fondopregunta1->Height, GraphicsUnit::Pixel);
-		buffer->Graphics->DrawImage(P, 400 - ancho_pregunta, Y_P);
-		buffer->Graphics->DrawImage(R, 480 - ancho_pregunta, Y_R);
-		buffer->Graphics->DrawImage(E, 565 - ancho_pregunta, Y_E);
-		buffer->Graphics->DrawImage(G, 645 - ancho_pregunta, Y_G);
-		buffer->Graphics->DrawImage(Up, 725 - ancho_pregunta, Y_U);
-		buffer->Graphics->DrawImage(Np, 810 - ancho_pregunta, Y_N);
-		buffer->Graphics->DrawImage(T, 890 - ancho_pregunta, Y_T);
-		buffer->Graphics->DrawImage(Ap, 975 - ancho_pregunta, Y_A);
-		buffer->Graphics->DrawImage(CERO, 1100 - ancho_pregunta, Y_CERO);
-		buffer->Graphics->DrawImage(UNO, 1190 - ancho_pregunta, Y_UNO);
+		buffer->Graphics->DrawImage(P, 370 - ancho_pregunta, Y_P);
+		buffer->Graphics->DrawImage(R, 450 - ancho_pregunta, Y_R);
+		buffer->Graphics->DrawImage(E, 535 - ancho_pregunta, Y_E);
+		buffer->Graphics->DrawImage(G, 615 - ancho_pregunta, Y_G);
+		buffer->Graphics->DrawImage(Up, 695 - ancho_pregunta, Y_U);
+		buffer->Graphics->DrawImage(Np, 780 - ancho_pregunta, Y_N);
+		buffer->Graphics->DrawImage(T, 860 - ancho_pregunta, Y_T);
+		buffer->Graphics->DrawImage(Ap, 945 - ancho_pregunta, Y_A);
+		buffer->Graphics->DrawImage(CERO, 1070 - ancho_pregunta, Y_CERO);
+		buffer->Graphics->DrawImage(UNO, 1160 - ancho_pregunta, Y_UNO);
 
 		int caida1 = 4;
 		int subida = 2;
@@ -1340,10 +1833,9 @@ private: System::Void Carga1_Tick(System::Object^ sender, System::EventArgs^ e) 
 
 		}
 
-		if (cambio == 200) {
+		if (cambio >= 100) {
 
-			PreguntaUno->Enabled = false;
-			InstruccionesUno->Enabled = true;
+			escapep1 = true;
 			
 			
 		}
@@ -1487,7 +1979,6 @@ private: System::Void Carga1_Tick(System::Object^ sender, System::EventArgs^ e) 
 		if (C_S2 == 4) {
 
 			InstruccionesUno->Interval = 1000;
-
 			Teclas->mover_tecla(tecla);
 			Teclas->mostrar_tecla(buffer->Graphics);
 			AlienInstrucciones->mover_alieninstrucciones(tecla);
@@ -1513,58 +2004,16 @@ private: System::Void Carga1_Tick(System::Object^ sender, System::EventArgs^ e) 
 
 			}
 
-
 			controltecla += 1;
 
 
+		if (cambioin >= 2) {
+			escapei1 = true;
 
-
-
-
+			
 		}
-		if (cambioin == 2) {
-			InstruccionesUno->Enabled = false;
-			Mundo1->Enabled = true;
-			C_P = 1;
-			C_R = 0;
-			C_E = 0;
-			C_G = 0;
-			C_U = 0;
-			C_N = 0;
-			C_T = 0;
-			C_A = 0;
-			C_CERO = 0;
-			C_UNO = 0;
-			C_I1 = 0;
-			C_N1 = 0;
-			C_S1 = 0;
-			C_T1 = 0;
-			C_R1 = 0;
-			C_U1 = 0;
-			C_C1 = 0;
-			C_C2 = 0;
-			C_I2 = 0;
-			C_O1 = 0;
-			C_N2 = 0;
-			C_E1 = 0;
-			C_S2 = 0;
-			Y_P = 10;
-			Y_R = 10;
-			Y_E = 10;
-			Y_G = 10;
-			Y_U = 10;
-			Y_N = 10;
-			Y_T = 10;
-			Y_A = 10;
-			Y_CERO = 10;
-		    Y_UNO = 10; 
-			Y_DOS = 10;
 
-		 cambio = 0;
-		 X_P1 = 700;
-		 Y_P1 = 450;
-		 W_P1 = 10;
-		 H_P1 = 10;
+		
 		}
 
 		buffer->Render(canvas);
@@ -1701,49 +2150,10 @@ private: System::Void Carga1_Tick(System::Object^ sender, System::EventArgs^ e) 
 
 		}
 
-		if (cambio == 200) {
+		if (cambio >= 100) {
 
-			RespuestaUno->Enabled = false;
-			C_P = 1;
-			C_R = 0;
-			C_E = 0;
-			C_G = 0;
-			C_U = 0;
-			C_N = 0;
-			C_T = 0;
-			C_A = 0;
-			C_CERO = 0;
-			C_UNO = 0;
-			C_DOS = 0;
-			C_I1 = 0;
-			C_N1 = 0;
-			C_S1 = 0;
-			C_T1 = 0;
-			C_R1 = 0;
-			C_U1 = 0;
-			C_C1 = 0;
-			C_C2 = 0;
-			C_I2 = 0;
-			C_O1 = 0;
-			C_N2 = 0;
-			C_E1 = 0;
-			C_S2 = 0;
-			Y_P = 10;
-			Y_R = 10;
-			Y_E = 10;
-			Y_G = 10;
-			Y_U = 10;
-			Y_N = 10;
-			Y_T = 10;
-			Y_A = 10;
-			Y_CERO = 10;
-			Y_UNO = 10;
-			Y_DOS = 10;
-			cambio = 0;
-			X_P1 = 700;
-			Y_P1 = 450;
-			W_P1 = 10;
-			H_P1 = 10;
+			escaper1 = true;
+			Nave->setXt(800);
 		}
 
 		buffer->Render(g);
@@ -1874,50 +2284,10 @@ private: System::Void PreguntaDos_Tick(System::Object^ sender, System::EventArgs
 
 	}
 
-	if (cambio == 200) {
+	if (cambio == 100) {
 
-		PreguntaDos->Enabled = false;
-		RespuestaDos->Enabled = true;
-		C_P = 1;
-		C_R = 0;
-		C_E = 0;
-		C_G = 0;
-		C_U = 0;
-		C_N = 0;
-		C_T = 0;
-		C_A = 0;
-		C_CERO = 0;
-		C_UNO = 0;
-		C_DOS = 0;
-		C_I1 = 0;
-		C_N1 = 0;
-		C_S1 = 0;
-		C_T1 = 0;
-		C_R1 = 0;
-		C_U1 = 0;
-		C_C1 = 0;
-		C_C2 = 0;
-		C_I2 = 0;
-		C_O1 = 0;
-		C_N2 = 0;
-		C_E1 = 0;
-		C_S2 = 0;
-		Y_P = 10;
-		Y_R = 10;
-		Y_E = 10;
-		Y_G = 10;
-		Y_U = 10;
-		Y_N = 10;
-		Y_T = 10;
-		Y_A = 10;
-		Y_CERO = 10;
-		Y_UNO = 10;
-		Y_DOS = 10;
-		cambio = 0;
-		X_P1 = 700;
-		Y_P1 = 450;
-		W_P1 = 10;
-		H_P1 = 10;
+		escapep2 = true;
+		
 
 	}
 
@@ -2058,55 +2428,14 @@ private: System::Void RespuestaDos_Tick(System::Object^ sender, System::EventArg
 
 	}
 
-	if (cambio == 200) {
+	if (cambio >= 100) {
 
-		RespuestaDos->Enabled = false;
-		PreguntaTres->Enabled = true;
+		escaper2 = true;
 
-
-		C_P = 1;
-		C_R = 0;
-		C_E = 0;
-		C_G = 0;
-		C_U = 0;
-		C_N = 0;
-		C_T = 0;
-		C_A = 0;
-		C_CERO = 0;
-		C_UNO = 0;
-		C_DOS = 0;
-		C_I1 = 0;
-		C_N1 = 0;
-		C_S1 = 0;
-		C_T1 = 0;
-		C_R1 = 0;
-		C_U1 = 0;
-		C_C1 = 0;
-		C_C2 = 0;
-		C_I2 = 0;
-		C_O1 = 0;
-		C_N2 = 0;
-		C_E1 = 0;
-		C_S2 = 0;
-		Y_P = 10;
-		Y_R = 10;
-		Y_E = 10;
-		Y_G = 10;
-		Y_U = 10;
-		Y_N = 10;
-		Y_T = 10;
-		Y_A = 10;
-		Y_CERO = 10;
-		Y_UNO = 10;
-		Y_DOS = 10;
-		cambio = 0;
-		X_P1 = 700;
-		Y_P1 = 450;
-		W_P1 = 10;
-		H_P1 = 10;
+		
 	}
 
-	buffer->Render(g);
+	buffer->Render(canvas);
 
 
 
@@ -2233,50 +2562,10 @@ private: System::Void PreguntaTres_Tick(System::Object^ sender, System::EventArg
 
 	}
 
-	if (cambio == 200) {
+	if (cambio >= 100) {
 
-		PreguntaTres->Enabled = false;
-		RespuestaTres->Enabled = true;
-		C_P = 1;
-		C_R = 0;
-		C_E = 0;
-		C_G = 0;
-		C_U = 0;
-		C_N = 0;
-		C_T = 0;
-		C_A = 0;
-		C_CERO = 0;
-		C_UNO = 0;
-		C_DOS = 0;
-		C_I1 = 0;
-		C_N1 = 0;
-		C_S1 = 0;
-		C_T1 = 0;
-		C_R1 = 0;
-		C_U1 = 0;
-		C_C1 = 0;
-		C_C2 = 0;
-		C_I2 = 0;
-		C_O1 = 0;
-		C_N2 = 0;
-		C_E1 = 0;
-		C_S2 = 0;
-		Y_P = 10;
-		Y_R = 10;
-		Y_E = 10;
-		Y_G = 10;
-		Y_U = 10;
-		Y_N = 10;
-		Y_T = 10;
-		Y_A = 10;
-		Y_CERO = 10;
-		Y_UNO = 10;
-		Y_DOS = 10;
-		cambio = 0;
-		X_P1 = 700;
-		Y_P1 = 450;
-		W_P1 = 10;
-		H_P1 = 10;
+		escapep3 = true;
+		
 
 	}
 
@@ -2419,7 +2708,7 @@ private: System::Void RespuestaTres_Tick(System::Object^ sender, System::EventAr
 
 	}
 
-	if (cambio == 200) {
+	if (cambio >= 100) {
 
 		RespuestaTres->Enabled = false;
 
@@ -2473,8 +2762,346 @@ private: System::Void RespuestaTres_Tick(System::Object^ sender, System::EventAr
 }
 private: System::Void InstruccionesDos_Tick(System::Object^ sender, System::EventArgs^ e) {
 
+	buffer->Graphics->Clear(Color::Black);
+	buffer->Graphics->DrawImage(fondopregunta3, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta3->Width, fondopregunta3->Height, GraphicsUnit::Pixel);
+
+	buffer->Graphics->DrawImage(I1, 400 - ancho_instrucciones, Y_I1);
+	buffer->Graphics->DrawImage(N1, 477 - ancho_instrucciones, Y_N1);
+	buffer->Graphics->DrawImage(S1, 555 - ancho_instrucciones, Y_S1);
+	buffer->Graphics->DrawImage(T1, 635 - ancho_instrucciones, Y_T1);
+	buffer->Graphics->DrawImage(R1, 725 - ancho_instrucciones, Y_R1);
+	buffer->Graphics->DrawImage(U1, 815 - ancho_instrucciones, Y_U1);
+	buffer->Graphics->DrawImage(C1, 905 - ancho_instrucciones, Y_C1);
+	buffer->Graphics->DrawImage(C2, 995 - ancho_instrucciones, Y_C2);
+	buffer->Graphics->DrawImage(I2, 1080 - ancho_instrucciones, Y_I2);
+	buffer->Graphics->DrawImage(O1, 1155 - ancho_instrucciones, Y_O1);
+	buffer->Graphics->DrawImage(N2, 1235 - ancho_instrucciones, Y_N2);
+	buffer->Graphics->DrawImage(E1, 1312 - ancho_instrucciones, Y_E1);
+	buffer->Graphics->DrawImage(S2, 1405 - ancho_instrucciones, Y_S2);
 
 
+	int caida1 = 4;
+	int subida = 2;
+	int caida2 = 1;
+
+
+	if (C_I1 == 1)
+	{
+		Y_I1 += caida1;
+		if (Y_I1 >= 80) { Y_I1 = 80; C_I1 = 2; }
+	}
+	if (C_I1 == 2)
+	{
+		Y_I1 -= subida;
+		if (Y_I1 <= 50) { Y_I1 = 50; C_I1 = 3; }
+	}
+	if (C_I1 == 3)
+	{
+		Y_I1 += caida2;
+		if (Y_I1 >= 80) { Y_I1 = 80; C_I1 = 4; }
+	}
+
+
+
+
+	if (C_N1 == 1) { Y_N1 += caida1; if (Y_N1 >= 80) { Y_N1 = 80; C_N1 = 2; } }
+	if (C_N1 == 2) { Y_N1 -= subida; if (Y_N1 <= 50) { Y_N1 = 50; C_N1 = 3; } }
+	if (C_N1 == 3) { Y_N1 += caida2; if (Y_N1 >= 80) { Y_N1 = 80; C_N1 = 4; } }
+
+
+	if (C_S1 == 1) { Y_S1 += caida1; if (Y_S1 >= 80) { Y_S1 = 80; C_S1 = 2; } }
+	else if (C_S1 == 2) { Y_S1 -= subida; if (Y_S1 <= 50) { Y_S1 = 50; C_S1 = 3; } }
+	else if (C_S1 == 3) { Y_S1 += caida2; if (Y_S1 >= 80) { Y_S1 = 80; C_S1 = 4; } }
+
+
+	if (C_T1 == 1) { Y_T1 += caida1; if (Y_T1 >= 80) { Y_T1 = 80; C_T1 = 2; } }
+	else if (C_T1 == 2) { Y_T1 -= subida; if (Y_T1 <= 50) { Y_T1 = 50; C_T1 = 3; } }
+	else if (C_T1 == 3) { Y_T1 += caida2; if (Y_T1 >= 80) { Y_T1 = 80; C_T1 = 4; } }
+
+	if (C_R1 == 1) { Y_R1 += caida1; if (Y_R1 >= 80) { Y_R1 = 80; C_R1 = 2; } }
+	else if (C_R1 == 2) { Y_R1 -= subida; if (Y_R1 <= 50) { Y_R1 = 50; C_R1 = 3; } }
+	else if (C_R1 == 3) { Y_R1 += caida2; if (Y_R1 >= 80) { Y_R1 = 80; C_R1 = 4; } }
+
+
+	if (C_U1 == 1) { Y_U1 += caida1; if (Y_U1 >= 80) { Y_U1 = 80; C_U1 = 2; } }
+	else if (C_U1 == 2) { Y_U1 -= subida; if (Y_U1 <= 50) { Y_U1 = 50; C_U1 = 3; } }
+	else if (C_U1 == 3) { Y_U1 += caida2; if (Y_U1 >= 80) { Y_U1 = 80; C_U1 = 4; } }
+
+
+	if (C_C1 == 1) { Y_C1 += caida1; if (Y_C1 >= 80) { Y_C1 = 80; C_C1 = 2; } }
+	else if (C_C1 == 2) { Y_C1 -= subida; if (Y_C1 <= 50) { Y_C1 = 50; C_C1 = 3; } }
+	else if (C_C1 == 3) { Y_C1 += caida2; if (Y_C1 >= 80) { Y_C1 = 80; C_C1 = 4; } }
+
+
+	if (C_C2 == 1) { Y_C2 += caida1; if (Y_C2 >= 80) { Y_C2 = 80; C_C2 = 2; } }
+	else if (C_C2 == 2) { Y_C2 -= subida; if (Y_C2 <= 50) { Y_C2 = 50; C_C2 = 3; } }
+	else if (C_C2 == 3) { Y_C2 += caida2; if (Y_C2 >= 80) { Y_C2 = 80; C_C2 = 4; } }
+
+
+	if (C_I2 == 1) { Y_I2 += caida1; if (Y_I2 >= 80) { Y_I2 = 80; C_I2 = 2; } }
+	else if (C_I2 == 2) { Y_I2 -= subida; if (Y_I2 <= 50) { Y_I2 = 50; C_I2 = 3; } }
+	else if (C_I2 == 3) { Y_I2 += caida2; if (Y_I2 >= 80) { Y_I2 = 80; C_I2 = 4; } }
+
+
+	if (C_O1 == 1) { Y_O1 += caida1; if (Y_O1 >= 80) { Y_O1 = 80; C_O1 = 2; } }
+	else if (C_O1 == 2) { Y_O1 -= subida; if (Y_O1 <= 50) { Y_O1 = 50; C_O1 = 3; } }
+	else if (C_O1 == 3) { Y_O1 += caida2; if (Y_O1 >= 80) { Y_O1 = 80; C_O1 = 4; } }
+
+	if (C_N2 == 1) { Y_N2 += caida1; if (Y_N2 >= 80) { Y_N2 = 80; C_N2 = 2; } }
+	else if (C_N2 == 2) { Y_N2 -= subida; if (Y_N2 <= 50) { Y_N2 = 50; C_N2 = 3; } }
+	else if (C_N2 == 3) { Y_N2 += caida2; if (Y_N2 >= 80) { Y_N2 = 80; C_N2 = 4; } }
+
+	if (C_E1 == 1) { Y_E1 += caida1; if (Y_E1 >= 80) { Y_E1 = 80; C_E1 = 2; } }
+	else if (C_E1 == 2) { Y_E1 -= subida; if (Y_E1 <= 50) { Y_E1 = 50; C_E1 = 3; } }
+	else if (C_E1 == 3) { Y_E1 += caida2; if (Y_E1 >= 80) { Y_E1 = 80; C_E1 = 4; } }
+
+	if (C_S2 == 1) { Y_S2 += caida1; if (Y_S2 >= 80) { Y_S2 = 80; C_S2 = 2; } }
+	else if (C_S2 == 2) { Y_S2 -= subida; if (Y_S2 <= 50) { Y_S2 = 50; C_S2 = 3; } }
+	else if (C_S2 == 3) { Y_S2 += caida2; if (Y_S2 >= 80) { Y_S2 = 80; C_S2 = 4; } }
+
+
+
+	if (Y_I1 == 38)
+		C_N1 = 1;
+	if (Y_N1 == 38)
+		C_S1 = 1;
+	if (Y_S1 == 38)
+		C_T1 = 1;
+	if (Y_T1 == 38)
+		C_R1 = 1;
+	if (Y_R1 == 38)
+		C_U1 = 1;
+	if (Y_U1 == 38)
+		C_C1 = 1;
+	if (Y_C1 == 38)
+		C_C2 = 1;
+	if (Y_C2 == 38)
+		C_I2 = 1;
+	if (Y_I2 == 38)
+		C_O1 = 1;
+	if (Y_O1 == 38)
+		C_N2 = 1;
+	if (Y_N2 == 38)
+		C_E1 = 1;
+	if (Y_E1 == 38)
+		C_S2 = 1;
+
+	
+	
+	
+	
+	
+	
+	
+	//---------------------------------------------------------
+
+	if (C_S2 == 4) {
+		
+			if (!escapei2_1)
+		{
+
+
+			InstruccionesDos->Interval = 1000;
+			Teclas->mover_tecla(tecla);
+			Teclas->mostrar_tecla(buffer->Graphics);
+			SteveInstrucciones->mover_alieninstrucciones(tecla);
+			SteveInstrucciones->mostrar_alieninstrucciones(buffer->Graphics);
+
+
+
+			if (controltecla == 1)
+				tecla = 1;
+
+			if (controltecla == 1)
+				tecla = 2;
+			if (controltecla == 2)
+				tecla = 3;
+			if (controltecla == 3)
+				tecla = 4;
+			if (controltecla == 4)
+				tecla = 5;
+			if (controltecla == 5) {
+				controltecla = 1;
+				tecla = 1;
+				cambioin++;
+
+			}
+
+			controltecla += 1;
+
+
+
+		}
+
+
+
+			if (cambioin == 2)
+				
+				escapei2 = true;
+
+
+
+
+
+
+			if (escapei2_1) {
+
+
+				Teclas->mover_teclaD(tecla);
+				Teclas->mostrar_tecla(buffer->Graphics);
+				MiniPekkaInstrucciones->mover_alieninstrucciones(tecla);
+				MiniPekkaInstrucciones->mostrar_alieninstrucciones(buffer->Graphics);
+
+
+
+				if (controltecla == 1)
+					tecla = 1;
+
+				if (controltecla == 1)
+					tecla = 2;
+				if (controltecla == 2)
+					tecla = 3;
+				if (controltecla == 3)
+					tecla = 4;
+				if (controltecla == 4)
+					tecla = 5;
+				if (controltecla == 5) {
+					controltecla = 0;
+					tecla = 1;
+					cambioin++;
+
+				}
+
+				controltecla += 1;
+
+
+				if (cambioin >= 2)
+					escapei2_2 = true;
+
+
+
+				
+			}
+		
+	}
+	
+	
+	
+	buffer->Render(canvas);
+
+
+
+
+}
+private: System::Void CargaDos_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+	
+	buffer->Graphics->Clear(Color::Black);
+
+	buffer->Graphics->DrawImage(Carga2, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, Carga2->Width, Carga2->Height, GraphicsUnit::Pixel);
+
+
+
+
+
+	Cargas->mover_imagen(porcentajes);
+	Cargas->mostrar_imagen(buffer->Graphics);
+
+
+	Nave->mostrar_nave(buffer->Graphics);
+	Nave->mover_nave(tecla);
+
+	
+
+	xcontrol += 50;
+	navecontrol += 30;
+
+
+	if (xcontrol == 150)
+	{
+		xcontrol = 0;
+
+		porcentajes++;
+
+	}
+
+	if (navecontrol == 30) {
+
+		tecla++;
+		navecontrol = 0;
+	}
+
+	if (tecla == 11)
+		tecla = 1;
+
+
+	if (porcentajes == 10)
+	{
+		CargaDos->Enabled = false;
+		PreguntaDos->Enabled = true;
+		porcentajes = 1;
+		tecla = 1;
+		navecontrol = 0;
+		xcontrol = 0;
+	}
+
+
+	buffer->Render(canvas);
+
+
+}
+private: System::Void CargaTres_Tick(System::Object^ sender, System::EventArgs^ e) {
+	buffer->Graphics->Clear(Color::Black);
+
+	buffer->Graphics->DrawImage(Carga3, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, Carga3->Width, Carga3->Height, GraphicsUnit::Pixel);
+
+
+
+
+
+	Cargas->mover_imagen(porcentajes);
+	Cargas->mostrar_imagen(buffer->Graphics);
+
+
+	Nave->mostrar_nave(buffer->Graphics);
+	Nave->mover_nave(tecla);
+
+	xcontrol += 50;
+	navecontrol += 30;
+
+
+	if (xcontrol == 150)
+	{
+		xcontrol = 0;
+
+		porcentajes++;
+
+	}
+
+	if (navecontrol == 30) {
+
+		tecla++;
+		navecontrol = 0;
+	}
+
+	if (tecla == 11)
+		tecla = 1;
+
+
+	if (porcentajes == 10)
+	{
+		CargaTres->Enabled = false;
+		PreguntaTres->Enabled = true;
+		porcentajes = 1;
+		tecla = 1;
+		navecontrol = 0;
+		xcontrol = 0;
+	}
+
+
+
+
+	buffer->Render(canvas);
 
 
 
