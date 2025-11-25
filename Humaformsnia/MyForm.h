@@ -23,8 +23,6 @@ namespace Humaformsnia {
 	using namespace System::Collections::Generic;
 	using namespace System::Drawing::Imaging;
 
-
-
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>

@@ -42,7 +42,7 @@ Jugador::~Jugador()
 {
 }
 void Jugador::cambiardxdy(Direccion num) {
-	switch (num) 
+	switch (num)
 	{
 	case Arriba1:	dx = 0; dy = -5; indicecolumnas++; break;
 	case Abajo1:		dx = 0; dy = 5; indicecolumnas++; break;
