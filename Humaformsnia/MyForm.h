@@ -1216,7 +1216,7 @@ private: System::Windows::Forms::Button^ BtnNo;
 			final = true;
 		}
 		if (Minipekka->getY() == 700) {
-			//activar tick final
+			//activar tick final 
 
 			this->Mundo3->Enabled = false;
 		}
