@@ -12,7 +12,7 @@ public:
 
     void cambiar_imagen(String^ nombre_archivo) override;
     void mover(Graphics^ canvas) override;
-    void mostrar(Graphics^ canvas) override;
+    void mostrar(Graphics^ canvas) override; 
 
 
 };
