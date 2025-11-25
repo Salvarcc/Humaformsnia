@@ -158,7 +158,7 @@ namespace Humaformsnia {
 			Carga1 = gcnew Bitmap(gcnew String("Images//Carga1.jpeg"));
 
 			Nave = gcnew Bitmap(gcnew String("Images//NAVEE.png"));
-
+ 
 			fondopregunta1 = gcnew Bitmap(gcnew String("Images//Fondo1.png"));
 
 			espacio_para_buffer = BufferedGraphicsManager::Current;
