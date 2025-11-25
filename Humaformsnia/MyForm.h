@@ -23,6 +23,8 @@ namespace Humaformsnia {
 	using namespace System::Collections::Generic;
 	using namespace System::Drawing::Imaging;
 
+
+
 	/// <summary>
 	/// Summary for MyForm
 	/// </summary>
@@ -208,7 +210,6 @@ namespace Humaformsnia {
 			bufferS = contexto->Allocate(g, this->ClientRectangle);
 
 
-
 			//game over_________
 
 			fondoGO = gcnew Bitmap(gcnew String("Images//fondo_go1.jpg"));
@@ -219,17 +220,18 @@ namespace Humaformsnia {
 			_G = gcnew Bitmap(gcnew String("images//g_game.jpg"));
 			_A = gcnew Bitmap(gcnew String("images//a_game.jpg"));
 			_M = gcnew Bitmap(gcnew String("images//m_game.jpg"));
-			_E_ = gcnew Bitmap(gcnew String("images//e_game_.jpg"));
-			_O = gcnew Bitmap(gcnew String("images//o_game_.jpg"));
+			_E_ = gcnew Bitmap(gcnew String("images//e_game_.png"));
+			_O = gcnew Bitmap(gcnew String("images//o_game_.png"));
 			_V = gcnew Bitmap(gcnew String("images//v_game.jpg"));
-			_E1_ = gcnew Bitmap(gcnew String("images//e_game_.jpg"));
+			_E1_ = gcnew Bitmap(gcnew String("images//e_game_.png"));
 			_R = gcnew Bitmap(gcnew String("images//r_game.jpg"));
-			P_go = gcnew Bitmap(gcnew String("images//person_.jpg"));
-			go = gcnew Bitmap(gcnew String("images//person__1.jpg"));
-			continua = gcnew Bitmap(gcnew String("images//continua_1.jpg"));
+			P_go = gcnew Bitmap(gcnew String("images//person_.png"));
+			go = gcnew Bitmap(gcnew String("images//person__1.png"));
+			continua = gcnew Bitmap(gcnew String("images//continua_1.png"));
 			this->KeyPreview = true;
 			contadorFondo = 0;
 			//__________________________________________________________________
+
 
 
 
@@ -496,9 +498,6 @@ namespace Humaformsnia {
 		int contadorFondo = 0;
 		int nivel_actual = 0;
 		//______________________________________
-
-
-
 	private: System::Windows::Forms::Timer^ Menu;
 	private: System::Windows::Forms::Timer^ Mundo1;
 	private: System::Windows::Forms::Timer^ Mundo2;
@@ -513,9 +512,10 @@ namespace Humaformsnia {
 		   System::Windows::Forms::Timer^ CargaUno;
 		   System::Windows::Forms::Timer^ PreguntaUno;
 		   System::Windows::Forms::Timer^ InstruccionesUno;
-	private: System::Windows::Forms::Timer^ GameOver;
-	private: System::Windows::Forms::Button^ BtnSi;
-	private: System::Windows::Forms::Button^ BtnNo;
+		   private: System::Windows::Forms::Timer^ GameOver;
+		  private: System::Windows::Forms::Button^ BtnSi;
+private: System::Windows::Forms::Button^ BtnNo;
+
 
 #pragma region Windows Form Designer generated code
 		   /// <summary>
@@ -642,8 +642,8 @@ namespace Humaformsnia {
 			   this->BtnSalir->MouseEnter += gcnew System::EventHandler(this, &MyForm::BtnSalir_MouseEnter);
 			   this->BtnSalir->MouseLeave += gcnew System::EventHandler(this, &MyForm::BtnSalir_MouseLeave);
 			   // 
-			   // BtnSi
-			   // 
+               // BtnSi
+               // 
 			   this->BtnSi->Image = gcnew Bitmap(gcnew String("images//si.jpg"));
 			   this->BtnSi->Location = System::Drawing::Point(540, 345);
 			   this->BtnSi->Name = L"BtnSi";
@@ -671,6 +671,7 @@ namespace Humaformsnia {
 			   // GAMEOVER
 			   // 
 			   this->GameOver->Tick += gcnew System::EventHandler(this, &MyForm::GameOver_Tick);
+
 			   // 
 			   // label1
 			   // 
@@ -693,15 +694,14 @@ namespace Humaformsnia {
 			   this->Controls->Add(this->BtnSalir);
 			   this->Controls->Add(this->BtnCreditos);
 			   this->Controls->Add(this->BtnJugar);
-			   this->Controls->Add(this->label1);
 			   this->Controls->Add(this->BtnSi);
 			   this->Controls->Add(this->BtnNo);
+			   this->Controls->Add(this->label1);
 			   this->KeyPreview = true;
 			   this->Name = L"MyForm";
 			   this->Text = L"MyForm";
 			   this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::MyForm_KeyDown);
 			   this->ResumeLayout(false);
-
 
 		   }
 #pragma endregion
@@ -897,7 +897,6 @@ namespace Humaformsnia {
 				GameOver->Enabled = true;
 				Mundo1->Enabled = false;
 			}
-
 			if (Colision(Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30,
 				aliado->getX() - 50, aliado->getY() - 50, aliado->getAncho() - 70, aliado->getAlto() - 50))
 			{
@@ -934,12 +933,11 @@ namespace Humaformsnia {
 	}
 
 
-
 		   // MUNDO_2____________________________________________________________________________________
 
 	private: System::Void Mundo2_Tick(System::Object^ sender, System::EventArgs^ e) {
-		nivel_actual = 2;
 		canvas = this->CreateGraphics();
+		nivel_actual = 2;
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		buffer->Graphics->DrawImage(fondo_mundo_2, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
@@ -960,7 +958,6 @@ namespace Humaformsnia {
 		Alien->moverimagen(teclapulsada);
 		Alien->mostrarimagen(buffer->Graphics);
 		Portal2->mostrarimagen(buffer->Graphics);
-
 		if (contador % 3 == 0)Portal2->animacion();
 		Portal3->mostrarimagen(buffer->Graphics);
 		if (contador % 3 == 0)Portal3->animacion();
@@ -997,11 +994,7 @@ namespace Humaformsnia {
 			Alien->setX(30);
 			Alien->setY(250);
 			Alien->setVidas(Alien->getVidas() - 1);
-
-
-
 		}
-
 
 		if (Alien->getVidas() == 3) {
 			Verde->mostrarimagen(buffer->Graphics);
@@ -1039,6 +1032,7 @@ namespace Humaformsnia {
 			// mostramos la pelota 
 			pelotas[i]->mostrar(buffer->Graphics);
 
+			//colision con el arbitro 
 			if (Colision(
 				Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, pelotas[i]->getX() - 50, pelotas[i]->getY() - 50, pelotas[i]->getAncho() - 70, pelotas[i]->getAlto() - 50))
 			{
@@ -1806,8 +1800,6 @@ namespace Humaformsnia {
 		buffer->Render(canvas);
 	}
 
-
-
 	private: System::Void GameOver_Tick(System::Object^ sender, System::EventArgs^ e) {
 
 
@@ -1917,12 +1909,13 @@ namespace Humaformsnia {
 		}
 	}
 
-	private: System::Void BtnNo_Click(System::Object^ sender, System::EventArgs^ e) {
+private: System::Void BtnNo_Click(System::Object^ sender, System::EventArgs^ e) {
 
 
-		Application::Exit();
+	Application::Exit();
 
 
-	}
+}
+
 	};
 }
