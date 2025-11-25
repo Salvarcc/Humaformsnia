@@ -8,7 +8,7 @@ private:
 
 public:
 
-    Robot(int x, int y);
+    Robot(int x, int y); 
 
     void cambiar_imagen(String^ nombre_archivo) override;
     void mover(Graphics^ canvas) override;
