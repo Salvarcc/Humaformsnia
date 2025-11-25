@@ -1,3 +1,4 @@
+
 #pragma once
 #include "Entidad.h"
 #include <string> 
