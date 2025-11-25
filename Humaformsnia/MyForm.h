@@ -134,7 +134,7 @@ namespace Humaformsnia {
 
 			I1 = gcnew Bitmap(gcnew String("Images//InstruccionesI.png")); 
 			N1 = gcnew Bitmap(gcnew String("Images//InstruccionesN.png"));
-			S1 = gcnew Bitmap(gcnew String("Images//InstruccionesS.png"));
+			S1 = gcnew Bitmap(gcnew String("Images//InstruccionesS.png")); 
 			T1 = gcnew Bitmap(gcnew String("Images//InstruccionesT.png"));
 			R1 = gcnew Bitmap(gcnew String("Images//InstruccionesR.png"));
 			U1 = gcnew Bitmap(gcnew String("Images//InstruccionesU.png"));
