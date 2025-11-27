@@ -1529,7 +1529,7 @@ namespace Humaformsnia {
 			indice_pelota++;
 			if (indice_pelota >= intervalo_creacion) {
 				Pelota^ nueva = gcnew Pelota(buffer->Graphics, contador_pelotas);
-				nueva->cambiar_imagen("Images//pelotica[1].jpg");
+				nueva->cambiar_imagen("Images//pelotas_.png");
 				pelotas->Add(nueva);
 				indice_pelota = 0;
 				contador_pelotas++;
