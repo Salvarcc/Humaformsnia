@@ -112,7 +112,7 @@ namespace Humaformsnia {
 			M1hablando->setX(800);
 			M1hablando->setY(100);
 			Brillo = gcnew Visual(1);
-			Brillo->cambiaimagen("Images//H.png");
+			Brillo->cambiaimagen("Images//Brillo.png");
 			Brillo->setX(600);
 			Brillo->setY(650);
 			fondomenu = gcnew Bitmap(gcnew String("images//FondoMenus.jpg"));
@@ -1529,7 +1529,7 @@ namespace Humaformsnia {
 			indice_pelota++;
 			if (indice_pelota >= intervalo_creacion) {
 				Pelota^ nueva = gcnew Pelota(buffer->Graphics, contador_pelotas);
-				nueva->cambiar_imagen("Images//pelotas_.png");
+				nueva->cambiar_imagen("Images//PELOTA.png");
 				pelotas->Add(nueva);
 				indice_pelota = 0;
 				contador_pelotas++;
@@ -1615,13 +1615,34 @@ namespace Humaformsnia {
 		}
 		arbitro->mover(buffer->Graphics);
 		arbitro->mostrar(buffer->Graphics);
+
+
+		if (Colision(
+			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, Portal2->getX() - 50, Portal2->getY() - 50, Portal2->getAncho() - 70, Portal2->getAlto() - 50))
+		{
+			RespuestaDos->Enabled = true;
+
+			Alien->setX(50);
+			Alien->setY(250);
+			Alien->setVidas(3);
+			Mundo2->Enabled = false;
+		}
+
+		if (Colision(
+			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, Portal3->getX() - 50, Portal3->getY() - 50, Portal3->getAncho() - 70, Portal3->getAlto() - 50))
+		{
+			RespuestaDos->Enabled = true;
+
+			Alien->setX(50);
+			Alien->setY(250);
+			Alien->setVidas(3);
+			Mundo2->Enabled = false;
+		}
 		teclapulsada = Direccion::Ninguno;
 
 		buffer->Render(canvas);
 		contador++;
-		delete buffer;
-		delete espacio_para_buffer;
-		delete canvas;
+		
 	}
 	private: System::Void Mundo3_Tick(System::Object^ sender, System::EventArgs^ e) {
 
@@ -1772,7 +1793,8 @@ namespace Humaformsnia {
 			final = true;
 		}
 		if (Minipekka->getY() == 700) {
-			//activar tick final
+			
+			this->RespuestaTres->Enabled = true;
 
 			this->Mundo3->Enabled = false;
 		}
@@ -1817,9 +1839,7 @@ namespace Humaformsnia {
 			}
 			entered = false;
 			buffer->Render(canvas);
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+			
 		}
 		if (NPCH == 2) {
 			buffer->Graphics->DrawImage(fondo_mundo_2, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
@@ -1848,9 +1868,7 @@ namespace Humaformsnia {
 			}
 			entered = false;
 			buffer->Render(canvas);
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+			
 		}
 	}
 
