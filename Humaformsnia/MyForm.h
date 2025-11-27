@@ -258,9 +258,11 @@ namespace Humaformsnia {
 			InstruccionesUno->Enabled = false;
 			InstruccionesDos->Enabled = false;
 			Mundo1->Enabled = false;
+			Mundo2->Enabled = true;
+
 			PreguntaUno->Enabled = false;
 			RespuestaUno->Enabled = false;
-			PreguntaDos->Enabled = true;
+			PreguntaDos->Enabled = false;
 			RespuestaDos->Enabled = false;
 			PreguntaTres->Enabled = false;
 			RespuestaTres->Enabled = false;
@@ -1590,10 +1592,7 @@ namespace Humaformsnia {
 				Alien->setX(100);
 				Alien->setY(300);
 				Alien->setVidas(Alien->getVidas() - 1);
-				if (Alien->getVidas() <= 0) {
-					Alien->setVidas(3);
-					Mundo2->Enabled = false;
-				}
+				
 			}
 
 			if (Colision(Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, arbitro->getX() - 50, arbitro->getY() - 50, arbitro->getAncho() - 70, arbitro->getAlto() - 50))
@@ -1608,11 +1607,8 @@ namespace Humaformsnia {
 				i--;
 			}
 		}
-		if (Alien->getVidas() == 0) {
+		
 
-			GameOver->Enabled = true;
-			Mundo2->Enabled = false;
-		}
 		arbitro->mover(buffer->Graphics);
 		arbitro->mostrar(buffer->Graphics);
 
@@ -1639,7 +1635,11 @@ namespace Humaformsnia {
 			Mundo2->Enabled = false;
 		}
 		teclapulsada = Direccion::Ninguno;
+		if (Alien->getVidas() == 0) {
 
+			GameOver->Enabled = true;
+			Mundo2->Enabled = false;
+		}
 		buffer->Render(canvas);
 		contador++;
 		
