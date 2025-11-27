@@ -16,12 +16,18 @@ public:
 	~Carga();
 	void cambia_imagen(String^ nombre_archivo);
 	void cambia_tecla(String^ nombre_archivo);
+	void cambia_nave(String^ nombre_archivo);
 	void cambia_alieninstrucciones(String^ nombre_archivo);
 	void mostrar_imagen(Graphics^ canvas);
 	void mostrar_tecla(Graphics^ canvas);
 	void mostrar_alieninstrucciones(Graphics^ canvas);
+	void mostrar_nave(Graphics^ canvas);
+
 	void mover_imagen(int porcentaje);
 	void mover_tecla(int tecla);
+	void mover_teclaD(int tecla);
+	void mover_nave(int tecla);
+
 	void mover_alieninstrucciones(int tecla);
 
 	//metodos de acceso
@@ -33,6 +39,8 @@ public:
 	int getY();
 	int getW();
 	int getH();
+	void setXt(int xt);
+
 };
 //implementacion
 Carga::Carga()
@@ -65,7 +73,7 @@ void Carga::mostrar_imagen(Graphics^ canvas)
 	//define un rectangulo para cada imagen
 	Rectangle cuadro = Rectangle(indice_columnas * W, indice_filas * H, W, H);
 	//zoom
-	Rectangle zoom = Rectangle(x, y, W, H);
+	Rectangle zoom = Rectangle(x + 50, y - 80, W * 1.5, H * 1.5);
 	//dibuja la imagen
 	canvas->DrawImage(mi_sprite, zoom, cuadro, GraphicsUnit::Pixel);
 }
@@ -107,6 +115,19 @@ void Carga::cambia_tecla(String^ nombre_archivo)
 	delete mi_sprite2;
 }
 
+void Carga::cambia_nave(String^ nombre_archivo)
+{
+
+	imagen = nombre_archivo;
+	//carga la imagen
+	Bitmap^ mi_sprite3 = gcnew Bitmap(gcnew String(imagen));
+
+	W = mi_sprite3->Width / 11;
+	H = mi_sprite3->Height / 1;
+
+	delete mi_sprite3;
+}
+
 
 void Carga::mostrar_tecla(Graphics^ canvas)
 {
@@ -139,6 +160,34 @@ void Carga::mover_tecla(int tecla)
 
 }
 
+void Carga::mover_teclaD(int tecla)
+{
+
+	indice_filas = 0;
+
+
+	if (tecla == 1)
+		indice_columnas = 0;
+	if (tecla == 2)
+		indice_columnas = 1;
+	if (tecla == 3)
+		indice_columnas = 2;
+	if (tecla == 4)
+		indice_columnas = 3;
+	if (tecla == 5)
+		indice_columnas = 4;
+}
+
+void Carga::mover_nave(int tecla)
+{
+	indice_filas = 0;
+
+	indice_columnas = tecla - 1;
+
+	xt += 50;
+
+}
+
 //-------------------------------------------
 
 void Carga::cambia_alieninstrucciones(String^ nombre_archivo)
@@ -163,6 +212,18 @@ void Carga::mostrar_alieninstrucciones(Graphics^ canvas)
 	Rectangle zoom = Rectangle(xt - 600, yt, W * 4, H * 4);
 	//dibuja la imagen
 	canvas->DrawImage(mi_sprite2, zoom, cuadro, GraphicsUnit::Pixel);
+}
+
+void Carga::mostrar_nave(Graphics^ canvas)
+{
+	//carga la imagen
+	Bitmap^ mi_sprite3 = gcnew Bitmap(gcnew String(imagen));
+	//define un rectangulo para cada imagen
+	Rectangle cuadro = Rectangle(indice_columnas * W, indice_filas * H, W, H);
+	//zoom
+	Rectangle zoom = Rectangle(xt - 800, yt - 50, W * 2, H * 2);
+	//dibuja la imagen
+	canvas->DrawImage(mi_sprite3, zoom, cuadro, GraphicsUnit::Pixel);
 }
 
 void Carga::mover_alieninstrucciones(int tecla)
@@ -193,3 +254,8 @@ int  Carga::getX() { return x; }
 int  Carga::getY() { return y; }
 int  Carga::getW() { return W; }
 int  Carga::getH() { return H; }
+
+void Carga::setXt(int xt)
+{
+	this->xt = xt;
+}
