@@ -6,6 +6,7 @@
 #include "AlienAliado.h"
 #include "Carga.h"
 #include "Pelota.h"
+#include "Messi.h"
 #include "Arbitro.h"
 #include <Vector>
 
@@ -56,7 +57,7 @@ namespace Humaformsnia {
 			MiniPekkaInstrucciones->cambia_alieninstrucciones("Images//MiniPekka.png");
 
 			Cargas = gcnew Carga();
-			Cargas->cambia_imagen("Images//SPRITEsCARGA.png");
+			Cargas->cambia_imagen("Images//SPRITESCARGAS.png");
 
 			Teclas = gcnew Carga();
 			Teclas->cambia_tecla("Images//TECLAS.png");
@@ -84,6 +85,8 @@ namespace Humaformsnia {
 			Amarillo = gcnew Visual(12);
 			Rojo = gcnew Visual(12);
 			Portal1 = gcnew Visual(8);
+			Portal2 = gcnew Visual(8);
+			Portal3 = gcnew Visual(8);
 			Marciano1->cambiaimagen("Images//AlienAmarrillo.png");
 			M1hablando->cambiaimagen("Images//alianita2.png");
 			Marciano2->cambiaimagen("Images//AlienVerde.png");
@@ -181,7 +184,8 @@ namespace Humaformsnia {
 			sombra = 0.05;
 
 			this->Opacity = 1.0;
-
+			messi = gcnew Messi(1250, 325);
+			messi->cambiar_imagen("images//Messi.png");
 			//
 			robots = gcnew List<Robot^>();
 
@@ -240,7 +244,7 @@ namespace Humaformsnia {
 			this->KeyPreview = true;
 			contadorFondo = 0;
 
-			Logos->Enabled = true;
+			Logos->Enabled = false;
 			CargaUno->Enabled = false;
 			CargaDos->Enabled = false;
 			CargaTres->Enabled = false;
@@ -249,7 +253,7 @@ namespace Humaformsnia {
 			InstruccionesDos->Enabled = false;
 			Mundo1->Enabled = false;
 			PreguntaUno->Enabled = false;
-			RespuestaUno->Enabled = false;
+			RespuestaUno->Enabled = true;
 			PreguntaDos->Enabled = false;
 			RespuestaDos->Enabled = false;
 			PreguntaTres->Enabled = false;
@@ -299,7 +303,9 @@ namespace Humaformsnia {
 		Visual^ Rojo;
 		Visual^ Portal1;
 		Visual^ Portal2;
+		Visual^ Portal3;
 		Visual^ Brillo;
+		Messi^ messi;
 
 		bool entered = false;
 		int NPCH;
@@ -777,6 +783,44 @@ namespace Humaformsnia {
 			   this->Text = L"MyForm";
 			   this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::MyForm_KeyDown);
 			   this->ResumeLayout(false);
+
+			   // RespuestaUno
+			  // 
+			   this->RespuestaUno->Interval = 10;
+			   this->RespuestaUno->Tick += gcnew System::EventHandler(this, &MyForm::RespuestaUno_Tick);
+			   // 
+			   // PreguntaDos
+			   // 
+			   this->PreguntaDos->Interval = 10;
+			   this->PreguntaDos->Tick += gcnew System::EventHandler(this, &MyForm::PreguntaDos_Tick);
+			   // 
+			   // RespuestaDos
+			   // 
+			   this->RespuestaDos->Interval = 10;
+			   this->RespuestaDos->Tick += gcnew System::EventHandler(this, &MyForm::RespuestaDos_Tick);
+			   // 
+			   // PreguntaTres
+			   // 
+			   this->PreguntaTres->Interval = 10;
+			   this->PreguntaTres->Tick += gcnew System::EventHandler(this, &MyForm::PreguntaTres_Tick);
+			   // 
+			   // RespuestaTres
+			   // 
+			   this->RespuestaTres->Interval = 10;
+			   this->RespuestaTres->Tick += gcnew System::EventHandler(this, &MyForm::RespuestaTres_Tick);
+			   // 
+			   // InstruccionesDos
+			   // 
+			   this->InstruccionesDos->Interval = 10;
+			   this->InstruccionesDos->Tick += gcnew System::EventHandler(this, &MyForm::InstruccionesDos_Tick);
+			   // 
+			   // CargaDos
+			   // 
+			   this->CargaDos->Tick += gcnew System::EventHandler(this, &MyForm::CargaDos_Tick);
+			   // 
+			   // CargaTres
+			   // 
+			   this->CargaTres->Tick += gcnew System::EventHandler(this, &MyForm::CargaTres_Tick);
 
 		   }
 #pragma endregion
@@ -1485,6 +1529,12 @@ namespace Humaformsnia {
 				contador_pelotas++;
 			}
 		}
+		Portal2->mostrarimagen(buffer->Graphics);
+		if (contador % 3 == 0)Portal2->animacion();
+		Portal3->mostrarimagen(buffer->Graphics);
+		if (contador % 3 == 0)Portal3->animacion();
+		messi->mostrar(buffer->Graphics);
+		if (contador % 2 == 0)messi->mover(buffer->Graphics);
 
 		Alien->cambiardxdy(teclapulsada);
 		Alien->moverimagen(teclapulsada);
@@ -2446,7 +2496,7 @@ namespace Humaformsnia {
 			Nave->setXt(800);
 		}
 
-		buffer->Render(g);
+		buffer->Render(canvas);
 
 
 
