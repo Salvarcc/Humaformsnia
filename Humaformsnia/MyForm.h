@@ -103,6 +103,12 @@ namespace Humaformsnia {
 			Portal1->cambiaimagen("Images//PortalNether4.png");
 			Portal1->setX(1250);
 			Portal1->setY(300);
+			Portal2->cambiaimagen("Images//PortalCielo.png");
+			Portal2->setX(1250);
+			Portal2->setY(100);
+			Portal3->cambiaimagen("Images//PortalCielo.png");
+			Portal3->setX(1250);
+			Portal3->setY(500);
 			M1hablando->setX(800);
 			M1hablando->setY(100);
 			Brillo = gcnew Visual(1);
@@ -253,8 +259,8 @@ namespace Humaformsnia {
 			InstruccionesDos->Enabled = false;
 			Mundo1->Enabled = false;
 			PreguntaUno->Enabled = false;
-			RespuestaUno->Enabled = true;
-			PreguntaDos->Enabled = false;
+			RespuestaUno->Enabled = false;
+			PreguntaDos->Enabled = true;
 			RespuestaDos->Enabled = false;
 			PreguntaTres->Enabled = false;
 			RespuestaTres->Enabled = false;
@@ -1539,8 +1545,7 @@ namespace Humaformsnia {
 		Alien->cambiardxdy(teclapulsada);
 		Alien->moverimagen(teclapulsada);
 		Alien->mostrarimagen(buffer->Graphics);
-		Portal1->mostrarimagen(buffer->Graphics);
-		Portal1->animacion();
+		
 
 		if (Alien->getVidas() == 3) {
 			Verde->mostrarimagen(buffer->Graphics);
