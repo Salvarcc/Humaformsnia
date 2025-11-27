@@ -223,7 +223,7 @@ namespace Humaformsnia {
 			Logos->Enabled = false;
 			CargaUno->Enabled = false;
 			CargaDos->Enabled = false;
-			CargaTres->Enabled = true;
+			CargaTres->Enabled = false;
 
 			InstruccionesUno->Enabled = false;
 			InstruccionesDos->Enabled = false;
@@ -231,7 +231,7 @@ namespace Humaformsnia {
 			PreguntaUno->Enabled = false;
 			RespuestaUno->Enabled = false;
 			PreguntaDos->Enabled = false;
-			RespuestaDos->Enabled = false;
+			RespuestaDos->Enabled = true;
 			PreguntaTres->Enabled = false;
 			RespuestaTres->Enabled = false;
 			Menu->Enabled = false;
@@ -381,6 +381,8 @@ namespace Humaformsnia {
 		int navecontrol = 0;
 
 		int cambio = 0;
+		
+		
 		bool escapep1 = false;
 		bool escapei1 = false;
 		bool escaper1 = false;
@@ -390,7 +392,6 @@ namespace Humaformsnia {
 		bool escapei2 = false;
 		bool escapei2_1 = false;
 		bool escapei2_2 = false;
-
 		bool escaper3 = false;
 
 
