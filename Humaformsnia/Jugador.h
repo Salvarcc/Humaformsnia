@@ -70,7 +70,7 @@ void Jugador::cambiardxdy(Direccion num) {
 
 
 	case Derecha1:
-		if (x > 1350) {
+		if (x < 1350) {
 			dx = 5;  dy = 0; indicecolumnas++; break;
 		}
 		else
@@ -111,7 +111,7 @@ void Jugador::cambiardxdyD(Direccion num) {
 
 
 	case Derecha2:
-		if (x > 1350) {
+		if (x < 1350) {
 			dx = 5;  dy = 0; indicecolumnas++; break;
 		}
 		else
