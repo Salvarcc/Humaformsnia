@@ -73,4 +73,4 @@ void Arbitro::mostrar(Graphics^ canvas)
     canvas->DrawImage(sprite, destino, cuadro, GraphicsUnit::Pixel);
     delete sprite;
 }
-
+ 
