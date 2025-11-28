@@ -14,6 +14,7 @@ public:
     void cambiar_imagen(String^ nombre_archivo);
     void mover(Graphics^ canvas);
     void mostrar(Graphics^ canvas);
+    void reiniciar();
 
 
     void Activo() { activo = true; }
@@ -29,6 +30,17 @@ Arbitro::Arbitro() : Entidad(0, 0, 0, 0)
     activo = false;
     imagen_animadas = 0;
 
+}
+void Arbitro::reiniciar()
+{
+    x = 700;
+    y = 300;
+    dx = 0;
+    dy = 0;
+
+    activo = false;
+    indicecolumnas = 0;
+    imagen_animadas = 0;
 }
 
 void Arbitro::cambiar_imagen(String^ nombre_archivo)
@@ -61,4 +73,3 @@ void Arbitro::mostrar(Graphics^ canvas)
     canvas->DrawImage(sprite, destino, cuadro, GraphicsUnit::Pixel);
     delete sprite;
 }
-

@@ -5,7 +5,7 @@ ref class AlienAliado : public Entidad
 {
 private:
     bool activo;
-
+        
 public:
 
     AlienAliado();

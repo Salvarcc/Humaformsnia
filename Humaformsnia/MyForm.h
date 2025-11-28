@@ -645,8 +645,8 @@ namespace Humaformsnia {
 		   System::Windows::Forms::Timer^ CargaDos;
 		   System::Windows::Forms::Timer^ CargaTres;
 
-		   private: System::Windows::Forms::Timer^ GameOver;
-		  private: System::Windows::Forms::Button^ BtnSi;
+	private: System::Windows::Forms::Timer^ GameOver;
+	private: System::Windows::Forms::Button^ BtnSi;
 
 
 
@@ -806,8 +806,8 @@ namespace Humaformsnia {
 			   this->BtnSalir->MouseEnter += gcnew System::EventHandler(this, &MyForm::BtnSalir_MouseEnter);
 			   this->BtnSalir->MouseLeave += gcnew System::EventHandler(this, &MyForm::BtnSalir_MouseLeave);
 			   // 
-               // BtnSi
-               // 
+			   // BtnSi
+			   // 
 			   this->BtnSi->Image = gcnew Bitmap(gcnew String("images//si.jpg"));
 			   this->BtnSi->Location = System::Drawing::Point(540, 345);
 			   this->BtnSi->Name = L"BtnSi";
@@ -1166,7 +1166,7 @@ namespace Humaformsnia {
 			}
 			if (e->KeyCode == Keys::C) entered = true;
 			if (e->KeyCode == Keys::Enter) entered = true;
-			if (e->KeyCode == Keys::Escape)if(Mundo>0||Mundo<4) pausita = true;
+			if (e->KeyCode == Keys::Escape)if (Mundo > 0 || Mundo < 4) pausita = true;
 		}
 		if (e->KeyCode == Keys::X) {
 			lograsos = false;
@@ -1174,7 +1174,7 @@ namespace Humaformsnia {
 			this->Pausa->Enabled = true;
 			if (e->KeyCode == Keys::Enter) entered = true;
 		}
-		
+
 		if (e->KeyCode == Keys::Up && konami == 0)konami++;
 		else konami == 0;
 		if (e->KeyCode == Keys::Up && konami == 1)konami++;
@@ -1888,7 +1888,7 @@ namespace Humaformsnia {
 		Alien->cambiardxdy(teclapulsada);
 		Alien->moverimagen(teclapulsada);
 		Alien->mostrarimagen(buffer->Graphics);
-		
+
 		if (pausita) {
 			this->Pausa->Enabled = true;
 		}
@@ -1937,7 +1937,7 @@ namespace Humaformsnia {
 				Alien->setX(100);
 				Alien->setY(300);
 				Alien->setVidas(Alien->getVidas() - 1);
-				
+
 			}
 
 			if (Colision(Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, arbitro->getX() - 50, arbitro->getY() - 50, arbitro->getAncho() - 70, arbitro->getAlto() - 50))
@@ -1953,7 +1953,7 @@ namespace Humaformsnia {
 				i--;
 			}
 		}
-		
+
 
 		arbitro->mover(buffer->Graphics);
 		arbitro->mostrar(buffer->Graphics);
@@ -1988,7 +1988,7 @@ namespace Humaformsnia {
 		}
 		buffer->Render(canvas);
 		contador++;
-		
+
 	}
 	private: System::Void Mundo3_Tick(System::Object^ sender, System::EventArgs^ e) {
 		Mundo = 3;
@@ -2168,7 +2168,7 @@ namespace Humaformsnia {
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		if (NPCH == 1) {
-			
+
 			buffer->Graphics->DrawImage(fondomundo1, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
 			this->label1->Visible = true;
 			if (subida % 1 == 0 && texto < 306) {
@@ -2194,7 +2194,7 @@ namespace Humaformsnia {
 			}
 			entered = false;
 			buffer->Render(canvas);
-			
+
 		}
 		if (NPCH == 2) {
 			if (hablados == 1)hablados++;
@@ -2224,7 +2224,7 @@ namespace Humaformsnia {
 			}
 			entered = false;
 			buffer->Render(canvas);
-			
+
 		}
 	}
 	private: System::Void Pausa_Tick(System::Object^ sender, System::EventArgs^ e) {
@@ -2511,11 +2511,11 @@ namespace Humaformsnia {
 		Botonazo = 3;
 		grr = 0;
 	}
-    private: System::Void BtnContinuar_Click(System::Object^ sender, System::EventArgs^ e) {
-			   this->PressBtn->Enabled = true;
-			   Botonazo = 4;
-			   grr = 0;
-		   }
+	private: System::Void BtnContinuar_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->PressBtn->Enabled = true;
+		Botonazo = 4;
+		grr = 0;
+	}
 	private: System::Void BtnRegresar_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->PressBtn->Enabled = true;
 		Botonazo = 6;
@@ -4214,84 +4214,84 @@ namespace Humaformsnia {
 	}
 
 
-		   private: System::Void GameOver_Tick(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void GameOver_Tick(System::Object^ sender, System::EventArgs^ e) {
 
 
-			   canvas = this->CreateGraphics();
-			   BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
-			   BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
+		canvas = this->CreateGraphics();
+		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
+		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 
-			   contadorFondo++;
-			   if (contadorFondo % 2 == 0) {
-				   usarFondo1 = !usarFondo1;
-			   }
+		contadorFondo++;
+		if (contadorFondo % 2 == 0) {
+			usarFondo1 = !usarFondo1;
+		}
 
-			   if (usarFondo1)
-			   {
-				   buffer->Graphics->DrawImage(fondoGO, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height));
-			   }
-			   else
-				   buffer->Graphics->DrawImage(fondoGO1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height));
-
-
-
-
-			   contadorTipeo++;
-			   if (contadorTipeo == 5) { l1 = true; System::Console::Beep(900, 20); }
-			   if (contadorTipeo == 10) { l2 = true; System::Console::Beep(900, 20); }
-			   if (contadorTipeo == 15) { l3 = true; System::Console::Beep(900, 20); }
-			   if (contadorTipeo == 20) { l4 = true; System::Console::Beep(900, 20); }
-			   if (contadorTipeo == 25) { l5 = true; System::Console::Beep(900, 20); }
-			   if (contadorTipeo == 30) { l6 = true; System::Console::Beep(900, 20); }
-			   if (contadorTipeo == 35) { l7 = true; System::Console::Beep(900, 20); }
-			   if (contadorTipeo == 40) { l8 = true; System::Console::Beep(900, 20); }
-			   if (contadorTipeo == 40) { l8 = true; System::Console::Beep(900, 20); }
-			   if (contadorTipeo == 45) { b9 = true; System::Console::Beep(900, 20); }
+		if (usarFondo1)
+		{
+			buffer->Graphics->DrawImage(fondoGO, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height));
+		}
+		else
+			buffer->Graphics->DrawImage(fondoGO1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height));
 
 
 
 
-
-
-			   if (contadorFondo < 12) {
-
-				   buffer->Graphics->DrawImage(go, 650, 420);
-
-			   }
-			   else { buffer->Graphics->DrawImage(P_go, 650, 420); }
-
-
-
-			   if (l1) buffer->Graphics->DrawImage(_G, 450, 100);
-			   if (l2) buffer->Graphics->DrawImage(_A, 520, 102);
-			   if (l3) buffer->Graphics->DrawImage(_M, 590, 103);
-			   if (l4) buffer->Graphics->DrawImage(_E_, 660, 106);
-
-			   if (l5) buffer->Graphics->DrawImage(_O, 790, 100);
-			   if (l6) buffer->Graphics->DrawImage(_V, 860, 100);
-			   if (l7) buffer->Graphics->DrawImage(_E1_, 930, 100 + 1);
-			   if (l8) {
-				   buffer->Graphics->DrawImage(_R, 1000, 100 + 2);
-
-
-
-			   }
-			   if (b9) {
-				   buffer->Graphics->DrawImage(continua, 560, 240);
-				   this->BtnSi->Visible = true;
-				   this->BtnNo->Visible = true;
-
-			   }
-			   buffer->Render(canvas);
-			   delete buffer;
-			   delete espacio_para_buffer;
-			   delete canvas;
+		contadorTipeo++;
+		if (contadorTipeo == 5) { l1 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 10) { l2 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 15) { l3 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 20) { l4 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 25) { l5 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 30) { l6 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 35) { l7 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 40) { l8 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 40) { l8 = true; System::Console::Beep(900, 20); }
+		if (contadorTipeo == 45) { b9 = true; System::Console::Beep(900, 20); }
 
 
 
 
 
-		   }
+
+		if (contadorFondo < 12) {
+
+			buffer->Graphics->DrawImage(go, 650, 420);
+
+		}
+		else { buffer->Graphics->DrawImage(P_go, 650, 420); }
+
+
+
+		if (l1) buffer->Graphics->DrawImage(_G, 450, 100);
+		if (l2) buffer->Graphics->DrawImage(_A, 520, 102);
+		if (l3) buffer->Graphics->DrawImage(_M, 590, 103);
+		if (l4) buffer->Graphics->DrawImage(_E_, 660, 106);
+
+		if (l5) buffer->Graphics->DrawImage(_O, 790, 100);
+		if (l6) buffer->Graphics->DrawImage(_V, 860, 100);
+		if (l7) buffer->Graphics->DrawImage(_E1_, 930, 100 + 1);
+		if (l8) {
+			buffer->Graphics->DrawImage(_R, 1000, 100 + 2);
+
+
+
+		}
+		if (b9) {
+			buffer->Graphics->DrawImage(continua, 560, 240);
+			this->BtnSi->Visible = true;
+			this->BtnNo->Visible = true;
+
+		}
+		buffer->Render(canvas);
+		delete buffer;
+		delete espacio_para_buffer;
+		delete canvas;
+
+
+
+
+
+	}
 	private: System::Void BtnSi_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		GameOver->Enabled = false;
@@ -4319,16 +4319,28 @@ namespace Humaformsnia {
 			Mundo1->Enabled = true;
 		}
 		else if (nivel_actual == 2) {
+			pelotas->Clear();
+			contador_pelotas = 0;
+			indice_pelota = 0;
+			pelotas_detenidas = false;
+
+			contador = 0;
+
+
+
+			arbitro->reiniciar();
+
+
 			Mundo2->Enabled = true;
 		}
 	}
 
-private: System::Void BtnNo_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void BtnNo_Click(System::Object^ sender, System::EventArgs^ e) {
 
 
-	Application::Exit();
+		Application::Exit();
 
 
-}
+	}
 	};
 }
