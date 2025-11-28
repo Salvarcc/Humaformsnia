@@ -42,17 +42,6 @@ void Arbitro::reiniciar()
     indicecolumnas = 0;
     imagen_animadas = 0;
 }
-void Arbitro::reiniciar()
-{
-    x = 700;
-    y = 300;
-    dx = 0;
-    dy = 0;
-
-    activo = false;
-    indicecolumnas = 0;
-    imagen_animadas = 0;
-}
 
 void Arbitro::cambiar_imagen(String^ nombre_archivo)
 {

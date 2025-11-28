@@ -8,7 +8,7 @@
 #include "Pelota.h"
 #include "Messi.h"
 #include "Arbitro.h"
-#include <Vector>
+#include "Archivo.h"
 
 
 namespace Humaformsnia {
@@ -35,6 +35,7 @@ namespace Humaformsnia {
 		{
 			InitializeComponent();
 			//ALIEN________________
+			void GuardarTodo();
 			Alien = gcnew Jugador();
 			Alien->cambiaimagen("Images//Alien.png");
 			//_______________________________________
@@ -1727,6 +1728,30 @@ namespace Humaformsnia {
 
 
 	}
+		   void GuardarTodo()
+		   {
+			   AlienAliado^ aliadoActual = nullptr;
+			   NPC^ npcActual = nullptr;
+
+			   if (nivel_actual == 1) {
+				   aliadoActual = aliado;   
+				   npcActual = Marciano1;    
+			   }
+			   else if (nivel_actual == 2) {
+				   npcActual = Marciano2;
+			   }
+
+			   GestorArchivos::GuardarEstadoJuego(
+				   "parameters.txt",  
+				   nivel_actual,
+				   Steve,
+				   Minipekka,
+				   aliadoActual,
+				   npcActual,
+				   robots,
+				   pelotas
+			   );
+		   }
 	private: System::Void Mundo1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		Mundo = 1;
 		bool normal = true;
@@ -1772,6 +1797,7 @@ namespace Humaformsnia {
 			Alien->setX(50);
 			Alien->setY(250);
 			Alien->setVidas(3);
+			GuardarTodo();
 		}
 		Marciano1->mostrarimagen(buffer->Graphics);
 
@@ -1968,6 +1994,8 @@ namespace Humaformsnia {
 			Alien->setY(250);
 			Alien->setVidas(3);
 			Mundo2->Enabled = false;
+			GuardarTodo();
+
 		}
 
 		if (Colision(

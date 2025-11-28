@@ -59,5 +59,8 @@
     <ClInclude Include="Messi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Archivo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
