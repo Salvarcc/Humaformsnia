@@ -4319,6 +4319,18 @@ namespace Humaformsnia {
 			Mundo1->Enabled = true;
 		}
 		else if (nivel_actual == 2) {
+			pelotas->Clear();
+			contador_pelotas = 0;
+			indice_pelota = 0;
+			pelotas_detenidas = false;
+
+			contador = 0;
+
+
+
+			arbitro->reiniciar();
+
+
 			Mundo2->Enabled = true;
 		}
 	}
