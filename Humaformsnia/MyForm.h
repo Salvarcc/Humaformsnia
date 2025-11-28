@@ -1728,6 +1728,7 @@ namespace Humaformsnia {
 
 
 	}
+		   
 		   void GuardarTodo()
 		   {
 			   AlienAliado^ aliadoActual = nullptr;
