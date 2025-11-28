@@ -364,7 +364,7 @@ namespace Humaformsnia {
 		Bitmap^ fondomundo3;
 
 		int Mundo = 0;
-
+		int archivo = 1;
 		Bitmap^ H;
 		Bitmap^ U;
 		Bitmap^ M;
@@ -1169,7 +1169,7 @@ namespace Humaformsnia {
 			if (e->KeyCode == Keys::Enter) entered = true;
 			if (e->KeyCode == Keys::Escape)if (Mundo > 0 || Mundo < 4) pausita = true;
 		}
-		if (e->KeyCode == Keys::X) {
+		if (e->KeyCode == Keys::C) {
 			lograsos = false;
 			eleccion = 0;
 			this->Pausa->Enabled = true;
@@ -1198,7 +1198,7 @@ namespace Humaformsnia {
 		else konami == 0;
 
 		if (escapep1) {
-			if (e->KeyCode == Keys::Escape) {
+			if (e->KeyCode == Keys::Q) {
 
 				logro3 = true;
 				PreguntaUno->Enabled = false;
@@ -1248,7 +1248,7 @@ namespace Humaformsnia {
 			}
 		}
 		if (escapei1) {
-			if (e->KeyCode == Keys::Escape) {
+			if (e->KeyCode == Keys::Q) {
 
 
 				InstruccionesUno->Enabled = false;
@@ -1297,7 +1297,7 @@ namespace Humaformsnia {
 			}
 		}
 		if (escaper1) {
-			if (e->KeyCode == Keys::Escape) {
+			if (e->KeyCode == Keys::Q) {
 
 
 				RespuestaUno->Enabled = false;
@@ -1353,7 +1353,7 @@ namespace Humaformsnia {
 			}
 		}
 		if (escapep2) {
-			if (e->KeyCode == Keys::Escape) {
+			if (e->KeyCode == Keys::Q) {
 
 
 				PreguntaDos->Enabled = false;
@@ -1402,7 +1402,7 @@ namespace Humaformsnia {
 			}
 		}
 		if (escaper2) {
-			if (e->KeyCode == Keys::Escape) {
+			if (e->KeyCode == Keys::Q) {
 
 
 				RespuestaDos->Enabled = false;
@@ -1457,7 +1457,7 @@ namespace Humaformsnia {
 			}
 		}
 		if (escapep3) {
-			if (e->KeyCode == Keys::Escape) {
+			if (e->KeyCode == Keys::Q) {
 
 
 				PreguntaTres->Enabled = false;
@@ -1540,7 +1540,7 @@ namespace Humaformsnia {
 			}
 		}
 		if (escapei2) {
-			if (e->KeyCode == Keys::Escape) {
+			if (e->KeyCode == Keys::Q) {
 
 				escapei2 = false;
 				escapei2_1 = true;
@@ -1554,7 +1554,7 @@ namespace Humaformsnia {
 
 		if (escapei2_2) {
 
-			if (e->KeyCode == Keys::Escape) {
+			if (e->KeyCode == Keys::Q) {
 
 				escapei2_1 = false;
 
@@ -1608,7 +1608,7 @@ namespace Humaformsnia {
 			}
 		}
 		if (escaper3) {
-			if (e->KeyCode == Keys::Escape) {
+			if (e->KeyCode == Keys::Q) {
 
 
 				RespuestaTres->Enabled = false;
@@ -1728,35 +1728,68 @@ namespace Humaformsnia {
 
 
 	}
-		   
 		   void GuardarTodo()
 		   {
+			   Jugador^ alienActual = nullptr;
+			   Jugador^ steveActual = nullptr;
+			   Jugador^ minipekkaActual = nullptr;
 			   AlienAliado^ aliadoActual = nullptr;
 			   NPC^ npcActual = nullptr;
+			   Arbitro^ arbitroActual = nullptr;
+			   List<Robot^>^ robotsAGuardar = nullptr;
+			   List<Pelota^>^ pelotasAGuardar = nullptr;
 
+			  
 			   if (nivel_actual == 1) {
-				   aliadoActual = aliado;   
-				   npcActual = Marciano1;    
-			   }
-			   else if (nivel_actual == 2) {
-				   npcActual = Marciano2;
+				   alienActual = Alien;      
+				   aliadoActual = aliado;      
+				   npcActual = Marciano1;   
+				   robotsAGuardar = robots;      
+				   pelotasAGuardar = nullptr;    
 			   }
 
-			   GestorArchivos::GuardarEstadoJuego(
-				   "parameters.txt",  
+			  
+			   else if (nivel_actual == 2) {
+				   alienActual = Alien;       
+				   aliadoActual = nullptr;    
+				   npcActual = Marciano2;   
+				   arbitroActual = arbitro;     
+				   robotsAGuardar = nullptr;     
+				   pelotasAGuardar = pelotas;    
+			   }
+
+			   
+			   else if (nivel_actual == 3) {
+				   steveActual = Steve;
+				   minipekkaActual = Minipekka;
+				   aliadoActual = nullptr;
+				   npcActual = nullptr;
+				   arbitroActual = nullptr;
+				   robotsAGuardar = nullptr;
+				   pelotasAGuardar = nullptr;
+			   }
+
+			   GestorArchivos::GuardarParametros(
+				   "PARAMETROS.txt",
 				   nivel_actual,
-				   Steve,
-				   Minipekka,
+				   alienActual,
+				   steveActual,
+				   minipekkaActual,
 				   aliadoActual,
 				   npcActual,
-				   robots,
-				   pelotas
+				   arbitroActual,
+				   robotsAGuardar,
+				   pelotasAGuardar
 			   );
 		   }
 	private: System::Void Mundo1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		Mundo = 1;
+
+
 		bool normal = true;
 		nivel_actual = 1;
+
+		
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
@@ -1789,6 +1822,7 @@ namespace Humaformsnia {
 		if (Colision(
 			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, Portal1->getX() - 50, Portal1->getY() - 50, Portal1->getAncho() - 70, Portal1->getAlto() - 50))
 		{
+			GuardarTodo();
 			RespuestaUno->Enabled = true;
 			Mundo1->Enabled = false;
 			porcentajes = 1;
@@ -1798,7 +1832,7 @@ namespace Humaformsnia {
 			Alien->setX(50);
 			Alien->setY(250);
 			Alien->setVidas(3);
-			GuardarTodo();
+			archivo = 0;
 		}
 		Marciano1->mostrarimagen(buffer->Graphics);
 
@@ -1872,7 +1906,7 @@ namespace Humaformsnia {
 
 
 		contador++;
-
+		archivo++;
 
 	}
 	private: System::Void Mundo2_Tick(System::Object^ sender, System::EventArgs^ e) {
@@ -1882,6 +1916,7 @@ namespace Humaformsnia {
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		buffer->Graphics->DrawImage(fondo_mundo_2, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
 		nivel_actual = 2;
+		
 
 		arbitro->setY(158);
 		if (!pelotas_detenidas) {
@@ -1994,9 +2029,10 @@ namespace Humaformsnia {
 			Alien->setX(50);
 			Alien->setY(250);
 			Alien->setVidas(3);
-			Mundo2->Enabled = false;
 			GuardarTodo();
 
+			Mundo2->Enabled = false;
+			archivo = 0;
 		}
 
 		if (Colision(
@@ -2017,14 +2053,16 @@ namespace Humaformsnia {
 		}
 		buffer->Render(canvas);
 		contador++;
-
+		archivo++;
 	}
 	private: System::Void Mundo3_Tick(System::Object^ sender, System::EventArgs^ e) {
 		Mundo = 3;
+		nivel_actual = 3;
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		buffer->Graphics->DrawImage(fondomundo3, 0, 0, Rectangle(0, 0, fondomundo3->Width, fondomundo3->Height), GraphicsUnit::Pixel);
+		
 
 		//this->label1->Enabled = true;
 		//this->label1->Visible = true;
@@ -2173,11 +2211,12 @@ namespace Humaformsnia {
 			logro1 = true;
 			final = true;
 		}
-		if (Minipekka->getY() == 700) {
+		if (Minipekka->getY() > 600 && final==true) {
 			Mundo = 4;
+			GuardarTodo();
+			this->Mundo3->Enabled = false;
 			this->RespuestaTres->Enabled = true;
 
-			this->Mundo3->Enabled = false;
 		}
 
 		if (!final)teclapulsada = Direccion::Ninguno;
@@ -2253,7 +2292,6 @@ namespace Humaformsnia {
 			}
 			entered = false;
 			buffer->Render(canvas);
-
 		}
 	}
 	private: System::Void Pausa_Tick(System::Object^ sender, System::EventArgs^ e) {
@@ -3717,7 +3755,7 @@ namespace Humaformsnia {
 
 		buffer->Graphics->Clear(Color::Black);
 
-		buffer->Graphics->DrawImage(fondopregunta3, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta3->Width, fondopregunta3->Height, GraphicsUnit::Pixel);
+		buffer->Graphics->DrawImage(fondopregunta1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta1->Width, fondopregunta1->Height, GraphicsUnit::Pixel);
 		buffer->Graphics->DrawImage(R, 300 - ancho_pregunta, Y_P - 8);
 		buffer->Graphics->DrawImage(E, 390 - ancho_pregunta, Y_R - 8);
 		buffer->Graphics->DrawImage(S1, 465 - ancho_pregunta, Y_E - 8);
@@ -3728,7 +3766,8 @@ namespace Humaformsnia {
 		buffer->Graphics->DrawImage(T, 880 - ancho_pregunta, Y_A - 8);
 		buffer->Graphics->DrawImage(Ap, 965 - ancho_pregunta, Y_CERO - 8);
 		buffer->Graphics->DrawImage(CERO, 1100 - ancho_pregunta, Y_UNO - 8);
-		buffer->Graphics->DrawImage(TRES, 1185 - ancho_pregunta, Y_DOS - 8);
+		buffer->Graphics->DrawImage(UNO, 1200 - ancho_pregunta, Y_DOS - 8);
+
 
 		int caida1 = 4;
 		int subida = 2;
@@ -3792,7 +3831,6 @@ namespace Humaformsnia {
 		else if (C_CERO == 2) { Y_CERO -= subida; if (Y_CERO <= 50) { Y_CERO = 50; C_CERO = 3; } }
 		else if (C_CERO == 3) { Y_CERO += caida2; if (Y_CERO >= 80) { Y_CERO = 80; C_CERO = 4; } }
 
-
 		if (C_UNO == 1) { Y_UNO += caida1; if (Y_UNO >= 80) { Y_UNO = 80; C_UNO = 2; } }
 		else if (C_UNO == 2) { Y_UNO -= subida; if (Y_UNO <= 50) { Y_UNO = 50; C_UNO = 3; } }
 		else if (C_UNO == 3) { Y_UNO += caida2; if (Y_UNO >= 80) { Y_UNO = 80; C_UNO = 4; } }
@@ -3824,11 +3862,12 @@ namespace Humaformsnia {
 			C_DOS = 1;
 
 
+
 		if (C_DOS == 4) {
 
-			buffer->Graphics->DrawImage(Respuesta3, X_P1 + 20, Y_P1, W_P1, H_P1);
+			buffer->Graphics->DrawImage(Respuesta1, X_P1 + 30, Y_P1, W_P1, H_P1);
 
-			if (W_P1 < anchooobjetivorespuesta2 && H_P1 < altoobjetivorespuesta2) {
+			if (W_P1 < anchooobjetivor && H_P1 < altoobjetivor) {
 
 				X_P1 -= 7.5;
 				Y_P1 -= 2.5;
@@ -3844,52 +3883,15 @@ namespace Humaformsnia {
 
 		if (cambio >= 100) {
 
-			RespuestaTres->Enabled = false;
-
-
-			C_P = 1;
-			C_R = 0;
-			C_E = 0;
-			C_G = 0;
-			C_U = 0;
-			C_N = 0;
-			C_T = 0;
-			C_A = 0;
-			C_CERO = 0;
-			C_UNO = 0;
-			C_DOS = 0;
-			C_I1 = 0;
-			C_N1 = 0;
-			C_S1 = 0;
-			C_T1 = 0;
-			C_R1 = 0;
-			C_U1 = 0;
-			C_C1 = 0;
-			C_C2 = 0;
-			C_I2 = 0;
-			C_O1 = 0;
-			C_N2 = 0;
-			C_E1 = 0;
-			C_S2 = 0;
-			Y_P = 10;
-			Y_R = 10;
-			Y_E = 10;
-			Y_G = 10;
-			Y_U = 10;
-			Y_N = 10;
-			Y_T = 10;
-			Y_A = 10;
-			Y_CERO = 10;
-			Y_UNO = 10;
-			Y_DOS = 10;
-			cambio = 0;
-			X_P1 = 700;
-			Y_P1 = 450;
-			W_P1 = 10;
-			H_P1 = 10;
+			escaper3 = true;
+			Nave->setXt(800);
 		}
 
-		buffer->Render(g);
+		buffer->Render(canvas);
+
+
+
+
 
 
 
