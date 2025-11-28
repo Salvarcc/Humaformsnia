@@ -54,7 +54,7 @@ void Jugador::cambiardxdy(Direccion num) {
 			;
 	case Abajo1:
 
-		if (y < 620)
+		if (y < 600)
 		{
 			dx = 0; dy = 5; indicecolumnas++; break;
 		}
@@ -62,7 +62,7 @@ void Jugador::cambiardxdy(Direccion num) {
 			dx = 0; dy = 0; break;
 
 	case Izquierda1:
-		if (x > 0) {
+		if (x > -40) {
 			dx = -5; dy = 0; indicecolumnas++; break;
 		}
 		else
@@ -70,7 +70,7 @@ void Jugador::cambiardxdy(Direccion num) {
 
 
 	case Derecha1:
-		if (x < 1350) {
+		if (x < 1310) {
 			dx = 5;  dy = 0; indicecolumnas++; break;
 		}
 		else
@@ -95,7 +95,7 @@ void Jugador::cambiardxdyD(Direccion num) {
 			;
 	case Abajo2:
 
-		if (y < 620)
+		if (y < 600)
 		{
 			dx = 0; dy = 5; indicecolumnas++; break;
 		}
@@ -103,7 +103,7 @@ void Jugador::cambiardxdyD(Direccion num) {
 			dx = 0; dy = 0; break;
 
 	case Izquierda2:
-		if (x > 0) {
+		if (x > -40) {
 			dx = -5; dy = 0; indicecolumnas++; break;
 		}
 		else
@@ -111,7 +111,7 @@ void Jugador::cambiardxdyD(Direccion num) {
 
 
 	case Derecha2:
-		if (x < 1350) {
+		if (x < 1310) {
 			dx = 5;  dy = 0; indicecolumnas++; break;
 		}
 		else
