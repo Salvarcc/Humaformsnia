@@ -266,10 +266,26 @@ namespace Humaformsnia {
 			this->KeyPreview = true;
 			contadorFondo = 0;
 
+			// CREDITOS______________
+
+			c_c = gcnew Bitmap(gcnew String("Images//InstruccionesC.png"));
+			c_r = gcnew Bitmap(gcnew String("Images//InstruccionesR.png"));
+			c_e = gcnew Bitmap(gcnew String("Images//InstruccionesE.png"));
+			c_d = gcnew Bitmap(gcnew String("Images//d__6.png"));
+			c_i = gcnew Bitmap(gcnew String("Images//InstruccionesI.png"));
+			c_t = gcnew Bitmap(gcnew String("Images//InstruccionesT.png"));
+			c_o = gcnew Bitmap(gcnew String("Images//InstruccionesO.png"));
+			c_s = gcnew Bitmap(gcnew String("Images//InstruccionesS.png"));
+			autores = gcnew Bitmap(gcnew String("Images//autores_1_.png"));
+			fondo_credito = gcnew Bitmap(gcnew String("Images//fondo_credito.png"));
+
+			Creditos->Interval = 30;
+			//____________________________
+
 			Logos->Enabled = true;
 			CargaUno->Enabled = false;
 			CargaDos->Enabled = false;
-			CargaTres->Enabled = false;
+			CargaTres->Enabled = false; 
 
 			InstruccionesUno->Enabled = false;
 			InstruccionesDos->Enabled = false;
@@ -288,6 +304,7 @@ namespace Humaformsnia {
 			BtnCreditos->Visible = false;
 			BtnSalir->Visible = false;
 
+			Creditos->Enabled = false;
 		}
 	protected:
 		/// <summary>
@@ -605,7 +622,22 @@ namespace Humaformsnia {
 
 		bool l1 = false, l2 = false, l3 = false, l4 = false, l5 = false, l6 = false, l7 = false, l8 = false, b9 = false;
 		int contadorTipeo = 0;
+		//ELEMNTOS DE CREDITO 
 
+		
+		int contador_tipeo;
+		Bitmap^ fondo_credito;
+		Bitmap^ c_c;
+		Bitmap^ c_r;
+		Bitmap^ c_e;
+		Bitmap^ c_d;
+		Bitmap^ c_i;
+		Bitmap^ c_t;
+		Bitmap^ c_o;
+		Bitmap^ c_s;
+		Bitmap^ autores;
+
+		bool escape_c = false;
 
 	private: System::Windows::Forms::Timer^ Menu;
 	private: System::Windows::Forms::Timer^ Mundo1;
@@ -646,6 +678,7 @@ namespace Humaformsnia {
 		   System::Windows::Forms::Timer^ InstruccionesDos;
 		   System::Windows::Forms::Timer^ CargaDos;
 		   System::Windows::Forms::Timer^ CargaTres;
+		   System::Windows::Forms::Timer^ Creditos;
 
 	private: System::Windows::Forms::Timer^ GameOver;
 	private: System::Windows::Forms::Button^ BtnSi;
@@ -666,6 +699,7 @@ namespace Humaformsnia {
 			   this->Mundo3 = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->Pausa = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->Logros = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->Creditos = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->BtnJugar = (gcnew System::Windows::Forms::Button());
 			   this->PressBtn = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->NPChabla = (gcnew System::Windows::Forms::Timer(this->components));
@@ -1025,6 +1059,10 @@ namespace Humaformsnia {
 			   // GAMEOVER
 			   // 
 			   this->GameOver->Tick += gcnew System::EventHandler(this, &MyForm::GameOver_Tick);
+			   // 
+			 // Creditos
+			 // 
+			   this->Creditos->Tick += gcnew System::EventHandler(this, &MyForm::Creditos_Tick);
 
 			   // 
 			   // label1
@@ -1655,6 +1693,61 @@ namespace Humaformsnia {
 				W_P1 = 10;
 				H_P1 = 10;
 			}
+		}
+		if (escape_c) {
+
+			if (e->KeyCode == Keys::Escape) {
+
+				escape_c = false;
+				Creditos->Enabled = false;
+				Menu->Enabled = true;
+				this->BtnJugar->Enabled = true;
+				this->BtnSalir->Enabled = true;
+				this->BtnCreditos->Enabled = true;
+
+				C_P = 1;
+				C_R = 0;
+				C_E = 0;
+				C_G = 0;
+				C_U = 0;
+				C_N = 0;
+				C_T = 0;
+				C_A = 0;
+				C_CERO = 0;
+				C_UNO = 0;
+				C_I1 = 1;
+				C_N1 = 0;
+				C_S1 = 0;
+				C_T1 = 0;
+				C_R1 = 0;
+				C_U1 = 0;
+				C_C1 = 0;
+				C_C2 = 0;
+				C_I2 = 0;
+				C_O1 = 0;
+				C_N2 = 0;
+				C_E1 = 0;
+				C_S2 = 0;
+				Y_P = 10;
+				Y_R = 10;
+				Y_E = 10;
+				Y_G = 10;
+				Y_U = 10;
+				Y_N = 10;
+				Y_T = 10;
+				Y_A = 10;
+				Y_CERO = 10;
+				Y_UNO = 10;
+				Y_DOS = 10;
+
+				cambio = 0;
+				X_P1 = 700;
+				Y_P1 = 450;
+				W_P1 = 10;
+				H_P1 = 10;
+			}
+
+
 		}
 
 	}
@@ -2655,7 +2748,16 @@ namespace Humaformsnia {
 			if (grr == 3)this->BtnCreditos->Image = gcnew Bitmap(gcnew String("images//Creditos.jpg"));
 			if (grr == 4)this->BtnCreditos->Image = gcnew Bitmap(gcnew String("images//CreditosMorado.png"));
 			if (grr == 5)this->BtnCreditos->Image = gcnew Bitmap(gcnew String("images//Creditos.jpg"));
-			if (grr == 6)this->PressBtn->Enabled = false;
+			if (grr == 6) {
+				this->PressBtn->Enabled = false;
+				this->PressBtn->Enabled = false;
+				this->Menu->Enabled = false;
+				this->CargaUno->Enabled = false;
+				this->BtnJugar->Visible = false;
+				this->BtnCreditos->Visible = false;
+				this->Creditos->Enabled = true;
+				this->BtnSalir->Visible = false;
+			}
 			grr++;
 		}
 		if (Botonazo == 3) {
@@ -4369,6 +4471,154 @@ namespace Humaformsnia {
 
 
 		Application::Exit();
+
+
+	}
+
+	private: System::Void Creditos_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+
+		canvas = this->CreateGraphics();
+		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
+		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
+
+
+		buffer->Graphics->DrawImage(fondo_credito, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height));
+
+		/*contador_tipeo++;
+		if (contador_tipeo == 5) { l1 = true; System::Console::Beep(900, 20); }
+		if (contador_tipeo == 10) { l2 = true; System::Console::Beep(900, 20); }
+		if (contador_tipeo == 15) { l3 = true; System::Console::Beep(900, 20); }
+		if (contador_tipeo == 20) { l4 = true; System::Console::Beep(900, 20); }
+		if (contador_tipeo == 25) { l5 = true; System::Console::Beep(900, 20); }
+		if (contador_tipeo == 30) { l6 = true; System::Console::Beep(900, 20); }
+		if (contador_tipeo == 35) { l7 = true; System::Console::Beep(900, 20); }
+		if (contador_tipeo == 40) { l8 = true; System::Console::Beep(900, 20); }
+		if (contador_tipeo == 40) { l8 = true; System::Console::Beep(900, 20); }
+		if (contador_tipeo == 45) { b9 = true; System::Console::Beep(900, 20); }
+
+
+
+
+
+
+
+		if (l1) buffer->Graphics->DrawImage(c_c, 450, 100);
+		if (l2) buffer->Graphics->DrawImage(c_r, 525, 102);
+		if (l3) buffer->Graphics->DrawImage(c_e, 600, 103);
+		if (l4) buffer->Graphics->DrawImage(c_d, 675, 106);
+
+		if (l5) buffer->Graphics->DrawImage(c_i, 795, 100);
+		if (l6) buffer->Graphics->DrawImage(c_t, 865, 100);
+		if (l7) buffer->Graphics->DrawImage(c_o, 935, 100 + 1);
+		if (l8) {
+			buffer->Graphics->DrawImage(c_s, 1000, 100 + 2);
+
+
+
+		}*/
+
+
+		buffer->Graphics->DrawImage(c_c, 370 - ancho_pregunta, Y_P);
+		buffer->Graphics->DrawImage(c_r, 450 - ancho_pregunta, Y_R);
+		buffer->Graphics->DrawImage(c_e, 535 - ancho_pregunta, Y_E);
+		buffer->Graphics->DrawImage(c_d, 615 - ancho_pregunta, Y_G);
+		buffer->Graphics->DrawImage(c_i, 695 - ancho_pregunta, Y_U);
+		buffer->Graphics->DrawImage(c_t, 780 - ancho_pregunta, Y_N);
+		buffer->Graphics->DrawImage(c_o, 860 - ancho_pregunta, Y_T);
+		buffer->Graphics->DrawImage(c_s, 945 - ancho_pregunta, Y_A);
+
+
+
+		int caida1 = 4;
+		int subida = 2;
+		int caida2 = 1;
+
+
+		if (C_P == 1) { Y_P += caida1; if (Y_P >= 80) { Y_P = 80; C_P = 2; } }
+		else if (C_P == 2) { Y_P -= subida; if (Y_P <= 50) { Y_P = 50; C_P = 3; } }
+		else if (C_P == 3) { Y_P += caida2; if (Y_P >= 80) { Y_P = 80; C_P = 4; } }
+
+
+		if (C_R == 1) { Y_R += caida1; if (Y_R >= 80) { Y_R = 80; C_R = 2; } }
+		else if (C_R == 2) { Y_R -= subida; if (Y_R <= 50) { Y_R = 50; C_R = 3; } }
+		else if (C_R == 3) { Y_R += caida2; if (Y_R >= 80) { Y_R = 80; C_R = 4; } }
+
+		if (C_E == 1) { Y_E += caida1; if (Y_E >= 80) { Y_E = 80; C_E = 2; } }
+		else if (C_E == 2) { Y_E -= subida; if (Y_E <= 50) { Y_E = 50; C_E = 3; } }
+		else if (C_E == 3) { Y_E += caida2; if (Y_E >= 80) { Y_E = 80; C_E = 4; } }
+
+
+		if (C_G == 1) { Y_G += caida1; if (Y_G >= 80) { Y_G = 80; C_G = 2; } }
+		else if (C_G == 2) { Y_G -= subida; if (Y_G <= 50) { Y_G = 50; C_G = 3; } }
+		else if (C_G == 3) { Y_G += caida2; if (Y_G >= 80) { Y_G = 80; C_G = 4; } }
+
+
+		if (C_U == 1) { Y_U += caida1; if (Y_U >= 80) { Y_U = 80; C_U = 2; } }
+		else if (C_U == 2) { Y_U -= subida; if (Y_U <= 50) { Y_U = 50; C_U = 3; } }
+		else if (C_U == 3) { Y_U += caida2; if (Y_U >= 80) { Y_U = 80; C_U = 4; } }
+
+
+		if (C_N == 1) { Y_N += caida1; if (Y_N >= 80) { Y_N = 80; C_N = 2; } }
+		else if (C_N == 2) { Y_N -= subida; if (Y_N <= 50) { Y_N = 50; C_N = 3; } }
+		else if (C_N == 3) { Y_N += caida2; if (Y_N >= 80) { Y_N = 80; C_N = 4; } }
+
+
+		if (C_T == 1) { Y_T += caida1; if (Y_T >= 80) { Y_T = 80; C_T = 2; } }
+		else if (C_T == 2) { Y_T -= subida; if (Y_T <= 50) { Y_T = 50; C_T = 3; } }
+		else if (C_T == 3) { Y_T += caida2; if (Y_T >= 80) { Y_T = 80; C_T = 4; } }
+
+
+		if (C_A == 1) { Y_A += caida1; if (Y_A >= 80) { Y_A = 80; C_A = 2; } }
+		else if (C_A == 2) { Y_A -= subida; if (Y_A <= 50) { Y_A = 50; C_A = 3; } }
+		else if (C_A == 3) { Y_A += caida2; if (Y_A >= 80) { Y_A = 80; C_A = 4; } }
+
+
+
+
+		if (Y_P == 38) C_R = 1;
+		if (Y_R == 38) C_E = 1;
+		if (Y_E == 38) C_G = 1;
+		if (Y_G == 38) C_U = 1;
+		if (Y_U == 38) C_N = 1;
+		if (Y_N == 38) C_T = 1;
+		if (Y_T == 38) C_A = 1;
+
+
+
+
+		if (C_A == 4) {
+
+			buffer->Graphics->DrawImage(autores, X_P1 + 20, Y_P1, W_P1, H_P1);
+
+			if (W_P1 < anchooobjetivorespuesta2 && H_P1 < altoobjetivorespuesta2) {
+
+				X_P1 -= 7.5;
+				Y_P1 -= 2.5;
+
+				W_P1 += velocidad * 15;
+				H_P1 += velocidad * 5;
+				cambio++;
+
+
+			}
+
+
+		}
+
+
+		if (cambio >= 50) {
+			escape_c = true;
+		}
+
+
+		buffer->Render(canvas);
+		delete buffer;
+		delete espacio_para_buffer;
+		delete canvas;
+
+
+
 
 
 	}
