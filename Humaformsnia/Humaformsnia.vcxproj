@@ -130,6 +130,7 @@
     <ClInclude Include="Enemigo.h" />
     <ClInclude Include="Entidad.h" />
     <ClInclude Include="Archivo.h" />
+    <ClInclude Include="Humania.h" />
     <ClInclude Include="Jugador.h" />
     <ClInclude Include="Messi.h" />
     <ClInclude Include="MyForm.h">
@@ -144,6 +145,9 @@
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="parameters.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

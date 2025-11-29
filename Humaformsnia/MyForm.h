@@ -1,14 +1,5 @@
 #pragma once
-#include "Jugador.h"
-#include "RobotEnemigo.h"
-#include "Npc.h"
-#include "Visual.h"
-#include "AlienAliado.h"
-#include "Carga.h"
-#include "Pelota.h"
-#include "Messi.h"
-#include "Arbitro.h"
-#include "Archivo.h"
+#include "Humania.h"
 
 
 namespace Humaformsnia {
@@ -34,6 +25,9 @@ namespace Humaformsnia {
 		MyForm(void)
 		{
 			InitializeComponent();
+
+			Juego = new Humania();
+
 			//ALIEN________________
 			void GuardarTodo();
 			Alien = gcnew Jugador();
@@ -324,6 +318,9 @@ namespace Humaformsnia {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
+		
+		Humania* Juego;
+
 		Carga^ AlienInstrucciones;
 		Carga^ SteveInstrucciones;
 		Carga^ MiniPekkaInstrucciones;
@@ -1756,13 +1753,14 @@ namespace Humaformsnia {
 		BtnJugar->Visible = true;
 		BtnCreditos->Visible = true;
 		BtnSalir->Visible = true;
-		hablados = 0;
-		aliadados = 0;
+		/*hablados = 0;
+		aliadados = 0;*/
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		buffer->Graphics->DrawImage(fondomenu, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
-		buffer->Graphics->DrawImage(H, 400, y1);
+		
+		/*buffer->Graphics->DrawImage(H, 400, y1);
 		buffer->Graphics->DrawImage(U, 470, y2);
 		buffer->Graphics->DrawImage(M, 550, y3);
 		buffer->Graphics->DrawImage(A, 650, y4);
@@ -1770,12 +1768,14 @@ namespace Humaformsnia {
 		buffer->Graphics->DrawImage(Raya, 840, y6);
 		buffer->Graphics->DrawImage(I, 900, y7);
 		buffer->Graphics->DrawImage(A, 940, y8);
+		*/
+		Juego->Menu(buffer, espacio_para_buffer, canvas, H, U, M, A, N, Raya, I);
 		buffer->Render(canvas);
 
 
 
 
-		y1 -= 2 * dy1;
+		/*y1 -= 2 * dy1;
 		if (y1 == 90 || m2) {
 			y2 -= 2 * dy2;
 			m2 = true;
@@ -1814,7 +1814,7 @@ namespace Humaformsnia {
 		if (y6 == 70 || y6 == 130)dy6 *= -1;
 		if (y7 == 70 || y7 == 130)dy7 *= -1;
 		if (y8 == 70 || y8 == 130)dy8 *= -1;
-
+		*/
 
 
 
