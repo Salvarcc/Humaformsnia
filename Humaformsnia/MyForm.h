@@ -275,6 +275,7 @@ namespace Humaformsnia {
 			InstruccionesDos->Enabled = false;
 			Mundo1->Enabled = false;
 			Mundo2->Enabled = false;
+			Mundo3->Enabled = false;
 
 			PreguntaUno->Enabled = false;
 			RespuestaUno->Enabled = false;
@@ -2211,7 +2212,7 @@ namespace Humaformsnia {
 			logro1 = true;
 			final = true;
 		}
-		if (Minipekka->getY() > 600 && final==true) {
+		if (final==true) {
 			Mundo = 4;
 			GuardarTodo();
 			this->Mundo3->Enabled = false;
@@ -2223,9 +2224,7 @@ namespace Humaformsnia {
 
 		buffer->Render(canvas);
 		contador++;
-		delete buffer;
-		delete espacio_para_buffer;
-		delete canvas;
+		
 	}
 	private: System::Void NPChabla_Tick(System::Object^ sender, System::EventArgs^ e) {
 		this->Mundo1->Enabled = false;
@@ -2640,6 +2639,10 @@ namespace Humaformsnia {
 				this->BtnJugar->Visible = false;
 				this->BtnCreditos->Visible = false;
 				this->BtnSalir->Visible = false;
+
+				if (File::Exists("PARAMETROS.txt"))
+					File::Delete("PARAMETROS.txt");
+
 			}
 			grr++;
 		}
@@ -3755,7 +3758,7 @@ namespace Humaformsnia {
 
 		buffer->Graphics->Clear(Color::Black);
 
-		buffer->Graphics->DrawImage(fondopregunta1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta1->Width, fondopregunta1->Height, GraphicsUnit::Pixel);
+		buffer->Graphics->DrawImage(fondopregunta3, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta3->Width, fondopregunta3->Height, GraphicsUnit::Pixel);
 		buffer->Graphics->DrawImage(R, 300 - ancho_pregunta, Y_P - 8);
 		buffer->Graphics->DrawImage(E, 390 - ancho_pregunta, Y_R - 8);
 		buffer->Graphics->DrawImage(S1, 465 - ancho_pregunta, Y_E - 8);
@@ -3766,7 +3769,7 @@ namespace Humaformsnia {
 		buffer->Graphics->DrawImage(T, 880 - ancho_pregunta, Y_A - 8);
 		buffer->Graphics->DrawImage(Ap, 965 - ancho_pregunta, Y_CERO - 8);
 		buffer->Graphics->DrawImage(CERO, 1100 - ancho_pregunta, Y_UNO - 8);
-		buffer->Graphics->DrawImage(UNO, 1200 - ancho_pregunta, Y_DOS - 8);
+		buffer->Graphics->DrawImage(TRES, 1200 - ancho_pregunta, Y_DOS - 8);
 
 
 		int caida1 = 4;
@@ -3865,7 +3868,7 @@ namespace Humaformsnia {
 
 		if (C_DOS == 4) {
 
-			buffer->Graphics->DrawImage(Respuesta1, X_P1 + 30, Y_P1, W_P1, H_P1);
+			buffer->Graphics->DrawImage(Respuesta3, X_P1 + 30, Y_P1, W_P1, H_P1);
 
 			if (W_P1 < anchooobjetivor && H_P1 < altoobjetivor) {
 
@@ -3881,11 +3884,7 @@ namespace Humaformsnia {
 
 		}
 
-		if (cambio >= 100) {
-
-			escaper3 = true;
-			Nave->setXt(800);
-		}
+		
 
 		buffer->Render(canvas);
 
