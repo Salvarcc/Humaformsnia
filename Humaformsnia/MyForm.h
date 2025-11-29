@@ -280,7 +280,7 @@ namespace Humaformsnia {
 			fondo_credito = gcnew Bitmap(gcnew String("Images//fondo_credito.png"));
 
 			Creditos->Interval = 30;
-
+			//____________________________
 
 			Logos->Enabled = true;
 			CargaUno->Enabled = false;
