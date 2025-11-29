@@ -285,7 +285,7 @@ namespace Humaformsnia {
 			Logos->Enabled = true;
 			CargaUno->Enabled = false;
 			CargaDos->Enabled = false;
-			CargaTres->Enabled = false;
+			CargaTres->Enabled = false; 
 
 			InstruccionesUno->Enabled = false;
 			InstruccionesDos->Enabled = false;
