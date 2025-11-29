@@ -9,6 +9,7 @@
 #include "Messi.h"
 #include "Arbitro.h"
 #include "Archivo.h"
+#include "Scores.h"
 
 
 namespace Humaformsnia {
@@ -170,6 +171,8 @@ namespace Humaformsnia {
 			N2 = gcnew Bitmap(gcnew String("Images//InstruccionesN.png"));
 			E1 = gcnew Bitmap(gcnew String("Images//InstruccionesE.png"));
 			S2 = gcnew Bitmap(gcnew String("Images//InstruccionesS.png"));
+			Escape = gcnew Bitmap(gcnew String("Images//ESCAPE.png"));
+			Escapec = gcnew Bitmap(gcnew String("Images//ESCAPEC.png"));
 
 
 			// mundo 2
@@ -285,7 +288,7 @@ namespace Humaformsnia {
 			Logos->Enabled = true;
 			CargaUno->Enabled = false;
 			CargaDos->Enabled = false;
-			CargaTres->Enabled = false; 
+			CargaTres->Enabled = false;
 
 			InstruccionesUno->Enabled = false;
 			InstruccionesDos->Enabled = false;
@@ -305,6 +308,10 @@ namespace Humaformsnia {
 			BtnSalir->Visible = false;
 
 			Creditos->Enabled = false;
+			GUARDAR->Enabled = false;
+			
+
+
 		}
 	protected:
 		/// <summary>
@@ -348,6 +355,8 @@ namespace Humaformsnia {
 		Visual^ Portal3;
 		Visual^ Brillo;
 		Messi^ messi;
+		Bitmap^ Escape;
+		Bitmap^ Escapec;
 
 		Bitmap^ pantalogros;
 		Bitmap^ oculto;
@@ -431,6 +440,11 @@ namespace Humaformsnia {
 		int W_P1 = 10;
 		int H_P1 = 10;
 
+
+		int X_P2 = 50;
+		int Y_P2 = 500;
+		int W_P2 = 700;
+		int H_P2 = 150;
 		// variables nave
 
 		int X_Nave = 0;
@@ -459,8 +473,8 @@ namespace Humaformsnia {
 		int anchooobjetivorespuesta2 = 1200;
 		int altoobjetivorespuesta2 = 400;
 
-		int anchooobjetivo_pregunta3 = 1200;
-		int altoobjetivo_pregunta3 = 400;
+		int anchooobjetivo_pregunta3 = 1050;
+		int altoobjetivo_pregunta3 = 350;
 
 		// carga1
 
@@ -529,6 +543,7 @@ namespace Humaformsnia {
 		int C_N2;
 		int C_E1;
 		int C_S2;
+		int puntaje = 1000;
 
 		int tecla = 1;
 		int controltecla = 1;
@@ -624,7 +639,7 @@ namespace Humaformsnia {
 		int contadorTipeo = 0;
 		//ELEMNTOS DE CREDITO 
 
-		
+
 		int contador_tipeo;
 		Bitmap^ fondo_credito;
 		Bitmap^ c_c;
@@ -670,6 +685,9 @@ namespace Humaformsnia {
 		   System::Windows::Forms::Timer^ PreguntaUno;
 		   System::Windows::Forms::Timer^ InstruccionesUno;
 		   System::Windows::Forms::Button^ BtnNo;
+		   System::Windows::Forms::Button^ btnGuardarScore;
+		   System::Windows::Forms::TextBox^ txtNombreScore;
+
 		   System::Windows::Forms::Timer^ RespuestaUno;
 		   System::Windows::Forms::Timer^ PreguntaDos;
 		   System::Windows::Forms::Timer^ RespuestaDos;
@@ -681,6 +699,7 @@ namespace Humaformsnia {
 		   System::Windows::Forms::Timer^ Creditos;
 
 	private: System::Windows::Forms::Timer^ GameOver;
+private: System::Windows::Forms::Timer^ GUARDAR;
 	private: System::Windows::Forms::Button^ BtnSi;
 
 
@@ -720,7 +739,6 @@ namespace Humaformsnia {
 			   this->Logrito10 = (gcnew System::Windows::Forms::Button());
 			   this->label1 = (gcnew System::Windows::Forms::Label());
 			   this->label2 = (gcnew System::Windows::Forms::Label());
-
 			   this->Logos = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->CargaUno = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->PreguntaUno = (gcnew System::Windows::Forms::Timer(this->components));
@@ -736,36 +754,16 @@ namespace Humaformsnia {
 			   this->GameOver = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->BtnSi = (gcnew System::Windows::Forms::Button());
 			   this->BtnNo = (gcnew System::Windows::Forms::Button());
-			   // 
-			   // Logos
-			   // 
-			   this->Logos->Tick += gcnew System::EventHandler(this, &MyForm::Logos_Tick);
-			   // 
-			   // CargaUno
-			   // 
-			   this->CargaUno->Enabled = false;
-			   this->CargaUno->Tick += gcnew System::EventHandler(this, &MyForm::Carga1_Tick);
-			   // 
-			   // PreguntaUno
-			   // 
-			   this->PreguntaUno->Interval = 10;
-			   this->PreguntaUno->Tick += gcnew System::EventHandler(this, &MyForm::Pregunta1_Tick);
-			   // 
-			   // InstruccionesUno
-			   // 
-			   this->InstruccionesUno->Interval = 10;
-			   this->InstruccionesUno->Tick += gcnew System::EventHandler(this, &MyForm::InstruccionesUno_Tick);// Logos
-
-
+			   this->txtNombreScore = (gcnew System::Windows::Forms::TextBox());
+			   this->btnGuardarScore = (gcnew System::Windows::Forms::Button());
+			   this->GUARDAR = (gcnew System::Windows::Forms::Timer(this->components));
 			   // 
 			   // Menu
 			   // 
 			   this->Menu->Tick += gcnew System::EventHandler(this, &MyForm::Menu_Tick);
 			   // 
-			   // 
 			   // Mundo1
 			   // 
-			   this->Mundo1->Enabled = false;
 			   this->Mundo1->Tick += gcnew System::EventHandler(this, &MyForm::Mundo1_Tick);
 			   // 
 			   // Mundo2
@@ -775,6 +773,7 @@ namespace Humaformsnia {
 			   // Mundo3
 			   // 
 			   this->Mundo3->Tick += gcnew System::EventHandler(this, &MyForm::Mundo3_Tick);
+			   // 
 			   // Pausa
 			   // 
 			   this->Pausa->Tick += gcnew System::EventHandler(this, &MyForm::Pausa_Tick);
@@ -783,10 +782,6 @@ namespace Humaformsnia {
 			   // 
 			   this->Logros->Enabled = true;
 			   this->Logros->Tick += gcnew System::EventHandler(this, &MyForm::Logros_Tick);
-			   // 
-			  // NPChabla
-			  // 
-			   this->NPChabla->Tick += gcnew System::EventHandler(this, &MyForm::NPChabla_Tick);
 			   // 
 			   // BtnJugar
 			   // 
@@ -800,7 +795,7 @@ namespace Humaformsnia {
 			   this->BtnJugar->Margin = System::Windows::Forms::Padding(7, 6, 7, 6);
 			   this->BtnJugar->Name = L"BtnJugar";
 			   this->BtnJugar->Image = gcnew Bitmap(gcnew String("images//Jugar.png"));
-			   this->BtnJugar->Size = System::Drawing::Size(6, 6);
+
 			   this->BtnJugar->TabIndex = 0;
 			   this->BtnJugar->UseVisualStyleBackColor = false;
 			   this->BtnJugar->Click += gcnew System::EventHandler(this, &MyForm::BtnJugar_Click);
@@ -813,6 +808,10 @@ namespace Humaformsnia {
 			   this->PressBtn->Interval = 300;
 			   this->PressBtn->Tick += gcnew System::EventHandler(this, &MyForm::PressBtn_Tick);
 			   // 
+			   // NPChabla
+			   // 
+			   this->NPChabla->Tick += gcnew System::EventHandler(this, &MyForm::NPChabla_Tick);
+			   // 
 			   // BtnCreditos
 			   // 
 			   this->BtnCreditos->AutoSize = true;
@@ -820,8 +819,9 @@ namespace Humaformsnia {
 			   this->BtnCreditos->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->BtnCreditos->Location = System::Drawing::Point(597, 400);
 			   this->BtnCreditos->Name = L"BtnCreditos";
+
 			   this->BtnCreditos->Image = gcnew Bitmap(gcnew String("images//Creditos.jpg"));
-			   this->BtnCreditos->Size = System::Drawing::Size(6, 6);
+
 			   this->BtnCreditos->TabIndex = 1;
 			   this->BtnCreditos->UseVisualStyleBackColor = false;
 			   this->BtnCreditos->Click += gcnew System::EventHandler(this, &MyForm::BtnCreditos_Click);
@@ -834,296 +834,305 @@ namespace Humaformsnia {
 			   this->BtnSalir->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			   this->BtnSalir->Location = System::Drawing::Point(597, 500);
 			   this->BtnSalir->Name = L"BtnSalir";
-			   this->BtnSalir->Image = gcnew Bitmap(gcnew String("images//Salir.jpg"));
-			   this->BtnSalir->Size = System::Drawing::Size(6, 6);
 			   this->BtnSalir->TabIndex = 2;
 			   this->BtnSalir->UseVisualStyleBackColor = false;
+			   this->BtnSalir->Image = gcnew Bitmap(gcnew String("images//Salir.jpg"));
+
+
 			   this->BtnSalir->Click += gcnew System::EventHandler(this, &MyForm::BtnSalir_Click);
 			   this->BtnSalir->MouseEnter += gcnew System::EventHandler(this, &MyForm::BtnSalir_MouseEnter);
 			   this->BtnSalir->MouseLeave += gcnew System::EventHandler(this, &MyForm::BtnSalir_MouseLeave);
 			   // 
-			   // BtnSi
-			   // 
-			   this->BtnSi->Image = gcnew Bitmap(gcnew String("images//si.jpg"));
-			   this->BtnSi->Location = System::Drawing::Point(540, 345);
-			   this->BtnSi->Name = L"BtnSi";
-			   this->BtnSi->Size = System::Drawing::Size(127, 49);
-			   this->BtnSi->TabIndex = 3;
-			   this->BtnSi->UseVisualStyleBackColor = true;
-			   this->BtnSi->Click += gcnew System::EventHandler(this, &MyForm::BtnSi_Click);
-
-			   this->BtnSi->Visible = false;
-			   // 
-			   // BtnNo
-			   // 
-
-			   this->BtnNo->Image = gcnew Bitmap(gcnew String("images//no.jpg"));
-
-			   this->BtnNo->Location = System::Drawing::Point(737, 345);
-			   this->BtnNo->Name = L"BtnNo1";
-			   this->BtnNo->Size = System::Drawing::Size(127, 49);
-			   this->BtnNo->TabIndex = 4;
-			   this->BtnNo->UseVisualStyleBackColor = true;
-			   this->BtnNo->Click += gcnew System::EventHandler(this, &MyForm::BtnNo_Click);
-
-			   this->BtnNo->Visible = false;
-			   // 
 			   // BtnContinuar
 			   // 
-			   this->BtnContinuar->Visible = false;
 			   this->BtnContinuar->AutoSize = true;
 			   this->BtnContinuar->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			   this->BtnContinuar->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->BtnContinuar->Location = System::Drawing::Point(597, 250);
 			   this->BtnContinuar->Name = L"BtnContinuar";
 			   this->BtnContinuar->Image = gcnew Bitmap(gcnew String("images//Continuar.png"));
-			   this->BtnContinuar->Size = System::Drawing::Size(6, 6);
+
 			   this->BtnContinuar->TabIndex = 5;
 			   this->BtnContinuar->UseVisualStyleBackColor = false;
+
+
+			   this->BtnContinuar->Visible = false;
 			   this->BtnContinuar->Click += gcnew System::EventHandler(this, &MyForm::BtnContinuar_Click);
 			   this->BtnContinuar->MouseEnter += gcnew System::EventHandler(this, &MyForm::BtnContinuar_MouseEnter);
 			   this->BtnContinuar->MouseLeave += gcnew System::EventHandler(this, &MyForm::BtnContinuar_MouseLeave);
 			   // 
 			   // BtnRegresar
 			   // 
-			   this->BtnRegresar->Visible = false;
 			   this->BtnRegresar->AutoSize = true;
 			   this->BtnRegresar->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			   this->BtnRegresar->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->BtnRegresar->Location = System::Drawing::Point(597, 450);
 			   this->BtnRegresar->Name = L"BtnRegresar";
 			   this->BtnRegresar->Image = gcnew Bitmap(gcnew String("images//Regresar.png"));
-			   this->BtnRegresar->Size = System::Drawing::Size(6, 6);
 			   this->BtnRegresar->TabIndex = 6;
 			   this->BtnRegresar->UseVisualStyleBackColor = false;
+			   this->BtnRegresar->Visible = false;
 			   this->BtnRegresar->Click += gcnew System::EventHandler(this, &MyForm::BtnRegresar_Click);
 			   this->BtnRegresar->MouseEnter += gcnew System::EventHandler(this, &MyForm::BtnRegresar_MouseEnter);
 			   this->BtnRegresar->MouseLeave += gcnew System::EventHandler(this, &MyForm::BtnRegresar_MouseLeave);
 			   // 
 			   // BtnLogros
 			   // 
-			   this->BtnLogros->Visible = false;
 			   this->BtnLogros->AutoSize = true;
 			   this->BtnLogros->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			   this->BtnLogros->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->BtnLogros->Location = System::Drawing::Point(597, 350);
 			   this->BtnLogros->Name = L"BtnLogros";
 			   this->BtnLogros->Image = gcnew Bitmap(gcnew String("images//Logros.png"));
-			   this->BtnLogros->Size = System::Drawing::Size(6, 6);
 			   this->BtnLogros->TabIndex = 7;
 			   this->BtnLogros->UseVisualStyleBackColor = false;
+			   this->BtnLogros->Visible = false;
 			   this->BtnLogros->Click += gcnew System::EventHandler(this, &MyForm::BtnLogros_Click);
 			   this->BtnLogros->MouseEnter += gcnew System::EventHandler(this, &MyForm::BtnLogros_MouseEnter);
 			   this->BtnLogros->MouseLeave += gcnew System::EventHandler(this, &MyForm::BtnLogros_MouseLeave);
 			   // 
-			   // Logrito1
-			   // 
+			   this->Logrito1 = (gcnew System::Windows::Forms::Button());
 			   this->Logrito1->Visible = false;
-			   this->Logrito1->AutoSize = true;
-			   this->Logrito1->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
+			   this->Logrito1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			   this->Logrito1->FlatAppearance->BorderSize = 0;
+			   this->Logrito1->BackColor = System::Drawing::Color::Transparent;
+			   this->Logrito1->BackgroundImage = gcnew System::Drawing::Bitmap(
+				   gcnew System::String("images//Logro1.png")
+			   );
+			   this->Logrito1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			   this->Logrito1->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->Logrito1->Location = System::Drawing::Point(152, 200);
 			   this->Logrito1->Name = L"Logrito1";
-			   this->Logrito1->Image = gcnew Bitmap(gcnew String("images//Logro1.png"));
-			   this->Logrito1->Size = System::Drawing::Size(6, 6);
+			   this->Logrito1->Size = System::Drawing::Size(140, 140);
 			   this->Logrito1->TabIndex = 8;
 			   this->Logrito1->UseVisualStyleBackColor = false;
 			   this->Logrito1->Click += gcnew System::EventHandler(this, &MyForm::BtnL1_Click);
+
 			   // 
 			   // Logrito2
 			   // 
+			   this->Logrito2 = (gcnew System::Windows::Forms::Button());
 			   this->Logrito2->Visible = false;
-			   this->Logrito2->AutoSize = true;
-			   this->Logrito2->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
+			   this->Logrito2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			   this->Logrito2->FlatAppearance->BorderSize = 0;
+			   this->Logrito2->BackColor = System::Drawing::Color::Transparent;
+			   this->Logrito2->BackgroundImage = gcnew System::Drawing::Bitmap(
+				   gcnew System::String("images//Logro2.png")
+			   );
+			   this->Logrito2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			   this->Logrito2->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->Logrito2->Location = System::Drawing::Point(368, 200);
 			   this->Logrito2->Name = L"Logrito2";
-			   this->Logrito2->Image = gcnew Bitmap(gcnew String("images//Logro2.png"));
-			   this->Logrito2->Size = System::Drawing::Size(6, 6);
+			   this->Logrito2->Size = System::Drawing::Size(140, 140);
 			   this->Logrito2->TabIndex = 9;
 			   this->Logrito2->UseVisualStyleBackColor = false;
 			   this->Logrito2->Click += gcnew System::EventHandler(this, &MyForm::BtnL2_Click);
+
 			   // 
 			   // Logrito3
 			   // 
+			   this->Logrito3 = (gcnew System::Windows::Forms::Button());
 			   this->Logrito3->Visible = false;
-			   this->Logrito3->AutoSize = true;
-			   this->Logrito3->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
+			   this->Logrito3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			   this->Logrito3->FlatAppearance->BorderSize = 0;
+			   this->Logrito3->BackColor = System::Drawing::Color::Transparent;
+			   this->Logrito3->BackgroundImage = gcnew System::Drawing::Bitmap(
+				   gcnew System::String("images//Logro3.png")
+			   );
+			   this->Logrito3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			   this->Logrito3->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->Logrito3->Location = System::Drawing::Point(584, 200);
 			   this->Logrito3->Name = L"Logrito3";
-			   this->Logrito3->Image = gcnew Bitmap(gcnew String("images//Logro3.png"));
-			   this->Logrito3->Size = System::Drawing::Size(6, 6);
+			   this->Logrito3->Size = System::Drawing::Size(140, 140);
 			   this->Logrito3->TabIndex = 10;
 			   this->Logrito3->UseVisualStyleBackColor = false;
 			   this->Logrito3->Click += gcnew System::EventHandler(this, &MyForm::BtnL3_Click);
+
 			   // 
 			   // Logrito4
 			   // 
+			   this->Logrito4 = (gcnew System::Windows::Forms::Button());
 			   this->Logrito4->Visible = false;
-			   this->Logrito4->AutoSize = true;
-			   this->Logrito4->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
+			   this->Logrito4->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			   this->Logrito4->FlatAppearance->BorderSize = 0;
+			   this->Logrito4->BackColor = System::Drawing::Color::Transparent;
+			   this->Logrito4->BackgroundImage = gcnew System::Drawing::Bitmap(
+				   gcnew System::String("images//Logro4.png")
+			   );
+			   this->Logrito4->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			   this->Logrito4->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->Logrito4->Location = System::Drawing::Point(800, 200);
 			   this->Logrito4->Name = L"Logrito4";
-			   this->Logrito4->Image = gcnew Bitmap(gcnew String("images//Logro4.png"));
-			   this->Logrito4->Size = System::Drawing::Size(6, 6);
+			   this->Logrito4->Size = System::Drawing::Size(140, 140);
 			   this->Logrito4->TabIndex = 11;
 			   this->Logrito4->UseVisualStyleBackColor = false;
 			   this->Logrito4->Click += gcnew System::EventHandler(this, &MyForm::BtnL4_Click);
+
 			   // 
 			   // Logrito5
 			   // 
+			   this->Logrito5 = (gcnew System::Windows::Forms::Button());
 			   this->Logrito5->Visible = false;
-			   this->Logrito5->AutoSize = true;
-			   this->Logrito5->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
+			   this->Logrito5->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			   this->Logrito5->FlatAppearance->BorderSize = 0;
+			   this->Logrito5->BackColor = System::Drawing::Color::Transparent;
+			   this->Logrito5->BackgroundImage = gcnew System::Drawing::Bitmap(
+				   gcnew System::String("images//Logro5.png")
+			   );
+			   this->Logrito5->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			   this->Logrito5->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->Logrito5->Location = System::Drawing::Point(1016, 200);
 			   this->Logrito5->Name = L"Logrito5";
-			   this->Logrito5->Image = gcnew Bitmap(gcnew String("images//Logro5.png"));
-			   this->Logrito5->Size = System::Drawing::Size(6, 6);
+			   this->Logrito5->Size = System::Drawing::Size(140, 140);
 			   this->Logrito5->TabIndex = 12;
 			   this->Logrito5->UseVisualStyleBackColor = false;
 			   this->Logrito5->Click += gcnew System::EventHandler(this, &MyForm::BtnL5_Click);
+
 			   // 
 			   // Logrito6
 			   // 
+			   this->Logrito6 = (gcnew System::Windows::Forms::Button());
 			   this->Logrito6->Visible = false;
-			   this->Logrito6->AutoSize = true;
-			   this->Logrito6->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
+			   this->Logrito6->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			   this->Logrito6->FlatAppearance->BorderSize = 0;
+			   this->Logrito6->BackColor = System::Drawing::Color::Transparent;
+			   this->Logrito6->BackgroundImage = gcnew System::Drawing::Bitmap(
+				   gcnew System::String("images//Logro6.png")
+			   );
+			   this->Logrito6->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			   this->Logrito6->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->Logrito6->Location = System::Drawing::Point(152, 400);
 			   this->Logrito6->Name = L"Logrito6";
-			   this->Logrito6->Image = gcnew Bitmap(gcnew String("images//Logro6.png"));
-			   this->Logrito6->Size = System::Drawing::Size(6, 6);
+			   this->Logrito6->Size = System::Drawing::Size(140, 140);
 			   this->Logrito6->TabIndex = 13;
 			   this->Logrito6->UseVisualStyleBackColor = false;
 			   this->Logrito6->Click += gcnew System::EventHandler(this, &MyForm::BtnL6_Click);
+
 			   // 
 			   // Logrito7
 			   // 
+			   this->Logrito7 = (gcnew System::Windows::Forms::Button());
 			   this->Logrito7->Visible = false;
-			   this->Logrito7->AutoSize = true;
-			   this->Logrito7->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
+			   this->Logrito7->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			   this->Logrito7->FlatAppearance->BorderSize = 0;
+			   this->Logrito7->BackColor = System::Drawing::Color::Transparent;
+			   this->Logrito7->BackgroundImage = gcnew System::Drawing::Bitmap(
+				   gcnew System::String("images//Logro7.png")
+			   );
+			   this->Logrito7->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			   this->Logrito7->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->Logrito7->Location = System::Drawing::Point(368, 400);
 			   this->Logrito7->Name = L"Logrito7";
-			   this->Logrito7->Image = gcnew Bitmap(gcnew String("images//Logro7.png"));
-			   this->Logrito7->Size = System::Drawing::Size(6, 6);
+			   this->Logrito7->Size = System::Drawing::Size(140, 140);
 			   this->Logrito7->TabIndex = 14;
 			   this->Logrito7->UseVisualStyleBackColor = false;
 			   this->Logrito7->Click += gcnew System::EventHandler(this, &MyForm::BtnL7_Click);
+
 			   // 
 			   // Logrito8
 			   // 
+			   this->Logrito8 = (gcnew System::Windows::Forms::Button());
 			   this->Logrito8->Visible = false;
-			   this->Logrito8->AutoSize = true;
-			   this->Logrito8->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
+			   this->Logrito8->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			   this->Logrito8->FlatAppearance->BorderSize = 0;
+			   this->Logrito8->BackColor = System::Drawing::Color::Transparent;
+			   this->Logrito8->BackgroundImage = gcnew System::Drawing::Bitmap(
+				   gcnew System::String("images//Logro8.png")
+			   );
+			   this->Logrito8->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			   this->Logrito8->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->Logrito8->Location = System::Drawing::Point(584, 400);
 			   this->Logrito8->Name = L"Logrito8";
-			   this->Logrito8->Image = gcnew Bitmap(gcnew String("images//Logro8.png"));
-			   this->Logrito8->Size = System::Drawing::Size(6, 6);
+			   this->Logrito8->Size = System::Drawing::Size(140, 140);
 			   this->Logrito8->TabIndex = 15;
 			   this->Logrito8->UseVisualStyleBackColor = false;
 			   this->Logrito8->Click += gcnew System::EventHandler(this, &MyForm::BtnL8_Click);
+
 			   // 
 			   // Logrito9
 			   // 
+			   this->Logrito9 = (gcnew System::Windows::Forms::Button());
 			   this->Logrito9->Visible = false;
-			   this->Logrito9->AutoSize = true;
-			   this->Logrito9->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
+			   this->Logrito9->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			   this->Logrito9->FlatAppearance->BorderSize = 0;
+			   this->Logrito9->BackColor = System::Drawing::Color::Transparent;
+			   this->Logrito9->BackgroundImage = gcnew System::Drawing::Bitmap(
+				   gcnew System::String("images//Logro9.png")
+			   );
+			   this->Logrito9->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			   this->Logrito9->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->Logrito9->Location = System::Drawing::Point(800, 400);
 			   this->Logrito9->Name = L"Logrito9";
-			   this->Logrito9->Image = gcnew Bitmap(gcnew String("images//Logro9.png"));
-			   this->Logrito9->Size = System::Drawing::Size(6, 6);
+			   this->Logrito9->Size = System::Drawing::Size(140, 140);
 			   this->Logrito9->TabIndex = 16;
 			   this->Logrito9->UseVisualStyleBackColor = false;
 			   this->Logrito9->Click += gcnew System::EventHandler(this, &MyForm::BtnL9_Click);
+
 			   // 
 			   // Logrito10
 			   // 
+			   this->Logrito10 = (gcnew System::Windows::Forms::Button());
 			   this->Logrito10->Visible = false;
-			   this->Logrito10->AutoSize = true;
-			   this->Logrito10->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
+			   this->Logrito10->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			   this->Logrito10->FlatAppearance->BorderSize = 0;
+			   this->Logrito10->BackColor = System::Drawing::Color::Transparent;
+			   this->Logrito10->BackgroundImage = gcnew System::Drawing::Bitmap(
+				   gcnew System::String("images//Logro10.png")
+			   );
+			   this->Logrito10->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			   this->Logrito10->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->Logrito10->Location = System::Drawing::Point(1016, 400);
 			   this->Logrito10->Name = L"Logrito10";
-			   this->Logrito10->Image = gcnew Bitmap(gcnew String("images//Logro10.png"));
-			   this->Logrito10->Size = System::Drawing::Size(6, 6);
+			   this->Logrito10->Size = System::Drawing::Size(140, 140);
 			   this->Logrito10->TabIndex = 17;
 			   this->Logrito10->UseVisualStyleBackColor = false;
 			   this->Logrito10->Click += gcnew System::EventHandler(this, &MyForm::BtnL10_Click);
-			   // 
-			   // GAMEOVER
-			   // 
-			   this->GameOver->Tick += gcnew System::EventHandler(this, &MyForm::GameOver_Tick);
-			   // 
-			 // Creditos
-			 // 
-			   this->Creditos->Tick += gcnew System::EventHandler(this, &MyForm::Creditos_Tick);
 
 			   // 
 			   // label1
 			   // 
 			   this->label1->AutoSize = true;
-			   this->label1->Visible = false;
+			   this->label1->Font = (gcnew System::Drawing::Font(L"Myanmar Text", 25, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
 			   this->label1->Location = System::Drawing::Point(100, 150);
 			   this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			   this->label1->Name = L"label1";
-			   this->label1->Size = System::Drawing::Size(57, 16);
+			   this->label1->Size = System::Drawing::Size(0, 60);
 			   this->label1->TabIndex = 0;
-			   this->label1->Text = L"";
-			   this->label1->Font = (gcnew System::Drawing::Font(L"Myanmar Text", 25, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(0)));
+			   this->label1->Visible = false;
 			   // 
 			   // label2
 			   // 
 			   this->label2->AutoSize = true;
-			   this->label2->Visible = false;
+			   this->label2->Font = (gcnew System::Drawing::Font(L"Myanmar Text", 20, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
 			   this->label2->Location = System::Drawing::Point(100, 150);
 			   this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			   this->label2->Name = L"label2";
-			   this->label2->Size = System::Drawing::Size(57, 16);
+			   this->label2->Size = System::Drawing::Size(0, 48);
 			   this->label2->TabIndex = 1;
-			   this->label2->Text = L"";
-			   this->label2->Font = (gcnew System::Drawing::Font(L"Myanmar Text", 20, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(0)));
+			   this->label2->Visible = false;
 			   // 
-			   // MyForm
+			   // Logos
 			   // 
-			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
-			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			   this->ClientSize = System::Drawing::Size(1400, 700);
-			   this->Controls->Add(this->BtnSalir);
-			   this->Controls->Add(this->BtnCreditos);
-			   this->Controls->Add(this->BtnJugar);
-			   this->Controls->Add(this->BtnSi);
-			   this->Controls->Add(this->BtnNo);
-			   this->Controls->Add(this->BtnContinuar);
-			   this->Controls->Add(this->BtnRegresar);
-			   this->Controls->Add(this->BtnLogros);
-			   this->Controls->Add(this->Logrito1);
-			   this->Controls->Add(this->Logrito2);
-			   this->Controls->Add(this->Logrito3);
-			   this->Controls->Add(this->Logrito4);
-			   this->Controls->Add(this->Logrito5);
-			   this->Controls->Add(this->Logrito6);
-			   this->Controls->Add(this->Logrito7);
-			   this->Controls->Add(this->Logrito8);
-			   this->Controls->Add(this->Logrito9);
-			   this->Controls->Add(this->Logrito10);
-			   this->Controls->Add(this->label1);
-			   this->Controls->Add(this->label2);
-			   this->KeyPreview = true;
-			   this->Name = L"MyForm";
-			   this->Text = L"MyForm";
-			   this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::MyForm_KeyDown);
-			   this->ResumeLayout(false);
-
+			   this->Logos->Tick += gcnew System::EventHandler(this, &MyForm::Logos_Tick);
+			   // 
+			   // CargaUno
+			   // 
+			   this->CargaUno->Tick += gcnew System::EventHandler(this, &MyForm::Carga1_Tick);
+			   // 
+			   // PreguntaUno
+			   // 
+			   this->PreguntaUno->Interval = 10;
+			   this->PreguntaUno->Tick += gcnew System::EventHandler(this, &MyForm::Pregunta1_Tick);
+			   // 
+			   // InstruccionesUno
+			   // 
+			   this->InstruccionesUno->Interval = 10;
+			   this->InstruccionesUno->Tick += gcnew System::EventHandler(this, &MyForm::InstruccionesUno_Tick);
+			   // 
 			   // RespuestaUno
-			  // 
+			   // 
 			   this->RespuestaUno->Interval = 10;
 			   this->RespuestaUno->Tick += gcnew System::EventHandler(this, &MyForm::RespuestaUno_Tick);
 			   // 
@@ -1159,6 +1168,94 @@ namespace Humaformsnia {
 			   // CargaTres
 			   // 
 			   this->CargaTres->Tick += gcnew System::EventHandler(this, &MyForm::CargaTres_Tick);
+			   // 
+			   // GameOver
+			   // 
+			   this->GameOver->Tick += gcnew System::EventHandler(this, &MyForm::GameOver_Tick);
+			   // 
+			   // BtnSi
+			   // 
+			   this->BtnSi->Location = System::Drawing::Point(540, 345);
+			   this->BtnSi->Name = L"BtnSi";
+			   this->BtnSi->Size = System::Drawing::Size(127, 49);
+			   this->BtnSi->Image = gcnew Bitmap(gcnew String("images//si.jpg"));
+
+			   this->BtnSi->TabIndex = 3;
+			   this->BtnSi->UseVisualStyleBackColor = true;
+			   this->BtnSi->Visible = false;
+			   this->BtnSi->Click += gcnew System::EventHandler(this, &MyForm::BtnSi_Click);
+			   // 
+			   // BtnNo
+			   // 
+			   this->BtnNo->Location = System::Drawing::Point(737, 345);
+			   this->BtnNo->Name = L"BtnNo";
+			   this->BtnNo->Size = System::Drawing::Size(127, 49);
+			   this->BtnNo->TabIndex = 4;
+			   this->BtnNo->Image = gcnew Bitmap(gcnew String("images//no.jpg"));
+
+			   this->BtnNo->UseVisualStyleBackColor = true;
+			   this->BtnNo->Visible = false;
+			   this->BtnNo->Click += gcnew System::EventHandler(this, &MyForm::BtnNo_Click);
+			   // 
+			   // txtNombreScore
+			   // 
+			   this->txtNombreScore->Enabled = false;
+			   this->txtNombreScore->Location = System::Drawing::Point(550, 300);
+			   this->txtNombreScore->Name = L"txtNombreScore";
+			   this->txtNombreScore->Size = System::Drawing::Size(200, 20);
+			   this->txtNombreScore->TabIndex = 100;
+			   this->txtNombreScore->Visible = false;
+			   // 
+			   // btnGuardarScore
+			   // 
+			   this->btnGuardarScore->Enabled = false;
+			   this->btnGuardarScore->Location = System::Drawing::Point(760, 298);
+			   this->btnGuardarScore->Name = L"btnGuardarScore";
+			   this->btnGuardarScore->Size = System::Drawing::Size(100, 26);
+			   this->btnGuardarScore->TabIndex = 101;
+			   this->btnGuardarScore->Text = L"Guardar";
+			   this->btnGuardarScore->UseVisualStyleBackColor = true;
+			   this->btnGuardarScore->Visible = false;
+			   this->btnGuardarScore->Click += gcnew System::EventHandler(this, &MyForm::btnGuardarScore_Click);
+			   // 
+			   // GUARDAR
+			   // 
+			   this->GUARDAR->Enabled = true;
+			   this->GUARDAR->Tick += gcnew System::EventHandler(this, &MyForm::GUARDAR_Tick);
+			   // 
+			   // MyForm
+			   // 
+			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			   this->ClientSize = System::Drawing::Size(1400, 700);
+			   this->Controls->Add(this->BtnSalir);
+			   this->Controls->Add(this->BtnCreditos);
+			   this->Controls->Add(this->BtnJugar);
+			   this->Controls->Add(this->BtnSi);
+			   this->Controls->Add(this->BtnNo);
+			   this->Controls->Add(this->BtnContinuar);
+			   this->Controls->Add(this->BtnRegresar);
+			   this->Controls->Add(this->BtnLogros);
+			   this->Controls->Add(this->Logrito1);
+			   this->Controls->Add(this->Logrito2);
+			   this->Controls->Add(this->Logrito3);
+			   this->Controls->Add(this->Logrito4);
+			   this->Controls->Add(this->Logrito5);
+			   this->Controls->Add(this->Logrito6);
+			   this->Controls->Add(this->Logrito7);
+			   this->Controls->Add(this->Logrito8);
+			   this->Controls->Add(this->Logrito9);
+			   this->Controls->Add(this->Logrito10);
+			   this->Controls->Add(this->label1);
+			   this->Controls->Add(this->label2);
+			   this->Controls->Add(this->txtNombreScore);
+			   this->Controls->Add(this->btnGuardarScore);
+			   this->KeyPreview = true;
+			   this->Name = L"MyForm";
+			   this->Text = L"MyForm";
+			   this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::MyForm_KeyDown);
+			   this->ResumeLayout(false);
+			   this->PerformLayout();
 
 		   }
 #pragma endregion
@@ -1204,16 +1301,18 @@ namespace Humaformsnia {
 					teclapulsada = Direccion::Derecha1;
 				}
 			}
-			if (e->KeyCode == Keys::C) entered = true;
-			if (e->KeyCode == Keys::Enter) entered = true;
+			if (e->KeyCode == Keys::Q) entered = true;
 			if (e->KeyCode == Keys::Escape)if (Mundo > 0 || Mundo < 4) pausita = true;
 		}
-		if (e->KeyCode == Keys::C) {
-			lograsos = false;
-			eleccion = 0;
-			this->Pausa->Enabled = true;
-			if (e->KeyCode == Keys::Enter) entered = true;
-		}
+
+		
+			if (e->KeyCode == Keys::C) {
+				lograsos = false;
+				eleccion = 0;
+				this->Pausa->Enabled = true;
+				if (e->KeyCode == Keys::Enter) entered = true;
+			}
+		
 
 		if (e->KeyCode == Keys::Up && konami == 0)konami++;
 		else konami == 0;
@@ -1351,6 +1450,8 @@ namespace Humaformsnia {
 				C_A = 0;
 				C_CERO = 0;
 				C_UNO = 0;
+				C_DOS = 0;
+
 				C_I1 = 1;
 				C_N1 = 0;
 				C_S1 = 0;
@@ -1408,6 +1509,8 @@ namespace Humaformsnia {
 				C_A = 0;
 				C_CERO = 0;
 				C_UNO = 0;
+				C_DOS = 0;
+
 				C_I1 = 1;
 				C_N1 = 0;
 				C_S1 = 0;
@@ -1457,6 +1560,8 @@ namespace Humaformsnia {
 				C_A = 0;
 				C_CERO = 0;
 				C_UNO = 0;
+				C_DOS = 0;
+
 				C_I1 = 0;
 				C_N1 = 0;
 				C_S1 = 0;
@@ -1595,7 +1700,7 @@ namespace Humaformsnia {
 
 			if (e->KeyCode == Keys::Q) {
 
-				escapei2_1 = false;
+				escapei2_2 = false;
 
 				InstruccionesDos->Enabled = false;
 				Mundo3->Enabled = true;
@@ -1651,47 +1756,9 @@ namespace Humaformsnia {
 
 
 				RespuestaTres->Enabled = false;
+				GUARDAR->Enabled = true;
 				escaper3 = false;
-				C_P = 1;
-				C_R = 0;
-				C_E = 0;
-				C_G = 0;
-				C_U = 0;
-				C_N = 0;
-				C_T = 0;
-				C_A = 0;
-				C_CERO = 0;
-				C_UNO = 0;
-				C_I1 = 0;
-				C_N1 = 0;
-				C_S1 = 0;
-				C_T1 = 0;
-				C_R1 = 0;
-				C_U1 = 0;
-				C_C1 = 0;
-				C_C2 = 0;
-				C_I2 = 0;
-				C_O1 = 0;
-				C_N2 = 0;
-				C_E1 = 0;
-				C_S2 = 0;
-				Y_P = 10;
-				Y_R = 10;
-				Y_E = 10;
-				Y_G = 10;
-				Y_U = 10;
-				Y_N = 10;
-				Y_T = 10;
-				Y_A = 10;
-				Y_CERO = 10;
-				Y_UNO = 10;
-				Y_DOS = 10;
 
-				cambio = 0;
-				X_P1 = 700;
-				Y_P1 = 450;
-				W_P1 = 10;
-				H_P1 = 10;
 			}
 		}
 		if (escape_c) {
@@ -1833,26 +1900,26 @@ namespace Humaformsnia {
 			   List<Robot^>^ robotsAGuardar = nullptr;
 			   List<Pelota^>^ pelotasAGuardar = nullptr;
 
-			  
+
 			   if (nivel_actual == 1) {
-				   alienActual = Alien;      
-				   aliadoActual = aliado;      
-				   npcActual = Marciano1;   
-				   robotsAGuardar = robots;      
-				   pelotasAGuardar = nullptr;    
+				   alienActual = Alien;
+				   aliadoActual = aliado;
+				   npcActual = Marciano1;
+				   robotsAGuardar = robots;
+				   pelotasAGuardar = nullptr;
 			   }
 
-			  
+
 			   else if (nivel_actual == 2) {
-				   alienActual = Alien;       
-				   aliadoActual = nullptr;    
-				   npcActual = Marciano2;   
-				   arbitroActual = arbitro;     
-				   robotsAGuardar = nullptr;     
-				   pelotasAGuardar = pelotas;    
+				   alienActual = Alien;
+				   aliadoActual = nullptr;
+				   npcActual = Marciano2;
+				   arbitroActual = arbitro;
+				   robotsAGuardar = nullptr;
+				   pelotasAGuardar = pelotas;
 			   }
 
-			   
+
 			   else if (nivel_actual == 3) {
 				   steveActual = Steve;
 				   minipekkaActual = Minipekka;
@@ -1883,7 +1950,7 @@ namespace Humaformsnia {
 		bool normal = true;
 		nivel_actual = 1;
 
-		
+
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
@@ -1965,6 +2032,8 @@ namespace Humaformsnia {
 				Alien->setX(30);
 				Alien->setY(250);
 				Alien->setVidas(Alien->getVidas() - 1);
+				puntaje -= 100;
+
 			}
 
 			if (Colision(Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30,
@@ -2010,7 +2079,7 @@ namespace Humaformsnia {
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		buffer->Graphics->DrawImage(fondo_mundo_2, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
 		nivel_actual = 2;
-		
+
 
 		arbitro->setY(158);
 		if (!pelotas_detenidas) {
@@ -2038,6 +2107,8 @@ namespace Humaformsnia {
 			Alien->setX(30);
 			Alien->setY(250);
 			Alien->setVidas(Alien->getVidas() - 1);
+			puntaje -= 100;
+
 		}
 
 
@@ -2156,7 +2227,7 @@ namespace Humaformsnia {
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		buffer->Graphics->DrawImage(fondomundo3, 0, 0, Rectangle(0, 0, fondomundo3->Width, fondomundo3->Height), GraphicsUnit::Pixel);
-		
+
 
 		//this->label1->Enabled = true;
 		//this->label1->Visible = true;
@@ -2305,7 +2376,7 @@ namespace Humaformsnia {
 			logro1 = true;
 			final = true;
 		}
-		if (final==true) {
+		if (Minipekka->getY() >550 && final == true) {
 			Mundo = 4;
 			GuardarTodo();
 			this->Mundo3->Enabled = false;
@@ -2317,7 +2388,7 @@ namespace Humaformsnia {
 
 		buffer->Render(canvas);
 		contador++;
-		
+
 	}
 	private: System::Void NPChabla_Tick(System::Object^ sender, System::EventArgs^ e) {
 		this->Mundo1->Enabled = false;
@@ -2339,6 +2410,8 @@ namespace Humaformsnia {
 			textillo = this->label1->Text;
 			subida++;
 			M1hablando->mostrarimagen(buffer->Graphics);
+			buffer->Graphics->DrawImage(Escape, X_P2 + 45, Y_P2 - 450, W_P2 - 300, H_P2 - 75);
+
 			if (subida % 2 == 0) {
 
 				M1hablando->animacion();
@@ -2369,6 +2442,8 @@ namespace Humaformsnia {
 			M2hablando->setY(100);
 			M2hablando->setX(800);
 			M2hablando->mostrarimagen(buffer->Graphics);
+			buffer->Graphics->DrawImage(Escape, X_P2 + 45, Y_P2 - 450, W_P2 - 300, H_P2 - 75);
+
 			if (subida % 2 == 0) {
 
 				M2hablando->animacion();
@@ -2444,6 +2519,7 @@ namespace Humaformsnia {
 			buffer->Graphics->DrawImage(oculto, 584, 400);
 			buffer->Graphics->DrawImage(oculto, 800, 400);
 			buffer->Graphics->DrawImage(oculto, 1016, 400);
+			buffer->Graphics->DrawImage(Escapec, X_P2+20, Y_P2 + 65, W_P2 - 300, H_P2 - 75);
 
 			if (logro1) { this->Logrito1->Visible = true; this->Logrito1->Enabled = true; }
 			if (logro2) { this->Logrito2->Visible = true; this->Logrito2->Enabled = true; }
@@ -2457,9 +2533,7 @@ namespace Humaformsnia {
 			if (logro10) { this->Logrito10->Visible = true; this->Logrito10->Enabled = true; }
 			buffer->Render(canvas);
 
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+			
 		}
 		else {
 			this->Logrito1->Visible = false; this->Logrito1->Enabled = false;
@@ -2479,6 +2553,8 @@ namespace Humaformsnia {
 			BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 			buffer->Graphics->DrawImage(pantalogros, 50, 100);
 			buffer->Graphics->DrawImage(lograso1, 100, 200);
+			buffer->Graphics->DrawImage(Escapec, X_P2 + 800, Y_P2 + 65, W_P2 - 300, H_P2 - 75);
+
 			this->label1->Visible = true;
 			this->label1->Location = System::Drawing::Point(700, 250);
 			this->label1->Text = L"" + "Todos para uno y uno para todos";
@@ -2487,9 +2563,7 @@ namespace Humaformsnia {
 			this->label2->Text = L"" + "Has completado el juego por primera vez";
 			buffer->Render(canvas);
 
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+			
 		}
 		if (lograsos && eleccion == 2) {
 			canvas = this->CreateGraphics();
@@ -2497,6 +2571,8 @@ namespace Humaformsnia {
 			BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 			buffer->Graphics->DrawImage(pantalogros, 50, 100);
 			buffer->Graphics->DrawImage(lograso2, 100, 200);
+			buffer->Graphics->DrawImage(Escapec, X_P2 + 870, Y_P2 + 65, W_P2 - 300, H_P2 - 75);
+
 			this->label1->Visible = true;
 			this->label1->Location = System::Drawing::Point(800, 250);
 			this->label1->Text = L"" + "Hablador";
@@ -2505,9 +2581,7 @@ namespace Humaformsnia {
 			this->label2->Text = L"" + "Has hablado con Sami y Michell";
 			buffer->Render(canvas);
 
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+			
 		}
 		if (lograsos && eleccion == 3) {
 			canvas = this->CreateGraphics();
@@ -2515,6 +2589,8 @@ namespace Humaformsnia {
 			BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 			buffer->Graphics->DrawImage(pantalogros, 50, 100);
 			buffer->Graphics->DrawImage(lograso3, 100, 200);
+			buffer->Graphics->DrawImage(Escapec, X_P2 + 870, Y_P2 + 65, W_P2 - 300, H_P2 - 75);
+
 			this->label1->Visible = true;
 			this->label1->Location = System::Drawing::Point(800, 250);
 			this->label1->Text = L"" + "Apurado";
@@ -2523,9 +2599,7 @@ namespace Humaformsnia {
 			this->label2->Text = L"" + "Has saltado todas las pantallas";
 			buffer->Render(canvas);
 
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+			
 		}
 		if (lograsos && eleccion == 4) {
 			canvas = this->CreateGraphics();
@@ -2533,6 +2607,8 @@ namespace Humaformsnia {
 			BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 			buffer->Graphics->DrawImage(pantalogros, 50, 100);
 			buffer->Graphics->DrawImage(lograso4, 100, 200);
+			buffer->Graphics->DrawImage(Escapec, X_P2 + 870, Y_P2 + 65, W_P2 - 300, H_P2 - 75);
+
 			this->label1->Visible = true;
 			this->label1->Location = System::Drawing::Point(800, 250);
 			this->label1->Text = L"" + "Disociado";
@@ -2541,9 +2617,7 @@ namespace Humaformsnia {
 			this->label2->Text = L"" + "Has perdido todas las vidas por lo menos una vez";
 			buffer->Render(canvas);
 
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+			
 		}
 		if (lograsos && eleccion == 5) {
 			canvas = this->CreateGraphics();
@@ -2551,6 +2625,8 @@ namespace Humaformsnia {
 			BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 			buffer->Graphics->DrawImage(pantalogros, 50, 100);
 			buffer->Graphics->DrawImage(lograso5, 100, 200);
+			buffer->Graphics->DrawImage(Escapec, X_P2 + 870, Y_P2 + 65, W_P2 - 300, H_P2 - 75);
+
 			this->label1->Visible = true;
 			this->label1->Location = System::Drawing::Point(800, 250);
 			this->label1->Text = L"" + "Observador";
@@ -2559,9 +2635,7 @@ namespace Humaformsnia {
 			this->label2->Text = L"" + "Has entrado al apartado de creditos";
 			buffer->Render(canvas);
 
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+			
 		}
 		if (lograsos && eleccion == 6) {
 			canvas = this->CreateGraphics();
@@ -2569,6 +2643,8 @@ namespace Humaformsnia {
 			BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 			buffer->Graphics->DrawImage(pantalogros, 50, 100);
 			buffer->Graphics->DrawImage(lograso6, 100, 200);
+			buffer->Graphics->DrawImage(Escapec, X_P2 + 870, Y_P2 + 65, W_P2 - 300, H_P2 - 75);
+
 			this->label1->Visible = true;
 			this->label1->Location = System::Drawing::Point(800, 250);
 			this->label1->Text = L"" + "Lobo solitario";
@@ -2577,9 +2653,7 @@ namespace Humaformsnia {
 			this->label2->Text = L"" + "Has llegado al nivel 3 sin la ayuda de los aliados";
 			buffer->Render(canvas);
 
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+			
 		}
 		if (lograsos && eleccion == 7) {
 			canvas = this->CreateGraphics();
@@ -2587,6 +2661,8 @@ namespace Humaformsnia {
 			BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 			buffer->Graphics->DrawImage(pantalogros, 50, 100);
 			buffer->Graphics->DrawImage(lograso7, 100, 200);
+			buffer->Graphics->DrawImage(Escapec, X_P2 + 870, Y_P2 + 65, W_P2 - 300, H_P2 - 75);
+
 			this->label1->Visible = true;
 			this->label1->Location = System::Drawing::Point(800, 250);
 			this->label1->Text = L"" + "Fan #1 de Messi ";
@@ -2595,9 +2671,7 @@ namespace Humaformsnia {
 			this->label2->Text = L"" + "Has chocado con Messi por alguna razon";
 			buffer->Render(canvas);
 
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+			
 		}
 		if (lograsos && eleccion == 8) {
 			canvas = this->CreateGraphics();
@@ -2605,6 +2679,8 @@ namespace Humaformsnia {
 			BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 			buffer->Graphics->DrawImage(pantalogros, 50, 100);
 			buffer->Graphics->DrawImage(lograso8, 100, 200);
+			buffer->Graphics->DrawImage(Escapec, X_P2 + 870, Y_P2 + 65, W_P2 - 300, H_P2 - 75);
+
 			this->label1->Visible = true;
 			this->label1->Location = System::Drawing::Point(800, 250);
 			this->label1->Text = L"" + "Sobrado de tiempo";
@@ -2613,9 +2689,7 @@ namespace Humaformsnia {
 			this->label2->Text = L"" + "Te has mantenido quieto en un minimo de 15 segundos";
 			buffer->Render(canvas);
 
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+			
 		}
 		if (lograsos && eleccion == 9) {
 			canvas = this->CreateGraphics();
@@ -2623,6 +2697,8 @@ namespace Humaformsnia {
 			BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 			buffer->Graphics->DrawImage(pantalogros, 50, 100);
 			buffer->Graphics->DrawImage(lograso9, 100, 200);
+			buffer->Graphics->DrawImage(Escapec, X_P2 + 870, Y_P2 + 65, W_P2 - 300, H_P2 - 75);
+
 			this->label1->Visible = true;
 			this->label1->Location = System::Drawing::Point(800, 250);
 			this->label1->Text = L"" + "Konami";
@@ -2631,9 +2707,7 @@ namespace Humaformsnia {
 			this->label2->Text = L"" + "Has hecho el famosisimo codigo konami";
 			buffer->Render(canvas);
 
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+		
 		}
 		if (lograsos && eleccion == 10) {
 			canvas = this->CreateGraphics();
@@ -2641,6 +2715,8 @@ namespace Humaformsnia {
 			BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 			buffer->Graphics->DrawImage(pantalogros, 50, 100);
 			buffer->Graphics->DrawImage(lograso10, 100, 200);
+			buffer->Graphics->DrawImage(Escapec, X_P2 + 870, Y_P2 + 65, W_P2 - 300, H_P2 - 75);
+
 			this->label1->Visible = true;
 			this->label1->Location = System::Drawing::Point(800, 250);
 			this->label1->Text = L"" + "100%";
@@ -2649,9 +2725,7 @@ namespace Humaformsnia {
 			this->label2->Text = L"" + "Has conseguido todos los logros, Felicidades!!";
 			buffer->Render(canvas);
 
-			delete buffer;
-			delete espacio_para_buffer;
-			delete canvas;
+			
 		}
 	}
 	private: System::Void BtnJugar_Click(System::Object^ sender, System::EventArgs^ e) {}
@@ -3113,9 +3187,12 @@ namespace Humaformsnia {
 		if (cambio >= 100) {
 
 			escapep1 = true;
+			buffer->Graphics->DrawImage(Escape, X_P2, Y_P2 + 100, W_P2 - 300, H_P2 - 75);
 
 
 		}
+
+
 
 		buffer->Render(canvas);
 
@@ -3287,6 +3364,7 @@ namespace Humaformsnia {
 			if (cambioin >= 2) {
 				escapei1 = true;
 
+				buffer->Graphics->DrawImage(Escape, X_P2, Y_P2 + 100, W_P2 - 300, H_P2 - 75);
 
 			}
 
@@ -3411,9 +3489,9 @@ namespace Humaformsnia {
 
 		if (C_DOS == 4) {
 
-			buffer->Graphics->DrawImage(Respuesta1, X_P1 + 30, Y_P1, W_P1, H_P1);
+			buffer->Graphics->DrawImage(Respuesta1, X_P1 + 30, Y_P1-25, W_P1, H_P1);
 
-			if (W_P1 < anchooobjetivor && H_P1 < altoobjetivor) {
+			if (W_P1 < 1050 && H_P1 < 350) {
 
 				X_P1 -= 7.5;
 				Y_P1 -= 2.5;
@@ -3428,6 +3506,8 @@ namespace Humaformsnia {
 		}
 
 		if (cambio >= 100) {
+
+			buffer->Graphics->DrawImage(Escape, X_P2-10, Y_P2 + 100, W_P2 - 300, H_P2 - 75);
 
 			escaper1 = true;
 			Nave->setXt(800);
@@ -3545,7 +3625,7 @@ namespace Humaformsnia {
 
 		if (C_UNO == 4) {
 
-			buffer->Graphics->DrawImage(Pregunta2, X_P1, Y_P1 + 35, W_P1, H_P1);
+			buffer->Graphics->DrawImage(Pregunta2, X_P1, Y_P1 -50, W_P1, H_P1);
 
 			if (W_P1 < anchooobjetivo_pregunta2 && H_P1 < anchooobjetivo_pregunta2) {
 
@@ -3561,9 +3641,10 @@ namespace Humaformsnia {
 
 		}
 
-		if (cambio == 100) {
+		if (cambio >= 100) {
 
 			escapep2 = true;
+			buffer->Graphics->DrawImage(Escape, X_P2, Y_P2 + 100, W_P2 - 300, H_P2 - 75);
 
 
 		}
@@ -3689,9 +3770,9 @@ namespace Humaformsnia {
 
 		if (C_DOS == 4) {
 
-			buffer->Graphics->DrawImage(Respuesta2, X_P1 + 20, Y_P1, W_P1, H_P1);
+			buffer->Graphics->DrawImage(Respuesta2, X_P1 + 20, Y_P1-30, W_P1, H_P1);
 
-			if (W_P1 < anchooobjetivor && H_P1 < altoobjetivor) {
+			if (W_P1 < 1050 && H_P1 < 350) {
 
 				X_P1 -= 7.5;
 				Y_P1 -= 2.5;
@@ -3708,12 +3789,12 @@ namespace Humaformsnia {
 		if (cambio >= 100) {
 
 			escaper2 = true;
+			buffer->Graphics->DrawImage(Escape, X_P2, Y_P2 + 100, W_P2 - 300, H_P2 - 75);
 
 
 		}
 
 		buffer->Render(canvas);
-
 
 
 
@@ -3724,16 +3805,16 @@ namespace Humaformsnia {
 
 		buffer->Graphics->Clear(Color::Black);
 		buffer->Graphics->DrawImage(fondopregunta3, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta3->Width, fondopregunta3->Height, GraphicsUnit::Pixel);
-		buffer->Graphics->DrawImage(P, 400 - ancho_pregunta, Y_P);
-		buffer->Graphics->DrawImage(R, 480 - ancho_pregunta, Y_R);
-		buffer->Graphics->DrawImage(E, 565 - ancho_pregunta, Y_E);
-		buffer->Graphics->DrawImage(G, 645 - ancho_pregunta, Y_G);
-		buffer->Graphics->DrawImage(Up, 725 - ancho_pregunta, Y_U);
-		buffer->Graphics->DrawImage(Np, 810 - ancho_pregunta, Y_N);
-		buffer->Graphics->DrawImage(T, 890 - ancho_pregunta, Y_T);
-		buffer->Graphics->DrawImage(Ap, 975 - ancho_pregunta, Y_A);
-		buffer->Graphics->DrawImage(CERO, 1100 - ancho_pregunta, Y_CERO);
-		buffer->Graphics->DrawImage(TRES, 1190 - ancho_pregunta, Y_UNO);
+		buffer->Graphics->DrawImage(P, 380 - ancho_pregunta -10, Y_P);
+		buffer->Graphics->DrawImage(R, 460 - ancho_pregunta - 10, Y_R);
+		buffer->Graphics->DrawImage(E, 545 - ancho_pregunta - 10, Y_E);
+		buffer->Graphics->DrawImage(G, 625 - ancho_pregunta - 10, Y_G);
+		buffer->Graphics->DrawImage(Up, 705 - ancho_pregunta - 10, Y_U);
+		buffer->Graphics->DrawImage(Np, 790 - ancho_pregunta - 10, Y_N);
+		buffer->Graphics->DrawImage(T, 870 - ancho_pregunta - 10, Y_T);
+		buffer->Graphics->DrawImage(Ap, 955 - ancho_pregunta - 10, Y_A);
+		buffer->Graphics->DrawImage(CERO, 1080 - ancho_pregunta - 10, Y_CERO);
+		buffer->Graphics->DrawImage(TRES, 1170 - ancho_pregunta - 10, Y_UNO);
 
 		int caida1 = 4;
 		int subida = 2;
@@ -3823,7 +3904,7 @@ namespace Humaformsnia {
 
 		if (C_UNO == 4) {
 
-			buffer->Graphics->DrawImage(Pregunta3, X_P1 + 10, Y_P1 + 35, W_P1, H_P1);
+			buffer->Graphics->DrawImage(Pregunta3, X_P1 + 10, Y_P1-30 , W_P1, H_P1);
 
 			if (W_P1 < anchooobjetivo_pregunta3 && H_P1 < altoobjetivo_pregunta3) {
 
@@ -3843,6 +3924,7 @@ namespace Humaformsnia {
 
 			escapep3 = true;
 
+			buffer->Graphics->DrawImage(Escape, X_P2, Y_P2 + 105, W_P2 - 300, H_P2 - 75);
 
 		}
 
@@ -3871,7 +3953,7 @@ namespace Humaformsnia {
 		buffer->Graphics->DrawImage(T, 880 - ancho_pregunta, Y_A - 8);
 		buffer->Graphics->DrawImage(Ap, 965 - ancho_pregunta, Y_CERO - 8);
 		buffer->Graphics->DrawImage(CERO, 1100 - ancho_pregunta, Y_UNO - 8);
-		buffer->Graphics->DrawImage(TRES, 1200 - ancho_pregunta, Y_DOS - 8);
+		buffer->Graphics->DrawImage(TRES, 1190 - ancho_pregunta, Y_DOS - 8);
 
 
 		int caida1 = 4;
@@ -3970,9 +4052,9 @@ namespace Humaformsnia {
 
 		if (C_DOS == 4) {
 
-			buffer->Graphics->DrawImage(Respuesta3, X_P1 + 30, Y_P1, W_P1, H_P1);
+			buffer->Graphics->DrawImage(Respuesta3, X_P1 + 30, Y_P1-30, W_P1, H_P1);
 
-			if (W_P1 < anchooobjetivor && H_P1 < altoobjetivor) {
+			if (W_P1 < 1050 && H_P1 < 350) {
 
 				X_P1 -= 7.5;
 				Y_P1 -= 2.5;
@@ -3986,7 +4068,12 @@ namespace Humaformsnia {
 
 		}
 
-		
+		if (cambio >= 100)
+		{
+			escaper3 = true;
+			buffer->Graphics->DrawImage(Escape, X_P2, Y_P2 + 105, W_P2 - 300, H_P2 - 75);
+
+		}
 
 		buffer->Render(canvas);
 
@@ -4174,7 +4261,10 @@ namespace Humaformsnia {
 
 			if (cambioin == 2)
 
+			{
 				escapei2 = true;
+				buffer->Graphics->DrawImage(Escape, X_P2, Y_P2 + 100, W_P2 - 300, H_P2 - 75);
+			}
 
 
 
@@ -4213,7 +4303,10 @@ namespace Humaformsnia {
 
 
 				if (cambioin >= 2)
+				{
 					escapei2_2 = true;
+					buffer->Graphics->DrawImage(Escape, X_P2, Y_P2 + 100, W_P2 - 300, H_P2 - 75);
+				}
 
 
 
@@ -4474,6 +4567,24 @@ namespace Humaformsnia {
 
 
 	}
+    private: System::Void btnGuardarScore_Click(System::Object^ sender, System::EventArgs^ e) {
+
+			   String^ nombre = txtNombreScore->Text->Trim();
+
+			   if (String::IsNullOrEmpty(nombre)) {
+				   MessageBox::Show("Por favor ingresa un nombre.", "Aviso",
+					   MessageBoxButtons::OK, MessageBoxIcon::Information);
+				   return;
+			   }
+
+			   GestorScores::GuardarScore(puntaje, nombre);
+
+			   MessageBox::Show("Score guardado correctamente.", "Score",
+				  MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+			   txtNombreScore->Enabled = false;
+			   btnGuardarScore->Enabled = false;
+		   }
 
 	private: System::Void Creditos_Tick(System::Object^ sender, System::EventArgs^ e) {
 
@@ -4485,7 +4596,7 @@ namespace Humaformsnia {
 
 		buffer->Graphics->DrawImage(fondo_credito, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height));
 
-		/*contador_tipeo++;
+		contador_tipeo++;
 		if (contador_tipeo == 5) { l1 = true; System::Console::Beep(900, 20); }
 		if (contador_tipeo == 10) { l2 = true; System::Console::Beep(900, 20); }
 		if (contador_tipeo == 15) { l3 = true; System::Console::Beep(900, 20); }
@@ -4510,13 +4621,13 @@ namespace Humaformsnia {
 
 		if (l5) buffer->Graphics->DrawImage(c_i, 795, 100);
 		if (l6) buffer->Graphics->DrawImage(c_t, 865, 100);
-		if (l7) buffer->Graphics->DrawImage(c_o, 935, 100 + 1);
+	if (l7) buffer->Graphics->DrawImage(c_o, 935, 100 + 1);
 		if (l8) {
 			buffer->Graphics->DrawImage(c_s, 1000, 100 + 2);
 
 
 
-		}*/
+		}
 
 
 		buffer->Graphics->DrawImage(c_c, 370 - ancho_pregunta, Y_P);
@@ -4613,14 +4724,27 @@ namespace Humaformsnia {
 
 
 		buffer->Render(canvas);
-		delete buffer;
-		delete espacio_para_buffer;
-		delete canvas;
+		
 
 
 
 
 
 	}
-	};
+	private: System::Void GUARDAR_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+
+		txtNombreScore->Text = "";
+		txtNombreScore->Enabled = true;
+		btnGuardarScore->Enabled = true;
+
+		txtNombreScore->Visible = true;
+		btnGuardarScore->Visible = true;
+
+		txtNombreScore->Focus();
+
+		GUARDAR->Enabled = false;
+		
+	}
+};
 }

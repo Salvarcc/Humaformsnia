@@ -138,6 +138,7 @@
     <ClInclude Include="Npc.h" />
     <ClInclude Include="Pelota.h" />
     <ClInclude Include="RobotEnemigo.h" />
+    <ClInclude Include="Scores.h" />
     <ClInclude Include="Visual.h" />
   </ItemGroup>
   <ItemGroup>

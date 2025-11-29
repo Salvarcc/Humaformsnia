@@ -73,7 +73,7 @@ void Carga::mostrar_imagen(Graphics^ canvas)
 	//define un rectangulo para cada imagen
 	Rectangle cuadro = Rectangle(indice_columnas * W, indice_filas * H, W, H);
 	//zoom
-	Rectangle zoom = Rectangle(x + 50, y - 80, W * 1.5, H * 1.5);
+	Rectangle zoom = Rectangle(x + 50, y - 110, W * 1.5, H * 1.5);
 	//dibuja la imagen
 	canvas->DrawImage(mi_sprite, zoom, cuadro, GraphicsUnit::Pixel);
 }
@@ -136,7 +136,7 @@ void Carga::mostrar_tecla(Graphics^ canvas)
 	//define un rectangulo para cada imagen
 	Rectangle cuadro = Rectangle(indice_columnas * W, indice_filas * H, W, H);
 	//zoom
-	Rectangle zoom = Rectangle(xt - 100, yt, W, H);
+	Rectangle zoom = Rectangle(xt - 100, yt-40, W, H);
 	//dibuja la imagen
 	canvas->DrawImage(mi_sprite2, zoom, cuadro, GraphicsUnit::Pixel);
 }
@@ -209,7 +209,7 @@ void Carga::mostrar_alieninstrucciones(Graphics^ canvas)
 	//define un rectangulo para cada imagen
 	Rectangle cuadro = Rectangle(indice_columnas * W, indice_filas * H, W, H);
 	//zoom
-	Rectangle zoom = Rectangle(xt - 600, yt, W * 4, H * 4);
+	Rectangle zoom = Rectangle(xt - 600, yt-40, W * 4, H * 4);
 	//dibuja la imagen
 	canvas->DrawImage(mi_sprite2, zoom, cuadro, GraphicsUnit::Pixel);
 }

@@ -62,5 +62,8 @@
     <ClInclude Include="Archivo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Scores.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
