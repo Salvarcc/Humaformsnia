@@ -320,7 +320,7 @@ namespace Humaformsnia {
 			Creditos->Enabled = false;
 			GUARDAR->Enabled = false;
 			
-			CREO->Enabled = true;
+			CREO->Enabled = false;
 
 
 		}
