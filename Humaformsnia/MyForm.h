@@ -1413,6 +1413,46 @@ private: System::Windows::Forms::Timer^ CREO;
 			this->BtnJugar->Enabled = true;
 			this->BtnCreditos->Enabled = true;
 			this->BtnSalir->Enabled = true;
+			C_P = 1;
+			C_R = 0;
+			C_E = 0;
+			C_G = 0;
+			C_U = 0;
+			C_N = 0;
+			C_T = 0;
+			C_A = 0;
+			C_CERO = 0;
+			C_UNO = 0;
+			C_I1 = 1;
+			C_N1 = 0;
+			C_S1 = 0;
+			C_T1 = 0;
+			C_R1 = 0;
+			C_U1 = 0;
+			C_C1 = 0;
+			C_C2 = 0;
+			C_I2 = 0;
+			C_O1 = 0;
+			C_N2 = 0;
+			C_E1 = 0;
+			C_S2 = 0;
+			Y_P = 10;
+			Y_R = 10;
+			Y_E = 10;
+			Y_G = 10;
+			Y_U = 10;
+			Y_N = 10;
+			Y_T = 10;
+			Y_A = 10;
+			Y_CERO = 10;
+			Y_UNO = 10;
+			Y_DOS = 10;
+
+			cambio = 0;
+			X_P1 = 700;
+			Y_P1 = 450;
+			W_P1 = 10;
+			H_P1 = 10;
 		}
 
 		if (escapep1) {
@@ -1848,61 +1888,7 @@ private: System::Windows::Forms::Timer^ CREO;
 
 			}
 		}
-		if (escape_c) {
-
-			if (e->KeyCode == Keys::Escape) {
-
-				escape_c = false;
-				Creditos->Enabled = false;
-				Menu->Enabled = true;
-				this->BtnJugar->Enabled = true;
-				this->BtnSalir->Enabled = true;
-				this->BtnCreditos->Enabled = true;
-
-				C_P = 1;
-				C_R = 0;
-				C_E = 0;
-				C_G = 0;
-				C_U = 0;
-				C_N = 0;
-				C_T = 0;
-				C_A = 0;
-				C_CERO = 0;
-				C_UNO = 0;
-				C_I1 = 1;
-				C_N1 = 0;
-				C_S1 = 0;
-				C_T1 = 0;
-				C_R1 = 0;
-				C_U1 = 0;
-				C_C1 = 0;
-				C_C2 = 0;
-				C_I2 = 0;
-				C_O1 = 0;
-				C_N2 = 0;
-				C_E1 = 0;
-				C_S2 = 0;
-				Y_P = 10;
-				Y_R = 10;
-				Y_E = 10;
-				Y_G = 10;
-				Y_U = 10;
-				Y_N = 10;
-				Y_T = 10;
-				Y_A = 10;
-				Y_CERO = 10;
-				Y_UNO = 10;
-				Y_DOS = 10;
-
-				cambio = 0;
-				X_P1 = 700;
-				Y_P1 = 450;
-				W_P1 = 10;
-				H_P1 = 10;
-			}
-
-
-		}
+		
 
 	}
 	private: System::Void Menu_Tick(System::Object^ sender, System::EventArgs^ e) {
