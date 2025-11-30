@@ -466,7 +466,7 @@ namespace Humaformsnia {
 		int X_Nave = 0;
 		int Y_Nave = 175;
 
-
+		bool creditos = false;
 
 		// mundos 2_____________________
 
@@ -1406,6 +1406,14 @@ private: System::Windows::Forms::Timer^ CREO;
 		else konami == 0;
 		if (e->KeyCode == Keys::A && konami == 9)logro9 = true;
 		else konami == 0;
+		if (this->CREO->Enabled && e->KeyCode == Keys::Q) {
+			this->CREO->Enabled = false;
+			this->Menu->Enabled = true;
+			Botonazo = 0;
+			this->BtnJugar->Enabled = true;
+			this->BtnCreditos->Enabled = true;
+			this->BtnSalir->Enabled = true;
+		}
 
 		if (escapep1) {
 			if (e->KeyCode == Keys::Q) {
