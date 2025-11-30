@@ -247,6 +247,7 @@ namespace Humaformsnia {
 
 			// aqui activamos el mundo 1 que nos toca 
 			Mundo1->Interval = 50;
+			NPChabla->Interval = 50;
 
 			// el tema del buff
 			g = this->CreateGraphics();
