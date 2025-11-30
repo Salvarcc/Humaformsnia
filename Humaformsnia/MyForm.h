@@ -1,13 +1,5 @@
 #pragma once
-#include "Jugador.h"
-#include "RobotEnemigo.h"
-#include "Npc.h"
-#include "Visual.h"
-#include "AlienAliado.h"
-#include "Carga.h"
-#include "Pelota.h"
-#include "Messi.h"
-#include "Arbitro.h"
+#include "Humania.h"
 #include "Archivo.h"
 #include "Scores.h"
 
@@ -38,6 +30,8 @@ namespace Humaformsnia {
 			//ALIEN________________
 			void GuardarTodo();
 			void BorrarArchivos();
+
+			Juego = new Humania();
 
 			Alien = gcnew Jugador();
 			Alien->cambiaimagen("Images//Alien.png");
@@ -310,14 +304,14 @@ namespace Humaformsnia {
 			InstruccionesDos->Enabled = false;
 			Mundo1->Enabled = false;
 			Mundo2->Enabled = false;
-			Mundo3->Enabled = false;
+			Mundo3->Enabled = true;
 
 			PreguntaUno->Enabled = false;
 			RespuestaUno->Enabled = false;
 			PreguntaDos->Enabled = false;
 			RespuestaDos->Enabled = false;
 			PreguntaTres->Enabled = false;
-			RespuestaTres->Enabled = true;
+			RespuestaTres->Enabled = false;
 			Menu->Enabled = false;
 			BtnJugar->Visible = false;
 			BtnCreditos->Visible = false;
@@ -347,6 +341,9 @@ namespace Humaformsnia {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
+		
+		Humania* Juego;
+
 		Carga^ AlienInstrucciones;
 		Carga^ SteveInstrucciones;
 		Carga^ MiniPekkaInstrucciones;
@@ -416,8 +413,7 @@ namespace Humaformsnia {
 		Bitmap^ Raya;
 		Bitmap^ I;
 
-		int y1 = 100, y2 = 100, y3 = 100, y4 = 100, y5 = 100, y6 = 100, y7 = 100, y8 = 100, dy1 = 1, dy2 = 1, dy3 = 1, dy4 = 1, dy5 = 1, dy6 = 1, dy7 = 1, dy8 = 1;
-		bool m2 = false, m3 = false, m4 = false, m5 = false, m6 = false, m7 = false, m8 = false;
+		
 		bool malder1 = false, malaba1 = false, malarr1 = false, malizq1 = false, malder2 = false, malaba2 = false, malarr2 = false, malizq2 = false;
 		bool final = false;
 		// SAMUEL
@@ -1910,59 +1906,8 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		buffer->Graphics->DrawImage(fondomenu, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
-		buffer->Graphics->DrawImage(H, 400, y1);
-		buffer->Graphics->DrawImage(U, 470, y2);
-		buffer->Graphics->DrawImage(M, 550, y3);
-		buffer->Graphics->DrawImage(A, 650, y4);
-		buffer->Graphics->DrawImage(N, 740, y5);
-		buffer->Graphics->DrawImage(Raya, 840, y6);
-		buffer->Graphics->DrawImage(I, 900, y7);
-		buffer->Graphics->DrawImage(A, 940, y8);
+		Juego->Menu(buffer, espacio_para_buffer, canvas, H, U, M, A, N, Raya, I);
 		buffer->Render(canvas);
-
-
-
-
-		y1 -= 2 * dy1;
-		if (y1 == 90 || m2) {
-			y2 -= 2 * dy2;
-			m2 = true;
-		}
-		if (y2 == 90 || m3) {
-			y3 -= 2 * dy3;
-			m3 = true;
-		}
-		if (y3 == 90 || m4) {
-			y4 -= 2 * dy4;
-			m4 = true;
-		}
-		if (y4 == 90 || m5) {
-			y5 -= 2 * dy5;
-			m5 = true;
-		}
-		if (y5 == 90 || m6) {
-			y6 -= 2 * dy6;
-			m6 = true;
-		}
-		if (y6 == 90 || m7) {
-			y7 -= 2 * dy7;
-			m7 = true;
-		}
-		if (y7 == 90 || m8) {
-			y8 -= 2 * dy8;
-			m8 = true;
-		}
-
-
-		if (y1 == 70 || y1 == 130)dy1 *= -1;
-		if (y2 == 70 || y2 == 130)dy2 *= -1;
-		if (y3 == 70 || y3 == 130)dy3 *= -1;
-		if (y4 == 70 || y4 == 130)dy4 *= -1;
-		if (y5 == 70 || y5 == 130)dy5 *= -1;
-		if (y6 == 70 || y6 == 130)dy6 *= -1;
-		if (y7 == 70 || y7 == 130)dy7 *= -1;
-		if (y8 == 70 || y8 == 130)dy8 *= -1;
-
 
 
 
@@ -2032,86 +1977,34 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 			   );
 		   }
 	private: System::Void Mundo1_Tick(System::Object^ sender, System::EventArgs^ e) {
-		Mundo = 1;
-
-
-		bool normal = true;
-		nivel_actual = 1;
-
+		bool normal = true, portalaso1 = false, npchabla = false, muerto = false;
 
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		buffer->Graphics->DrawImage(fondomundo1, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
 
-		Alien->cambiardxdy(teclapulsada);
-		Alien->moverimagen(teclapulsada);
-		Alien->mostrarimagen(buffer->Graphics);
+		Juego->Mundo1(buffer, espacio_para_buffer, canvas, portalaso1, npchabla, muerto, Alien, Verde, Amarillo, Rojo, Portal1, Marciano1, aliado, teclapulsada, Mundo, nivel_actual, porcentajes, xcontrol, navecontrol, tecla, NPCH);
 
 		if (pausita) {
 			this->Pausa->Enabled = true;
 		}
 		pausita = false;
-
-		if (Alien->getVidas() == 3) {
-			Verde->mostrarimagen(buffer->Graphics);
-			if (contador % 2 == 0)Verde->animacion();
-		}
-		if (Alien->getVidas() == 2) {
-			Amarillo->mostrarimagen(buffer->Graphics);
-			if (contador % 2 == 0)Amarillo->animacion();
-		}
-		if (Alien->getVidas() == 1) {
-			Rojo->mostrarimagen(buffer->Graphics);
-			if (contador % 2 == 0)Rojo->animacion();
-		}
-		Portal1->mostrarimagen(buffer->Graphics);
-		Portal1->animacion();
-
-		if (Colision(
-			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, Portal1->getX() - 50, Portal1->getY() - 50, Portal1->getAncho() - 70, Portal1->getAlto() - 50))
-		{
+		if (portalaso1) {
 			GuardarTodo();
 			RespuestaUno->Enabled = true;
 			Mundo1->Enabled = false;
-			porcentajes = 1;
-			tecla = 1;
-			navecontrol = 0;
-			xcontrol = 0;
-			Alien->setX(50);
-			Alien->setY(250);
-			Alien->setVidas(3);
-			archivo = 0;
 		}
-		Marciano1->mostrarimagen(buffer->Graphics);
-
-		if (contador % 2 == 0)Marciano1->animacion();
 
 		for (int i = 0; i < robots->Count; i++) {
 
 			robots[i]->mover(buffer->Graphics);
 
-			if (normal) {
+			if (normal)robots[i]->mostrar(buffer->Graphics);
 
-				robots[i]->mostrar(buffer->Graphics);
-
-
-			}
 			else {
-				if (contador % 2 == 0) {
-
-
-
-					robots[i]->mostrar(buffer->Graphics);
-
-
-				}
-
+				if (contador % 2 == 0)robots[i]->mostrar(buffer->Graphics);
 			}
-
-
-
-
 
 			if (Colision(
 				Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, robots[i]->getX() - 50, robots[i]->getY() - 50, robots[i]->getAncho() - 70, robots[i]->getAlto() - 50))
@@ -2120,33 +2013,22 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 				Alien->setX(30);
 				Alien->setY(250);
 				Alien->setVidas(Alien->getVidas() - 1);
-				puntaje -= 100;
-
 			}
 
 			if (Colision(Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30,
-				aliado->getX() - 50, aliado->getY() - 50, aliado->getAncho() - 70, aliado->getAlto() - 50))
-			{
+				aliado->getX() - 50, aliado->getY() - 50, aliado->getAncho() - 70, aliado->getAlto() - 50)) {
 
 				aliado->Activo();
 				robots[i]->setDy(3);
 				aliadados++;
 
 			}
-
-
 		}
-		aliado->mover(buffer->Graphics);
-		aliado->mostrar(buffer->Graphics);
-
-		if (Colision(Alien->getX() - 30, Alien->getY() - 20, Alien->getAncho() - 60, Alien->getAlto() - 40, Marciano1->getX() - 30, Marciano1->getY() - 20, Marciano1->getAncho() - 60, Marciano1->getAlto() - 40)) {
-			Alien->setY(Alien->getY() + 50);
-			NPCH = 1;
+		if (npchabla) {
 			this->NPChabla->Enabled = true;
 		}
 
-		if (Alien->getVidas() == 0) {
-
+		if (muerto) {
 			GameOver->Enabled = true;
 			Mundo1->Enabled = false;
 		}
@@ -2155,21 +2037,17 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 
 		buffer->Render(canvas);
 
-
-		contador++;
-		archivo++;
-
 	}
 	private: System::Void Mundo2_Tick(System::Object^ sender, System::EventArgs^ e) {
-		Mundo = 2;
+		bool portalaso2 = false, npchabla = false, muerto = false;
+
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		buffer->Graphics->DrawImage(fondo_mundo_2, 0, 0, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), GraphicsUnit::Pixel);
-		nivel_actual = 2;
+		
+		Juego->Mundo2(buffer, espacio_para_buffer, canvas, portalaso2, npchabla, muerto, Alien, Verde, Amarillo, Rojo, Portal2, Portal3, Marciano2, arbitro, teclapulsada, Mundo, nivel_actual, NPCH, messi, logro7, pelotas_detenidas);
 
-
-		arbitro->setY(158);
 		if (!pelotas_detenidas) {
 			indice_pelota++;
 			if (indice_pelota >= intervalo_creacion) {
@@ -2180,62 +2058,17 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 				contador_pelotas++;
 			}
 		}
-		Portal2->mostrarimagen(buffer->Graphics);
-		if (contador % 3 == 0)Portal2->animacion();
-		Portal3->mostrarimagen(buffer->Graphics);
-		if (contador % 3 == 0)Portal3->animacion();
-		messi->mostrar(buffer->Graphics);
-		if (contador % 2 == 0)messi->mover(buffer->Graphics);
-
-		if (Colision(
-			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, messi->getX() - 50, messi->getY() - 50, messi->getAncho() - 70, messi->getAlto() - 50))
-		{
-
-			logro7 = true;
-			Alien->setX(30);
-			Alien->setY(250);
-			Alien->setVidas(Alien->getVidas() - 1);
-			puntaje -= 100;
-
-		}
-
-
-		Alien->cambiardxdy(teclapulsada);
-		Alien->moverimagen(teclapulsada);
-		Alien->mostrarimagen(buffer->Graphics);
 
 		if (pausita) {
 			this->Pausa->Enabled = true;
 		}
 		pausita = false;
 
-		if (Alien->getVidas() == 3) {
-			Verde->mostrarimagen(buffer->Graphics);
-			if (contador % 2 == 0) Verde->animacion();
-		}
-		if (Alien->getVidas() == 2) {
-			Amarillo->mostrarimagen(buffer->Graphics);
-			if (contador % 2 == 0) Amarillo->animacion();
-		}
-		if (Alien->getVidas() == 1) {
-			Rojo->mostrarimagen(buffer->Graphics);
-			if (contador % 2 == 0) Rojo->animacion();
-		}
-
-		Marciano2->mostrarimagen(buffer->Graphics);
-		if (contador % 2 == 0)Marciano2->animacion();
-
-		if (Colision(Alien->getX() - 30, Alien->getY() - 20, Alien->getAncho() - 60, Alien->getAlto() - 40, Marciano2->getX() - 30, Marciano2->getY() - 20, Marciano2->getAncho() - 60, Marciano2->getAlto() - 40)) {
-			Alien->setY(Alien->getY() + 50);
-			NPCH = 2;
+		if (npchabla) {
 			this->NPChabla->Enabled = true;
 		}
 
-
-		// mover pelotas
 		for (int i = 0; i < pelotas->Count; i++) {
-
-
 			if (contador % 2 == 0)
 			{
 				if (!pelotas_detenidas) {
@@ -2255,228 +2088,52 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 
 			}
 
-			if (Colision(Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, arbitro->getX() - 50, arbitro->getY() - 50, arbitro->getAncho() - 70, arbitro->getAlto() - 50))
-			{
-				arbitro->Activo();
-				pelotas_detenidas = true;
-				aliadados++;
-			}
-
 			//elimna las pelotas que ya pasaon del limite
 			if (!pelotas_detenidas && pelotas[i]->getX() + pelotas[i]->getAncho() < 300) {
 				pelotas->RemoveAt(i);
 				i--;
 			}
 		}
-
-
-		arbitro->mover(buffer->Graphics);
-		arbitro->mostrar(buffer->Graphics);
-
-
-		if (Colision(
-			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, Portal2->getX() - 50, Portal2->getY() - 50, Portal2->getAncho() - 70, Portal2->getAlto() - 50))
-		{
+		if (portalaso2) {
 			RespuestaDos->Enabled = true;
-
-			Alien->setX(50);
-			Alien->setY(250);
-			Alien->setVidas(3);
 			GuardarTodo();
-
-			Mundo2->Enabled = false;
-			archivo = 0;
-		}
-
-		if (Colision(
-			Alien->getX() - 50, Alien->getY() - 50, Alien->getAncho() - 80, Alien->getAlto() - 30, Portal3->getX() - 50, Portal3->getY() - 50, Portal3->getAncho() - 70, Portal3->getAlto() - 50))
-		{
-			RespuestaDos->Enabled = true;
-
-			Alien->setX(50);
-			Alien->setY(250);
-			Alien->setVidas(3);
 			Mundo2->Enabled = false;
 		}
+
 		teclapulsada = Direccion::Ninguno;
-		if (Alien->getVidas() == 0) {
 
+		if (muerto) {
 			GameOver->Enabled = true;
 			Mundo2->Enabled = false;
 		}
+
 		buffer->Render(canvas);
-		contador++;
-		archivo++;
 	}
 	private: System::Void Mundo3_Tick(System::Object^ sender, System::EventArgs^ e) {
-		Mundo = 3;
-		nivel_actual = 3;
+		bool portalaso3 = false;
+
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 		buffer->Graphics->DrawImage(fondomundo3, 0, 0, Rectangle(0, 0, fondomundo3->Width, fondomundo3->Height), GraphicsUnit::Pixel);
 
-
-		//this->label1->Enabled = true;
-		//this->label1->Visible = true;
-		//this->label1->Text = L"" + (Steve->getX() + 40) + " " + (Steve->getY() + 25 + 78) + " " + (Steve->getAncho() - 80) + " " + (Steve->getAlto() - 50);
-		if (final)teclapulsada = Direccion::Abajo1;
-		Steve->cambiardxdy(teclapulsada);
-		Steve->moverimagen(teclapulsada);
-		Steve->mostrarimagen(buffer->Graphics);
-		if (final)teclapulsada = Direccion::Abajo2;
-		Minipekka->cambiardxdyD(teclapulsada);
-		Minipekka->moverimagenD(teclapulsada);
-		Minipekka->mostrarimagen(buffer->Graphics);
+		Juego->Mundo3(buffer, espacio_para_buffer, canvas, Brillo, final, Steve, Minipekka, teclapulsada, Mundo, nivel_actual, logro1, portalaso3,malder1, malaba1, malarr1, malizq1, malder2, malaba2, malarr2,malizq2);
 
 		if (pausita) {
 			this->Pausa->Enabled = true;
 		}
 		pausita = false;
 
-		if (final)Brillo->mostrarimagen(buffer->Graphics);
 
-		malder1 = malarr1 = malaba1 = malizq1 = malder2 = malarr2 = malaba2 = malizq2 = false;
-
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 90, 125, 1, 700))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 408, 0, 1, 158))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 573, 135, 1, 150))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 223, 270, 1, 128))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 283, 525, 1, 40))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 428, 395, 1, 213))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 573, 570, 1, 200))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 658, 0, 1, 103))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 723, 210, 1, 600))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 853, 340, 1, 178))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 983, 340, 1, 75))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1073, 500, 1, 60))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1003, 0, 1, 90))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1128, 0, 1, 263))malder1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1263, 0, 1, 555))malder1 = true;
-
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 90 + 27, 125, 1, 700))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 408 + 27, 0, 1, 158))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 573 + 27, 135, 1, 150))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 223 + 27, 270, 1, 128))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 283 + 27, 525, 1, 40))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 428 + 27, 395, 1, 213))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 573 + 27, 570, 1, 200))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 658 + 27, 0, 1, 103))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 723 + 27, 210, 1, 600))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 853 + 27, 340, 1, 178))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 983 + 27, 340, 1, 75))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1073 + 27, 500, 1, 60))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1003 + 27, 0, 1, 90))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1128 + 27, 0, 1, 263))malizq1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1263 + 27, 0, 1, 555))malizq1 = true;
-
-
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 90, 128, 193, 1))malaba1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 225, 273, 378, 1))malaba1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 115, 568, 193, 1))malaba1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 425, 583, 183, 1))malaba1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 425, 398, 183, 1))malaba1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 400, 138, 193, 1))malaba1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 655, 78, 188, 1))malaba1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 725, 213, 283, 1))malaba1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 850, 343, 163, 1))malaba1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1070, 503, 188, 1))malaba1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 960, 563, 143, 1))malaba1 = true;
-
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 90, 128 + 27, 193, 1))malarr1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 225, 273 + 27, 378, 1))malarr1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 115, 568 + 27, 193, 1))malarr1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 425, 583 + 27, 183, 1))malarr1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 425, 398 + 27, 183, 1))malarr1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 400, 138 + 27, 193, 1))malarr1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 655, 78 + 27, 188, 1))malarr1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 725, 213 + 27, 283, 1))malarr1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 850, 343 + 27, 163, 1))malarr1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1070, 503 + 27, 188, 1))malarr1 = true;
-		if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 960, 563 + 27, 143, 1))malarr1 = true;
-
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 90, 125, 1, 700))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 408, 0, 1, 158))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 573, 135, 1, 150))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 223, 270, 1, 128))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 283, 525, 1, 40))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 428, 395, 1, 213))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 573, 570, 1, 200))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 658, 0, 1, 103))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 723, 210, 1, 600))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 853, 340, 1, 178))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 983, 340, 1, 75))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1073, 500, 1, 60))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1003, 0, 1, 90))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1128, 0, 1, 263))malder2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1263, 0, 1, 555))malder2 = true;
-
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 90 + 27, 125, 1, 700))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 408 + 27, 0, 1, 158))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 573 + 27, 135, 1, 150))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 223 + 27, 270, 1, 128))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 283 + 27, 525, 1, 40))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 428 + 27, 395, 1, 213))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 573 + 27, 570, 1, 200))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 658 + 27, 0, 1, 103))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 723 + 27, 210, 1, 600))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 853 + 27, 340, 1, 178))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 983 + 27, 340, 1, 75))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1073 + 27, 500, 1, 60))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1003 + 27, 0, 1, 90))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1128 + 27, 0, 1, 263))malizq2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1263 + 27, 0, 1, 555))malizq2 = true;
-
-
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 90, 128, 193, 1))malaba2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 225, 273, 378, 1))malaba2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 115, 568, 193, 1))malaba2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 425, 583, 183, 1))malaba2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 425, 398, 183, 1))malaba2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 400, 138, 193, 1))malaba2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 655, 78, 188, 1))malaba2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 725, 213, 283, 1))malaba2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 850, 343, 163, 1))malaba2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1070, 503, 188, 1))malaba2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 960, 563, 143, 1))malaba2 = true;
-
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 90, 128 + 27, 193, 1))malarr2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 225, 273 + 27, 378, 1))malarr2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 115, 568 + 27, 193, 1))malarr2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 425, 583 + 27, 183, 1))malarr2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 425, 398 + 27, 183, 1))malarr2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 400, 138 + 27, 193, 1))malarr2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 655, 78 + 27, 188, 1))malarr2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 725, 213 + 27, 283, 1))malarr2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 850, 343 + 27, 163, 1))malarr2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1070, 503 + 27, 188, 1))malarr2 = true;
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 960, 563 + 27, 143, 1))malarr2 = true;
-
-		if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50) && !final) {
-			Steve->setIndicec(0);
-			Minipekka->setIndicec(0);
-			Steve->setIndicef(0);
-			Minipekka->setIndicef(0);
-			Steve->setX(570);
-			Steve->setY((Steve->getY() + Minipekka->getY()) / 2);
-			Minipekka->setX(Steve->getX() + 48);
-			Minipekka->setY(Steve->getY());
-			logro1 = true;
-			final = true;
-		}
-		if (Minipekka->getY() >550 && final == true) {
-			Mundo = 4;
+		if (final) {
 			GuardarTodo();
 			this->Mundo3->Enabled = false;
 			this->RespuestaTres->Enabled = true;
-
 		}
 
 		if (!final)teclapulsada = Direccion::Ninguno;
 
 		buffer->Render(canvas);
-		contador++;
-
 	}
 	private: System::Void NPChabla_Tick(System::Object^ sender, System::EventArgs^ e) {
 		this->Mundo1->Enabled = false;
