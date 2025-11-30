@@ -2129,8 +2129,10 @@ private: System::Windows::Forms::Timer^ CREO;
 
 		if (final) {
 			GuardarTodo();
-			this->Mundo3->Enabled = false;
-			this->RespuestaTres->Enabled = true;
+			Mundo = 4;
+
+			portalaso3 = true;
+
 		}
 
 		if (!final)teclapulsada = Direccion::Ninguno;
@@ -4365,6 +4367,8 @@ private: System::Windows::Forms::Timer^ CREO;
 
 			   txtNombreScore->Enabled = false;
 			   btnGuardarScore->Enabled = false;
+			   Application::Exit();
+
 		   }
 
 	private: System::Void Creditos_Tick(System::Object^ sender, System::EventArgs^ e) {
