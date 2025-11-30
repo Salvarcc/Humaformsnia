@@ -37,6 +37,8 @@ namespace Humaformsnia {
 			InitializeComponent();
 			//ALIEN________________
 			void GuardarTodo();
+			void BorrarArchivos();
+
 			Alien = gcnew Jugador();
 			Alien->cambiaimagen("Images//Alien.png");
 			//_______________________________________
@@ -196,6 +198,9 @@ namespace Humaformsnia {
 			Carga2 = gcnew Bitmap(gcnew String("Images//Carga2.jpeg"));
 			Carga3 = gcnew Bitmap(gcnew String("Images//Carga3.jpeg"));
 
+			MUNDO01 = gcnew Bitmap(gcnew String("Images//MUNDO01.png"));
+			MUNDO02 = gcnew Bitmap(gcnew String("Images//MUNDO02.png"));
+			MUNDO03 = gcnew Bitmap(gcnew String("Images//MUNDO03.png"));
 
 			fondopregunta1 = gcnew Bitmap(gcnew String("Images//Fondo1.png"));
 			fondopregunta2 = gcnew Bitmap(gcnew String("Images//Fondo2.png"));
@@ -205,8 +210,14 @@ namespace Humaformsnia {
 			buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
 
 			control = 1;
+			control1 = 1;
+			control2 = 1; 
+			control3 = 1;
 			opacidad = 0.0;
+			opacidad1 = 1;
+
 			sombra = 0.05;
+			sombra1 = 0.02;
 
 			this->Opacity = 1.0;
 			messi = gcnew Messi(1250, 325);
@@ -406,7 +417,10 @@ namespace Humaformsnia {
 		bool final = false;
 		// SAMUEL
 
-		int control = 2;
+		int control ;
+		int control1;
+		int control2;
+		int control3;
 
 		// variables pregunta 1
 
@@ -593,6 +607,11 @@ namespace Humaformsnia {
 		Bitmap^ Carga2;
 		Bitmap^ Carga3;
 
+		Bitmap^ MUNDO01;
+		Bitmap^ MUNDO02;
+		Bitmap^ MUNDO03;
+
+
 		// mundos 2 
 
 		Bitmap^ mundo2;
@@ -610,6 +629,8 @@ namespace Humaformsnia {
 		float opacidad;
 		float sombra;
 
+		float opacidad1;
+		float sombra1;
 		//--------------------------------------------------
 		//__vector de los robot 
 		List<Robot^>^ robots; //
@@ -700,6 +721,13 @@ namespace Humaformsnia {
 
 	private: System::Windows::Forms::Timer^ GameOver;
 private: System::Windows::Forms::Timer^ GUARDAR;
+private: System::Windows::Forms::Timer^ MUNDOCEROUNO;
+private: System::Windows::Forms::Timer^ STOP;
+private: System::Windows::Forms::Timer^ MUNDOCERODOS;
+private: System::Windows::Forms::Timer^ STOPDOS;
+private: System::Windows::Forms::Timer^ MUNDOCEROTRES;
+private: System::Windows::Forms::Timer^ STOPTRES;
+
 	private: System::Windows::Forms::Button^ BtnSi;
 
 
@@ -757,6 +785,12 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 			   this->txtNombreScore = (gcnew System::Windows::Forms::TextBox());
 			   this->btnGuardarScore = (gcnew System::Windows::Forms::Button());
 			   this->GUARDAR = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->MUNDOCEROUNO = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->STOP = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->MUNDOCERODOS = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->STOPDOS = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->MUNDOCEROTRES = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->STOPTRES = (gcnew System::Windows::Forms::Timer(this->components));
 			   // 
 			   // Menu
 			   // 
@@ -783,7 +817,7 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 			   this->Logros->Enabled = true;
 			   this->Logros->Tick += gcnew System::EventHandler(this, &MyForm::Logros_Tick);
 			   // 
-			   // BtnJugar
+				 // BtnJugar
 			   // 
 			   this->BtnJugar->AutoSize = true;
 			   this->BtnJugar->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
@@ -1087,7 +1121,6 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 			   this->Logrito10->TabIndex = 17;
 			   this->Logrito10->UseVisualStyleBackColor = false;
 			   this->Logrito10->Click += gcnew System::EventHandler(this, &MyForm::BtnL10_Click);
-
 			   // 
 			   // label1
 			   // 
@@ -1173,7 +1206,7 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 			   // 
 			   this->GameOver->Tick += gcnew System::EventHandler(this, &MyForm::GameOver_Tick);
 			   // 
-			   // BtnSi
+			  // BtnSi
 			   // 
 			   this->BtnSi->Location = System::Drawing::Point(540, 345);
 			   this->BtnSi->Name = L"BtnSi";
@@ -1222,6 +1255,33 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 			   // 
 			   this->GUARDAR->Enabled = true;
 			   this->GUARDAR->Tick += gcnew System::EventHandler(this, &MyForm::GUARDAR_Tick);
+			   // 
+			   // MUNDOCEROUNO
+			   // 
+			   this->MUNDOCEROUNO->Tick += gcnew System::EventHandler(this, &MyForm::MUNDOCEROUNO_Tick);
+			   // 
+			   // STOP
+			   // 
+			   this->STOP->Interval = 1500;
+			   this->STOP->Tick += gcnew System::EventHandler(this, &MyForm::STOP_Tick);
+			   // 
+			   // MUNDOCERODOS
+			   // 
+			   this->MUNDOCERODOS->Tick += gcnew System::EventHandler(this, &MyForm::MUNDOCERODOS_Tick);
+			   // 
+			   // STOPDOS
+			   // 
+			   this->STOPDOS->Interval = 1500;
+			   this->STOPDOS->Tick += gcnew System::EventHandler(this, &MyForm::STOPDOS_Tick);
+			   // 
+			   // MUNDOCEROTRES
+			   // 
+			   this->MUNDOCEROTRES->Tick += gcnew System::EventHandler(this, &MyForm::MUNDOCEROTRES_Tick);
+			   // 
+			   // STOPTRES
+			   // 
+			   this->STOPTRES->Interval = 1500;
+			   this->STOPTRES->Tick += gcnew System::EventHandler(this, &MyForm::STOPTRES_Tick);
 			   // 
 			   // MyForm
 			   // 
@@ -1941,6 +2001,13 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 				   arbitroActual,
 				   robotsAGuardar,
 				   pelotasAGuardar
+			   );
+		   }
+		   void BorrarArchivos()
+		   {
+			   GestorArchivos::BorrarArchivo(
+				"PARAMETROS.txt"
+				
 			   );
 		   }
 	private: System::Void Mundo1_Tick(System::Object^ sender, System::EventArgs^ e) {
@@ -2807,8 +2874,7 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 				this->BtnCreditos->Visible = false;
 				this->BtnSalir->Visible = false;
 
-				if (File::Exists("PARAMETROS.txt"))
-					File::Delete("PARAMETROS.txt");
+				BorrarArchivos();
 
 			}
 			grr++;
@@ -2942,8 +3008,8 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 	}
 	private: System::Void Logos_Tick(System::Object^ sender, System::EventArgs^ e) {
 
-
 		buffer->Graphics->Clear(Color::Black);
+
 
 		ImageAttributes^ atributo = gcnew ImageAttributes();
 		ColorMatrix^ filtro = gcnew ColorMatrix();
@@ -3050,10 +3116,10 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 			tecla = 1;
 
 
-		if (porcentajes == 10)
+		if (porcentajes == 11)
 		{
 			CargaUno->Enabled = false;
-			PreguntaUno->Enabled = true;
+			STOP->Enabled = true;
 			tecla = 1;
 			controltecla = 1;
 
@@ -3066,9 +3132,14 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 		buffer->Render(canvas);
 	}
 	private: System::Void Pregunta1_Tick(System::Object^ sender, System::EventArgs^ e) {
+		ImageAttributes^ atributo2 = gcnew ImageAttributes();
+		ColorMatrix^ filtro2 = gcnew ColorMatrix();
+		filtro2->Matrix33 = opacidad1;
+
+		atributo2->SetColorMatrix(filtro2, ColorMatrixFlag::Default, ColorAdjustType::Bitmap);
 
 		buffer->Graphics->Clear(Color::Black);
-		buffer->Graphics->DrawImage(fondopregunta1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta1->Width, fondopregunta1->Height, GraphicsUnit::Pixel);
+		buffer->Graphics->DrawImage(fondopregunta1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta1->Width, fondopregunta1->Height, GraphicsUnit::Pixel,atributo2);
 		buffer->Graphics->DrawImage(P, 370 - ancho_pregunta, Y_P);
 		buffer->Graphics->DrawImage(R, 450 - ancho_pregunta, Y_R);
 		buffer->Graphics->DrawImage(E, 535 - ancho_pregunta, Y_E);
@@ -3079,6 +3150,15 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 		buffer->Graphics->DrawImage(Ap, 945 - ancho_pregunta, Y_A);
 		buffer->Graphics->DrawImage(CERO, 1070 - ancho_pregunta, Y_CERO);
 		buffer->Graphics->DrawImage(UNO, 1160 - ancho_pregunta, Y_UNO);
+		
+
+
+		if (control1 == 6) {
+			opacidad1 += sombra1;
+			if (opacidad1 >= 1.0) {
+				opacidad1 = 1.0;
+			}
+		}
 
 		int caida1 = 4;
 		int subida = 2;
@@ -3192,7 +3272,7 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 
 		}
 
-
+		
 
 		buffer->Render(canvas);
 
@@ -3523,9 +3603,14 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 
 	private: System::Void PreguntaDos_Tick(System::Object^ sender, System::EventArgs^ e) {
 
+		ImageAttributes^ atributo3 = gcnew ImageAttributes();
+		ColorMatrix^ filtro3 = gcnew ColorMatrix();
+		filtro3->Matrix33 = opacidad1;
+
+		atributo3->SetColorMatrix(filtro3, ColorMatrixFlag::Default, ColorAdjustType::Bitmap);
 
 		buffer->Graphics->Clear(Color::Black);
-		buffer->Graphics->DrawImage(fondopregunta2, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta2->Width, fondopregunta2->Height, GraphicsUnit::Pixel);
+		buffer->Graphics->DrawImage(fondopregunta2, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta2->Width, fondopregunta2->Height, GraphicsUnit::Pixel,atributo3);
 		buffer->Graphics->DrawImage(P, 400 - ancho_pregunta, Y_P);
 		buffer->Graphics->DrawImage(R, 480 - ancho_pregunta, Y_R);
 		buffer->Graphics->DrawImage(E, 565 - ancho_pregunta, Y_E);
@@ -3541,6 +3626,13 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 		int subida = 2;
 		int caida2 = 1;
 
+
+		if (control2 == 6) {
+			opacidad1 += sombra1;
+			if (opacidad1 >= 1.0) {
+				opacidad1 = 1.0;
+			}
+		}
 
 		if (C_P == 1)
 		{
@@ -3802,9 +3894,13 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 	}
 	private: System::Void PreguntaTres_Tick(System::Object^ sender, System::EventArgs^ e) {
 
+		ImageAttributes^ atributo6 = gcnew ImageAttributes();
+		ColorMatrix^ filtro6 = gcnew ColorMatrix();
+		filtro6->Matrix33 = opacidad1;
 
+		atributo6->SetColorMatrix(filtro6, ColorMatrixFlag::Default, ColorAdjustType::Bitmap);
 		buffer->Graphics->Clear(Color::Black);
-		buffer->Graphics->DrawImage(fondopregunta3, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta3->Width, fondopregunta3->Height, GraphicsUnit::Pixel);
+		buffer->Graphics->DrawImage(fondopregunta3, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta3->Width, fondopregunta3->Height, GraphicsUnit::Pixel,atributo6);
 		buffer->Graphics->DrawImage(P, 380 - ancho_pregunta -10, Y_P);
 		buffer->Graphics->DrawImage(R, 460 - ancho_pregunta - 10, Y_R);
 		buffer->Graphics->DrawImage(E, 545 - ancho_pregunta - 10, Y_E);
@@ -3820,6 +3916,13 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 		int subida = 2;
 		int caida2 = 1;
 
+
+		if (control3 == 6) {
+			opacidad1 += sombra1;
+			if (opacidad1 >= 1.0) {
+				opacidad1 = 1.0;
+			}
+		}
 
 		if (C_P == 1)
 		{
@@ -4365,10 +4468,10 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 			tecla = 1;
 
 
-		if (porcentajes == 10)
+		if (porcentajes == 11)
 		{
 			CargaDos->Enabled = false;
-			PreguntaDos->Enabled = true;
+			STOPDOS->Enabled = true;
 			porcentajes = 1;
 			tecla = 1;
 			navecontrol = 0;
@@ -4418,10 +4521,10 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 			tecla = 1;
 
 
-		if (porcentajes == 10)
+		if (porcentajes == 11)
 		{
 			CargaTres->Enabled = false;
-			PreguntaTres->Enabled = true;
+			STOPTRES->Enabled = true;
 			porcentajes = 1;
 			tecla = 1;
 			navecontrol = 0;
@@ -4746,5 +4849,215 @@ private: System::Windows::Forms::Timer^ GUARDAR;
 		GUARDAR->Enabled = false;
 		
 	}
+private: System::Void MUNDOCEROUNO_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+
+	buffer->Graphics->Clear(Color::Black);
+
+
+	ImageAttributes^ atributo1 = gcnew ImageAttributes();
+	ColorMatrix^ filtro1 = gcnew ColorMatrix();
+
+
+	if (control1 == 1) {
+		opacidad1 -= sombra;
+		if (opacidad1 <= 0.0) {
+			opacidad1 = 0.0;
+			control1++;
+		}
+	}
+	if (control1 == 2) {
+		opacidad1 += sombra;
+		if (opacidad1 >= 1.0) {
+			opacidad1 = 1.0;
+			control1++;
+		}
+	}
+	if (control1 == 3) {
+		STOP->Enabled = true;
+		MUNDOCEROUNO->Enabled = false;
+		control1++;
+	}
+	if (control1 == 4) {
+		opacidad1 -= sombra;
+		if (opacidad1 <= 0.0) {
+			opacidad1 = 0.0;
+			control1++;
+		}
+	}
+	if (control1 == 5) {
+		
+		MUNDOCEROUNO->Enabled = false;
+		PreguntaUno->Enabled = true;
+		control1++;
+	}
+	
+
+
+	filtro1->Matrix33 = opacidad1;
+
+	atributo1->SetColorMatrix(filtro1, ColorMatrixFlag::Default, ColorAdjustType::Bitmap);
+
+
+	if (control1 == 1)
+	{
+		buffer->Graphics->DrawImage(Carga1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, Carga1->Width, Carga1->Height, GraphicsUnit::Pixel, atributo1);
+
+	}
+	if (control1 == 2 || control1 == 3|| control1==4)
+	{
+		buffer->Graphics->DrawImage(MUNDO01, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, MUNDO01->Width, MUNDO01->Height, GraphicsUnit::Pixel, atributo1);
+
+	}
+
+	buffer->Render(canvas);
+
+
+
+
+}
+private: System::Void STOP_Tick(System::Object^ sender, System::EventArgs^ e) {
+	
+	STOP->Enabled = false;
+	MUNDOCEROUNO->Enabled = true;
+
+	
+}
+private: System::Void MUNDOCERODOS_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+	buffer->Graphics->Clear(Color::Black);
+
+
+	ImageAttributes^ atributo4 = gcnew ImageAttributes();
+	ColorMatrix^ filtro4 = gcnew ColorMatrix();
+
+
+	if (control2 == 1) {
+		opacidad1 -= sombra;
+		if (opacidad1 <= 0.0) {
+			opacidad1 = 0.0;
+			control2++;
+		}
+	}
+	if (control2 == 2) {
+		opacidad1 += sombra;
+		if (opacidad1 >= 1.0) {
+			opacidad1 = 1.0;
+			control2++;
+		}
+	}
+	if (control2 == 3) {
+		STOPDOS->Enabled = true;
+		MUNDOCERODOS->Enabled = false;
+		control2++;
+	}
+	if (control2 == 4) {
+		opacidad1 -= sombra;
+		if (opacidad1 <= 0.0) {
+			opacidad1 = 0.0;
+			control2++;
+		}
+	}
+	if (control2 == 5) {
+
+		MUNDOCERODOS->Enabled = false;
+		PreguntaDos->Enabled = true;
+		control2++;
+	}
+
+
+
+	filtro4->Matrix33 = opacidad1;
+
+	atributo4->SetColorMatrix(filtro4, ColorMatrixFlag::Default, ColorAdjustType::Bitmap);
+
+
+	if (control2 == 1)
+	{
+		buffer->Graphics->DrawImage(Carga2, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, Carga2->Width, Carga2->Height, GraphicsUnit::Pixel, atributo4);
+
+	}
+	if (control2 == 2 || control2 == 3 || control2 == 4)
+	{
+		buffer->Graphics->DrawImage(MUNDO02, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, MUNDO02->Width, MUNDO02->Height, GraphicsUnit::Pixel, atributo4);
+
+	}
+
+	buffer->Render(canvas);
+}
+private: System::Void STOPDOS_Tick(System::Object^ sender, System::EventArgs^ e) {
+	STOPDOS->Enabled = false;
+	MUNDOCERODOS->Enabled = true;
+}
+private: System::Void MUNDOCEROTRES_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+	buffer->Graphics->Clear(Color::Black);
+
+
+	ImageAttributes^ atributo5 = gcnew ImageAttributes();
+	ColorMatrix^ filtro5 = gcnew ColorMatrix();
+
+
+	if (control3 == 1) {
+		opacidad1 -= sombra;
+		if (opacidad1 <= 0.0) {
+			opacidad1 = 0.0;
+			control3++;
+		}
+	}
+	if (control3 == 2) {
+		opacidad1 += sombra;
+		if (opacidad1 >= 1.0) {
+			opacidad1 = 1.0;
+			control3++;
+		}
+	}
+	if (control3 == 3) {
+		STOPTRES->Enabled = true;
+		MUNDOCEROTRES->Enabled = false;
+		control3++;
+	}
+	if (control3 == 4) {
+		opacidad1 -= sombra;
+		if (opacidad1 <= 0.0) {
+			opacidad1 = 0.0;
+			control3++;
+		}
+	}
+	if (control3 == 5) {
+
+		MUNDOCEROTRES->Enabled = false;
+		PreguntaTres->Enabled = true;
+		control3++;
+	}
+
+
+
+	filtro5->Matrix33 = opacidad1;
+
+	atributo5->SetColorMatrix(filtro5, ColorMatrixFlag::Default, ColorAdjustType::Bitmap);
+
+
+	if (control3 == 1)
+	{
+		buffer->Graphics->DrawImage(Carga3, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, Carga3->Width, Carga3->Height, GraphicsUnit::Pixel, atributo5);
+
+	}
+	if (control3 == 2 || control3 == 3 || control3 == 4)
+	{
+		buffer->Graphics->DrawImage(MUNDO03, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, MUNDO03->Width, MUNDO03->Height, GraphicsUnit::Pixel, atributo5);
+
+	}
+
+	buffer->Render(canvas);
+
+}
+private: System::Void STOPTRES_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+
+	STOPTRES->Enabled = false;
+	MUNDOCEROTRES->Enabled = true;
+
+}
 };
 }

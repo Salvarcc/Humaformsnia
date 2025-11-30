@@ -101,5 +101,14 @@ namespace Humaformsnia {
 
             sw->Close();
         }
+        
+        static void BorrarArchivo(String^ nombreArchivo)
+        {
+            String^ rutaCompleta = Path::Combine("FILES", nombreArchivo);
+
+            if (File::Exists(rutaCompleta)) {
+                File::Delete(rutaCompleta);
+            }
+        }
     };
 }
