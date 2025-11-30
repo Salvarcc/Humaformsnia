@@ -295,8 +295,13 @@ namespace Humaformsnia {
 
 			Creditos->Interval = 30;
 			//____________________________
+			
+			ingrese = gcnew Bitmap(gcnew String("Images//ingresos_12.png"));
+			su = gcnew Bitmap(gcnew String("Images//sus1.png"));
+			nombre = gcnew Bitmap(gcnew String("Images//nombre4.png"));
 
-			Logos->Enabled = true;
+
+			Logos->Enabled = false;
 			CargaUno->Enabled = false;
 			CargaDos->Enabled = false;
 			CargaTres->Enabled = false;
@@ -312,7 +317,7 @@ namespace Humaformsnia {
 			PreguntaDos->Enabled = false;
 			RespuestaDos->Enabled = false;
 			PreguntaTres->Enabled = false;
-			RespuestaTres->Enabled = false;
+			RespuestaTres->Enabled = true;
 			Menu->Enabled = false;
 			BtnJugar->Visible = false;
 			BtnCreditos->Visible = false;
@@ -674,6 +679,15 @@ namespace Humaformsnia {
 		Bitmap^ autores;
 
 		bool escape_c = false;
+
+		// guardar 
+		Bitmap^ nombre;
+		Bitmap^ su;
+		Bitmap^ ingrese;
+		int contador_tipeo2 = 0;
+		bool g1 = false, g2 = false, g3 = false;
+
+
 
 	private: System::Windows::Forms::Timer^ Menu;
 	private: System::Windows::Forms::Timer^ Mundo1;
@@ -1814,10 +1828,17 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 		if (escaper3) {
 			if (e->KeyCode == Keys::Q) {
 
+				txtNombreScore->Text = "";
+				txtNombreScore->Visible = true;
+				btnGuardarScore->Visible = true;
 
-				RespuestaTres->Enabled = false;
+				txtNombreScore->Enabled = true;
+				btnGuardarScore->Enabled = true;
+
+				txtNombreScore->Focus();
+
 				GUARDAR->Enabled = true;
-				escaper3 = false;
+				RespuestaTres->Enabled = false;
 
 			}
 		}
@@ -4836,17 +4857,30 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 	}
 	private: System::Void GUARDAR_Tick(System::Object^ sender, System::EventArgs^ e) {
 
+		Graphics ^ canvas = this->CreateGraphics();
+		BufferedGraphicsContext^ espacio = BufferedGraphicsManager::Current;
+		BufferedGraphics^ buffer = espacio->Allocate(canvas, this->ClientRectangle);
 
-		txtNombreScore->Text = "";
-		txtNombreScore->Enabled = true;
-		btnGuardarScore->Enabled = true;
 
-		txtNombreScore->Visible = true;
-		btnGuardarScore->Visible = true;
+		buffer->Graphics->DrawImage(Carga2, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height));
 
-		txtNombreScore->Focus();
 
-		GUARDAR->Enabled = false;
+		contador_tipeo2++;
+
+		if (contador_tipeo2 == 5) { g1 = true; System::Console::Beep(900, 20); }
+		if (contador_tipeo2 == 10) { g2 = true; System::Console::Beep(900, 20); }
+		if (contador_tipeo2 == 15) { g3 = true; System::Console::Beep(900, 20); }
+
+
+		if (g1) buffer->Graphics->DrawImage(ingrese, 350 - ancho_pregunta, Y_P - 20 - 8);
+		if (g2) buffer->Graphics->DrawImage(su, 350 - ancho_pregunta + 400, Y_R - 28);
+		if (g3) { buffer->Graphics->DrawImage(nombre, 350 - ancho_pregunta + 540, Y_R - 28); }
+
+
+		buffer->Render(canvas);
+
+
+		delete buffer;;
 		
 	}
 private: System::Void MUNDOCEROUNO_Tick(System::Object^ sender, System::EventArgs^ e) {
