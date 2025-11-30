@@ -317,7 +317,7 @@ namespace Humaformsnia {
 			PreguntaDos->Enabled = false;
 			RespuestaDos->Enabled = false;
 			PreguntaTres->Enabled = false;
-			RespuestaTres->Enabled = true;
+			RespuestaTres->Enabled = false;
 			Menu->Enabled = false;
 			BtnJugar->Visible = false;
 			BtnCreditos->Visible = false;
@@ -326,6 +326,7 @@ namespace Humaformsnia {
 			Creditos->Enabled = false;
 			GUARDAR->Enabled = false;
 			
+			CREO->Enabled = true;
 
 
 		}
@@ -741,6 +742,7 @@ private: System::Windows::Forms::Timer^ MUNDOCERODOS;
 private: System::Windows::Forms::Timer^ STOPDOS;
 private: System::Windows::Forms::Timer^ MUNDOCEROTRES;
 private: System::Windows::Forms::Timer^ STOPTRES;
+private: System::Windows::Forms::Timer^ CREO;
 
 	private: System::Windows::Forms::Button^ BtnSi;
 
@@ -805,6 +807,7 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 			   this->STOPDOS = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->MUNDOCEROTRES = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->STOPTRES = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->CREO = (gcnew System::Windows::Forms::Timer(this->components));
 			   // 
 			   // Menu
 			   // 
@@ -830,8 +833,6 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 			   // 
 			   this->Logros->Enabled = true;
 			   this->Logros->Tick += gcnew System::EventHandler(this, &MyForm::Logros_Tick);
-			   // 
-				 // BtnJugar
 			   // 
 			   this->BtnJugar->AutoSize = true;
 			   this->BtnJugar->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
@@ -1220,13 +1221,11 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 			   // 
 			   this->GameOver->Tick += gcnew System::EventHandler(this, &MyForm::GameOver_Tick);
 			   // 
-			  // BtnSi
+			   // BtnSi
 			   // 
 			   this->BtnSi->Location = System::Drawing::Point(540, 345);
 			   this->BtnSi->Name = L"BtnSi";
 			   this->BtnSi->Size = System::Drawing::Size(127, 49);
-			   this->BtnSi->Image = gcnew Bitmap(gcnew String("images//si.jpg"));
-
 			   this->BtnSi->TabIndex = 3;
 			   this->BtnSi->UseVisualStyleBackColor = true;
 			   this->BtnSi->Visible = false;
@@ -1238,8 +1237,6 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 			   this->BtnNo->Name = L"BtnNo";
 			   this->BtnNo->Size = System::Drawing::Size(127, 49);
 			   this->BtnNo->TabIndex = 4;
-			   this->BtnNo->Image = gcnew Bitmap(gcnew String("images//no.jpg"));
-
 			   this->BtnNo->UseVisualStyleBackColor = true;
 			   this->BtnNo->Visible = false;
 			   this->BtnNo->Click += gcnew System::EventHandler(this, &MyForm::BtnNo_Click);
@@ -1296,6 +1293,11 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 			   // 
 			   this->STOPTRES->Interval = 1500;
 			   this->STOPTRES->Tick += gcnew System::EventHandler(this, &MyForm::STOPTRES_Tick);
+			   // 
+			   // CREO
+			   // 
+			   this->CREO->Interval = 30;
+			   this->CREO->Tick += gcnew System::EventHandler(this, &MyForm::CREO_Tick);
 			   // 
 			   // MyForm
 			   // 
@@ -2572,9 +2574,7 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 
 
 		buffer->Render(canvas);
-		delete buffer;
-		delete espacio_para_buffer;
-		delete canvas;
+		
 
 	}
 	private: System::Void Logros_Tick(System::Object^ sender, System::EventArgs^ e) {
@@ -2916,7 +2916,7 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 				this->CargaUno->Enabled = false;
 				this->BtnJugar->Visible = false;
 				this->BtnCreditos->Visible = false;
-				this->Creditos->Enabled = true;
+				CREO->Enabled = true;
 				this->BtnSalir->Visible = false;
 			}
 			grr++;
@@ -3153,6 +3153,7 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 		buffer->Render(canvas);
 	}
 	private: System::Void Pregunta1_Tick(System::Object^ sender, System::EventArgs^ e) {
+				
 		ImageAttributes^ atributo2 = gcnew ImageAttributes();
 		ColorMatrix^ filtro2 = gcnew ColorMatrix();
 		filtro2->Matrix33 = opacidad1;
@@ -3160,7 +3161,7 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 		atributo2->SetColorMatrix(filtro2, ColorMatrixFlag::Default, ColorAdjustType::Bitmap);
 
 		buffer->Graphics->Clear(Color::Black);
-		buffer->Graphics->DrawImage(fondopregunta1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta1->Width, fondopregunta1->Height, GraphicsUnit::Pixel,atributo2);
+		buffer->Graphics->DrawImage(fondopregunta1, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondopregunta1->Width, fondopregunta1->Height, GraphicsUnit::Pixel, atributo2);
 		buffer->Graphics->DrawImage(P, 370 - ancho_pregunta, Y_P);
 		buffer->Graphics->DrawImage(R, 450 - ancho_pregunta, Y_R);
 		buffer->Graphics->DrawImage(E, 535 - ancho_pregunta, Y_E);
@@ -3171,7 +3172,7 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 		buffer->Graphics->DrawImage(Ap, 945 - ancho_pregunta, Y_A);
 		buffer->Graphics->DrawImage(CERO, 1070 - ancho_pregunta, Y_CERO);
 		buffer->Graphics->DrawImage(UNO, 1160 - ancho_pregunta, Y_UNO);
-		
+
 
 
 		if (control1 == 6) {
@@ -3293,7 +3294,6 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 
 		}
 
-		
 
 		buffer->Render(canvas);
 
@@ -4713,12 +4713,10 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 	private: System::Void Creditos_Tick(System::Object^ sender, System::EventArgs^ e) {
 
 
-		canvas = this->CreateGraphics();
-		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
-		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
+		
 
 
-		buffer->Graphics->DrawImage(fondo_credito, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height));
+		buffer->Graphics->DrawImage(fondo_credito, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondo_credito->Width, fondo_credito->Height, GraphicsUnit::Pixel);
 
 		contador_tipeo++;
 		if (contador_tipeo == 5) { l1 = true; System::Console::Beep(900, 20); }
@@ -4732,12 +4730,6 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 		if (contador_tipeo == 40) { l8 = true; System::Console::Beep(900, 20); }
 		if (contador_tipeo == 45) { b9 = true; System::Console::Beep(900, 20); }
 
-
-
-
-
-
-
 		if (l1) buffer->Graphics->DrawImage(c_c, 450, 100);
 		if (l2) buffer->Graphics->DrawImage(c_r, 525, 102);
 		if (l3) buffer->Graphics->DrawImage(c_e, 600, 103);
@@ -4745,14 +4737,13 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 
 		if (l5) buffer->Graphics->DrawImage(c_i, 795, 100);
 		if (l6) buffer->Graphics->DrawImage(c_t, 865, 100);
-	if (l7) buffer->Graphics->DrawImage(c_o, 935, 100 + 1);
+		if (l7) buffer->Graphics->DrawImage(c_o, 935, 100 + 1);
 		if (l8) {
 			buffer->Graphics->DrawImage(c_s, 1000, 100 + 2);
 
 
 
 		}
-
 
 		buffer->Graphics->DrawImage(c_c, 370 - ancho_pregunta, Y_P);
 		buffer->Graphics->DrawImage(c_r, 450 - ancho_pregunta, Y_R);
@@ -4821,7 +4812,6 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 
 
 
-
 		if (C_A == 4) {
 
 			buffer->Graphics->DrawImage(autores, X_P1 + 20, Y_P1, W_P1, H_P1);
@@ -4848,7 +4838,8 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 
 
 		buffer->Render(canvas);
-		
+
+
 
 
 
@@ -5091,6 +5082,124 @@ private: System::Void STOPTRES_Tick(System::Object^ sender, System::EventArgs^ e
 
 	STOPTRES->Enabled = false;
 	MUNDOCEROTRES->Enabled = true;
+
+}
+private: System::Void CREO_Tick(System::Object^ sender, System::EventArgs^ e) {
+	buffer->Graphics->DrawImage(fondo_credito, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondo_credito->Width, fondo_credito->Height, GraphicsUnit::Pixel);
+
+	contador_tipeo++;
+	if (contador_tipeo == 5) { l1 = true; System::Console::Beep(900, 20); }
+	if (contador_tipeo == 10) { l2 = true; System::Console::Beep(900, 20); }
+	if (contador_tipeo == 15) { l3 = true; System::Console::Beep(900, 20); }
+	if (contador_tipeo == 20) { l4 = true; System::Console::Beep(900, 20); }
+	if (contador_tipeo == 25) { l5 = true; System::Console::Beep(900, 20); }
+	if (contador_tipeo == 30) { l6 = true; System::Console::Beep(900, 20); }
+	if (contador_tipeo == 35) { l7 = true; System::Console::Beep(900, 20); }
+	if (contador_tipeo == 40) { l8 = true; System::Console::Beep(900, 20); }
+	if (contador_tipeo == 40) { l8 = true; System::Console::Beep(900, 20); }
+	if (contador_tipeo == 45) { b9 = true; System::Console::Beep(900, 20); }
+
+	if (l1) buffer->Graphics->DrawImage(c_c, 360, 100);
+	if (l2) buffer->Graphics->DrawImage(c_r, 480-20, 102);
+	if (l3) buffer->Graphics->DrawImage(c_e, 570-20, 103);
+	if (l4) buffer->Graphics->DrawImage(c_d, 660-20, 106);
+
+	if (l5) buffer->Graphics->DrawImage(c_i, 750 - 20, 100);
+	if (l6) buffer->Graphics->DrawImage(c_t, 840 - 20, 100);
+	if (l7) buffer->Graphics->DrawImage(c_o, 930 - 20, 100 + 1);
+	if (l8) {
+		buffer->Graphics->DrawImage(c_s, 1020-20, 100 + 2);
+
+
+
+	}
+
+
+
+
+	int caida1 = 4;
+	int subida = 2;
+	int caida2 = 1;
+
+
+	if (C_P == 1) { Y_P += caida1; if (Y_P >= 80) { Y_P = 80; C_P = 2; } }
+	else if (C_P == 2) { Y_P -= subida; if (Y_P <= 50) { Y_P = 50; C_P = 3; } }
+	else if (C_P == 3) { Y_P += caida2; if (Y_P >= 80) { Y_P = 80; C_P = 4; } }
+
+
+	if (C_R == 1) { Y_R += caida1; if (Y_R >= 80) { Y_R = 80; C_R = 2; } }
+	else if (C_R == 2) { Y_R -= subida; if (Y_R <= 50) { Y_R = 50; C_R = 3; } }
+	else if (C_R == 3) { Y_R += caida2; if (Y_R >= 80) { Y_R = 80; C_R = 4; } }
+
+	if (C_E == 1) { Y_E += caida1; if (Y_E >= 80) { Y_E = 80; C_E = 2; } }
+	else if (C_E == 2) { Y_E -= subida; if (Y_E <= 50) { Y_E = 50; C_E = 3; } }
+	else if (C_E == 3) { Y_E += caida2; if (Y_E >= 80) { Y_E = 80; C_E = 4; } }
+
+
+	if (C_G == 1) { Y_G += caida1; if (Y_G >= 80) { Y_G = 80; C_G = 2; } }
+	else if (C_G == 2) { Y_G -= subida; if (Y_G <= 50) { Y_G = 50; C_G = 3; } }
+	else if (C_G == 3) { Y_G += caida2; if (Y_G >= 80) { Y_G = 80; C_G = 4; } }
+
+
+	if (C_U == 1) { Y_U += caida1; if (Y_U >= 80) { Y_U = 80; C_U = 2; } }
+	else if (C_U == 2) { Y_U -= subida; if (Y_U <= 50) { Y_U = 50; C_U = 3; } }
+	else if (C_U == 3) { Y_U += caida2; if (Y_U >= 80) { Y_U = 80; C_U = 4; } }
+
+
+	if (C_N == 1) { Y_N += caida1; if (Y_N >= 80) { Y_N = 80; C_N = 2; } }
+	else if (C_N == 2) { Y_N -= subida; if (Y_N <= 50) { Y_N = 50; C_N = 3; } }
+	else if (C_N == 3) { Y_N += caida2; if (Y_N >= 80) { Y_N = 80; C_N = 4; } }
+
+
+	if (C_T == 1) { Y_T += caida1; if (Y_T >= 80) { Y_T = 80; C_T = 2; } }
+	else if (C_T == 2) { Y_T -= subida; if (Y_T <= 50) { Y_T = 50; C_T = 3; } }
+	else if (C_T == 3) { Y_T += caida2; if (Y_T >= 80) { Y_T = 80; C_T = 4; } }
+
+
+	if (C_A == 1) { Y_A += caida1; if (Y_A >= 80) { Y_A = 80; C_A = 2; } }
+	else if (C_A == 2) { Y_A -= subida; if (Y_A <= 50) { Y_A = 50; C_A = 3; } }
+	else if (C_A == 3) { Y_A += caida2; if (Y_A >= 80) { Y_A = 80; C_A = 4; } }
+
+
+
+
+	if (Y_P == 38) C_R = 1;
+	if (Y_R == 38) C_E = 1;
+	if (Y_E == 38) C_G = 1;
+	if (Y_G == 38) C_U = 1;
+	if (Y_U == 38) C_N = 1;
+	if (Y_N == 38) C_T = 1;
+	if (Y_T == 38) C_A = 1;
+
+
+
+	if (C_A == 4) {
+
+		buffer->Graphics->DrawImage(autores, X_P1 + 20, Y_P1, W_P1, H_P1);
+
+		if (W_P1 < anchooobjetivorespuesta2 && H_P1 < altoobjetivorespuesta2) {
+
+			X_P1 -= 7.5;
+			Y_P1 -= 2.5;
+
+			W_P1 += velocidad * 15;
+			H_P1 += velocidad * 5;
+			cambio++;
+
+
+		}
+
+
+	}
+
+
+	if (cambio >= 50) {
+		escape_c = true;
+	}
+
+
+	buffer->Render(canvas);
+
 
 }
 };
