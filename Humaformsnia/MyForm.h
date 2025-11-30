@@ -295,7 +295,7 @@ namespace Humaformsnia {
 			nombre = gcnew Bitmap(gcnew String("Images//nombre4.png"));
 
 
-			Logos->Enabled = false;
+			Logos->Enabled = true;
 			CargaUno->Enabled = false;
 			CargaDos->Enabled = false;
 			CargaTres->Enabled = false;
@@ -304,7 +304,7 @@ namespace Humaformsnia {
 			InstruccionesDos->Enabled = false;
 			Mundo1->Enabled = false;
 			Mundo2->Enabled = false;
-			Mundo3->Enabled = true;
+			Mundo3->Enabled = false;
 
 			PreguntaUno->Enabled = false;
 			RespuestaUno->Enabled = false;
@@ -2587,7 +2587,7 @@ private: System::Windows::Forms::Timer^ STOPTRES;
 			if (grr == 3)this->BtnSalir->Image = gcnew Bitmap(gcnew String("images//Salir.jpg"));
 			if (grr == 4)this->BtnSalir->Image = gcnew Bitmap(gcnew String("images//SalirMorado.png"));
 			if (grr == 5)this->BtnSalir->Image = gcnew Bitmap(gcnew String("images//Salir.jpg"));
-			if (grr == 6)this->PressBtn->Enabled = false;
+			if (grr == 6)this->Close();
 			grr++;
 		}
 		if (Botonazo == 4) {
