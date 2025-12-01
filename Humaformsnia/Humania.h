@@ -427,6 +427,120 @@ void Humania::Mundo3(BufferedGraphics^ buffer, BufferedGraphicsContext^ espacio_
 
 	malder1 = malarr1 = malaba1 = malizq1 = malder2 = malarr2 = malaba2 = malizq2 = false;
 
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 90, 125, 1, 700))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 408, 0, 1, 158))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 573, 135, 1, 150))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 223, 270, 1, 128))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 283, 525, 1, 40))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 428, 395, 1, 213))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 573, 570, 1, 200))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 658, 0, 1, 103))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 723, 210, 1, 600))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 853, 340, 1, 178))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 983, 340, 1, 75))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1073, 500, 1, 60))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1003, 0, 1, 90))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1128, 0, 1, 263))malder1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1263, 0, 1, 555))malder1 = true;
+
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 90 + 27, 125, 1, 700))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 408 + 27, 0, 1, 158))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 573 + 27, 135, 1, 150))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 223 + 27, 270, 1, 128))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 283 + 27, 525, 1, 40))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 428 + 27, 395, 1, 213))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 573 + 27, 570, 1, 200))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 658 + 27, 0, 1, 103))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 723 + 27, 210, 1, 600))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 853 + 27, 340, 1, 178))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 983 + 27, 340, 1, 75))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1073 + 27, 500, 1, 60))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1003 + 27, 0, 1, 90))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1128 + 27, 0, 1, 263))malizq1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1263 + 27, 0, 1, 555))malizq1 = true;
+
+
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 90, 128, 193, 1))malaba1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 225, 273, 378, 1))malaba1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 115, 568, 193, 1))malaba1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 425, 583, 183, 1))malaba1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 425, 398, 183, 1))malaba1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 400, 138, 193, 1))malaba1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 655, 78, 188, 1))malaba1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 725, 213, 283, 1))malaba1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 850, 343, 163, 1))malaba1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1070, 503, 188, 1))malaba1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 960, 563, 143, 1))malaba1 = true;
+
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 90, 128 + 27, 193, 1))malarr1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 225, 273 + 27, 378, 1))malarr1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 115, 568 + 27, 193, 1))malarr1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 425, 583 + 27, 183, 1))malarr1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 425, 398 + 27, 183, 1))malarr1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 400, 138 + 27, 193, 1))malarr1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 655, 78 + 27, 188, 1))malarr1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 725, 213 + 27, 283, 1))malarr1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 850, 343 + 27, 163, 1))malarr1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 1070, 503 + 27, 188, 1))malarr1 = true;
+	if (Colision(Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50, 960, 563 + 27, 143, 1))malarr1 = true;
+
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 90, 125, 1, 700))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 408, 0, 1, 158))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 573, 135, 1, 150))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 223, 270, 1, 128))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 283, 525, 1, 40))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 428, 395, 1, 213))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 573, 570, 1, 200))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 658, 0, 1, 103))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 723, 210, 1, 600))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 853, 340, 1, 178))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 983, 340, 1, 75))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1073, 500, 1, 60))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1003, 0, 1, 90))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1128, 0, 1, 263))malder2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1263, 0, 1, 555))malder2 = true;
+
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 90 + 27, 125, 1, 700))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 408 + 27, 0, 1, 158))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 573 + 27, 135, 1, 150))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 223 + 27, 270, 1, 128))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 283 + 27, 525, 1, 40))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 428 + 27, 395, 1, 213))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 573 + 27, 570, 1, 200))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 658 + 27, 0, 1, 103))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 723 + 27, 210, 1, 600))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 853 + 27, 340, 1, 178))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 983 + 27, 340, 1, 75))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1073 + 27, 500, 1, 60))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1003 + 27, 0, 1, 90))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1128 + 27, 0, 1, 263))malizq2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1263 + 27, 0, 1, 555))malizq2 = true;
+
+
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 90, 128, 193, 1))malaba2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 225, 273, 378, 1))malaba2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 115, 568, 193, 1))malaba2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 425, 583, 183, 1))malaba2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 425, 398, 183, 1))malaba2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 400, 138, 193, 1))malaba2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 655, 78, 188, 1))malaba2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 725, 213, 283, 1))malaba2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 850, 343, 163, 1))malaba2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1070, 503, 188, 1))malaba2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 960, 563, 143, 1))malaba2 = true;
+
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 90, 128 + 27, 193, 1))malarr2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 225, 273 + 27, 378, 1))malarr2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 115, 568 + 27, 193, 1))malarr2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 425, 583 + 27, 183, 1))malarr2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 425, 398 + 27, 183, 1))malarr2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 400, 138 + 27, 193, 1))malarr2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 655, 78 + 27, 188, 1))malarr2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 725, 213 + 27, 283, 1))malarr2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 850, 343 + 27, 163, 1))malarr2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 1070, 503 + 27, 188, 1))malarr2 = true;
+	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, 960, 563 + 27, 143, 1))malarr2 = true;
+
 	
 	if (Colision(Minipekka->getX() + 40, Minipekka->getY() + 25, Minipekka->getAncho() - 80, Minipekka->getAlto() - 50, Steve->getX() + 40, Steve->getY() + 25, Steve->getAncho() - 80, Steve->getAlto() - 50) && !final) {
 		Steve->setIndicec(0);
