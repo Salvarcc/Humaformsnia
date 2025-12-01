@@ -2153,6 +2153,10 @@ private: System::Windows::Forms::Timer^ CREO;
 
 		if (!final)teclapulsada = Direccion::Ninguno;
 
+		if (Minipekka->getY() == 600) {
+			this->RespuestaTres->Enabled = true;
+			this->Mundo3->Enabled = false;
+		}
 		buffer->Render(canvas);
 	}
 	private: System::Void NPChabla_Tick(System::Object^ sender, System::EventArgs^ e) {
