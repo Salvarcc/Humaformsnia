@@ -554,6 +554,8 @@ void Humania::Mundo3(BufferedGraphics^ buffer, BufferedGraphicsContext^ espacio_
 		logro1 = true;
 		final = true;
 	}
+
+	
 	if (final) {
 		Mundo = 4;
 
