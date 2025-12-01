@@ -209,6 +209,7 @@ namespace Humaformsnia {
 			control3 = 1;
 			opacidad = 0.0;
 			opacidad1 = 1;
+			corte = 0;
 
 			sombra = 0.05;
 			sombra1 = 0.02;
@@ -296,16 +297,17 @@ namespace Humaformsnia {
 			nombre = gcnew Bitmap(gcnew String("Images//nombre4.png"));
 
 
-			Logos->Enabled = true;
+			Logos->Enabled = false;
 			CargaUno->Enabled = false;
 			CargaDos->Enabled = false;
-			CargaTres->Enabled = false;
+			CargaTres->Enabled = false;			
+				GameOver->Enabled = false;
 
 			InstruccionesUno->Enabled = false;
 			InstruccionesDos->Enabled = false;
 			Mundo1->Enabled = false;
 			Mundo2->Enabled = false;
-			Mundo3->Enabled = false;
+			Mundo3->Enabled = true;
 
 			PreguntaUno->Enabled = false;
 			RespuestaUno->Enabled = false;
@@ -404,6 +406,7 @@ namespace Humaformsnia {
 		int subida = 0, texto = 0;
 		Bitmap^ fondomundo1;
 		Bitmap^ fondomundo3;
+		int corte;
 
 		int Mundo = 0;
 		int archivo = 1;
@@ -1218,11 +1221,13 @@ private: System::Windows::Forms::Timer^ CREO;
 			   // 
 			   this->GameOver->Tick += gcnew System::EventHandler(this, &MyForm::GameOver_Tick);
 			   // 
-			   // BtnSi
+			  // BtnSi
 			   // 
 			   this->BtnSi->Location = System::Drawing::Point(540, 345);
 			   this->BtnSi->Name = L"BtnSi";
 			   this->BtnSi->Size = System::Drawing::Size(127, 49);
+			   this->BtnSi->Image = gcnew Bitmap(gcnew String("images//si.jpg"));
+
 			   this->BtnSi->TabIndex = 3;
 			   this->BtnSi->UseVisualStyleBackColor = true;
 			   this->BtnSi->Visible = false;
@@ -1234,6 +1239,8 @@ private: System::Windows::Forms::Timer^ CREO;
 			   this->BtnNo->Name = L"BtnNo";
 			   this->BtnNo->Size = System::Drawing::Size(127, 49);
 			   this->BtnNo->TabIndex = 4;
+			   this->BtnNo->Image = gcnew Bitmap(gcnew String("images//no.jpg"));
+
 			   this->BtnNo->UseVisualStyleBackColor = true;
 			   this->BtnNo->Visible = false;
 			   this->BtnNo->Click += gcnew System::EventHandler(this, &MyForm::BtnNo_Click);
@@ -1454,6 +1461,17 @@ private: System::Windows::Forms::Timer^ CREO;
 			Y_P1 = 450;
 			W_P1 = 10;
 			H_P1 = 10;
+
+			    l1=false;
+				l2=false;
+				l3=false;
+				l4=false;
+				l5=false;
+				l6=false;
+				l7=false;
+				l8=false;
+				l8=false;
+				b9=false;
 		}
 
 		if (escapep1) {
@@ -2108,7 +2126,6 @@ private: System::Windows::Forms::Timer^ CREO;
 	}
 	private: System::Void Mundo3_Tick(System::Object^ sender, System::EventArgs^ e) {
 		bool portalaso3 = false;
-
 		canvas = this->CreateGraphics();
 		BufferedGraphicsContext^ espacio_para_buffer = BufferedGraphicsManager::Current;
 		BufferedGraphics^ buffer = espacio_para_buffer->Allocate(canvas, this->ClientRectangle);
@@ -2123,11 +2140,15 @@ private: System::Windows::Forms::Timer^ CREO;
 
 
 		if (final) {
-			GuardarTodo();
+
+			if (corte==1)
+			{
+				GuardarTodo();
+			}
 			Mundo = 4;
 
 			portalaso3 = true;
-
+			corte++;
 		}
 
 		if (!final)teclapulsada = Direccion::Ninguno;
@@ -4286,9 +4307,7 @@ private: System::Windows::Forms::Timer^ CREO;
 
 		}
 		buffer->Render(canvas);
-		delete buffer;
-		delete espacio_para_buffer;
-		delete canvas;
+		
 
 
 
@@ -4375,7 +4394,7 @@ private: System::Windows::Forms::Timer^ CREO;
 		buffer->Graphics->DrawImage(fondo_credito, Rectangle(0, 0, this->ClientSize.Width, this->ClientSize.Height), 0, 0, fondo_credito->Width, fondo_credito->Height, GraphicsUnit::Pixel);
 
 		contador_tipeo++;
-		if (contador_tipeo == 5) { l1 = true; System::Console::Beep(900, 20); }
+		if (contador_tipeo == 5) {  l1 = true; System::Console::Beep(900, 20); }
 		if (contador_tipeo == 10) { l2 = true; System::Console::Beep(900, 20); }
 		if (contador_tipeo == 15) { l3 = true; System::Console::Beep(900, 20); }
 		if (contador_tipeo == 20) { l4 = true; System::Console::Beep(900, 20); }
